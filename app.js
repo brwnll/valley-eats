@@ -11,6 +11,20 @@
   var data = Array.isArray(window.RESTAURANTS) ? window.RESTAURANTS : [];
   var meta = window.RESTAURANTS_META || {};
 
+  // ---- Google Places photos (optional; needs config.js key and a fresh places.js) ----
+  var PLACES = window.PLACES || {};
+  var PLACES_META = window.PLACES_META || {};
+  var API_KEY = window.PLACES_API_KEY || '';
+  function placesAgeDays() {
+    if (!PLACES_META.fetched) return Infinity;
+    return (Date.now() - new Date(PLACES_META.fetched + 'T00:00:00Z').getTime()) / 864e5;
+  }
+  // Google's terms allow photo references to be kept for 30 days, so stale ones are not used.
+  var photosEnabled = !!API_KEY && placesAgeDays() <= 30;
+  if (API_KEY && !photosEnabled && window.console) {
+    console.warn('Google photos are hidden: places.js is ' + (PLACES_META.fetched ? 'older than 30 days' : 'empty') + '. Re-run scripts/fetch_places.py.');
+  }
+
   // ---- Time helpers (always in Pacific time, so visitors elsewhere see the valley's day) ----
   function pacificNow() {
     var fmt = new Intl.DateTimeFormat('en-US', {
@@ -164,6 +178,25 @@
     return q.split(/\s+/).every(function (word) { return hay.indexOf(word) >= 0; });
   }
 
+  function photoHTML(place) {
+    // A photo set by hand in data.js wins: place.photo = { url, credit, creditUrl }
+    if (place.photo && place.photo.url) {
+      var credit = place.photo.credit
+        ? '<span class="photo-credit">' + (place.photo.creditUrl ? '<a href="' + esc(place.photo.creditUrl) + '" target="_blank" rel="noopener">' + esc(place.photo.credit) + '</a>' : esc(place.photo.credit)) + '</span>'
+        : '';
+      return '<div class="photo"><img src="' + esc(place.photo.url) + '" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()">' + credit + '</div>';
+    }
+    if (!photosEnabled) return '';
+    var pl = PLACES[place.name + '|' + place.town];
+    if (!pl || !pl.photo) return '';
+    var src = 'https://places.googleapis.com/v1/' + pl.photo + '/media?maxWidthPx=640&maxHeightPx=360&key=' + encodeURIComponent(API_KEY);
+    var author = pl.author
+      ? ' · ' + (pl.authorUri ? '<a href="' + esc(pl.authorUri) + '" target="_blank" rel="noopener">' + esc(pl.author) + '</a>' : esc(pl.author))
+      : '';
+    return '<div class="photo"><img src="' + esc(src) + '" alt="" loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin" onerror="this.parentNode.remove()">' +
+      '<span class="photo-credit"><img class="glogo" src="img/google-maps-logo-white.svg" alt="Google Maps">' + author + '</span></div>';
+  }
+
   function cardHTML(place, dayKey, isToday, rank) {
     var ranges = hoursFor(place, dayKey);
     var openThatDay = !!ranges;
@@ -200,6 +233,7 @@
     if (place.website) links.push('<a href="' + esc(place.website) + '" target="_blank" rel="noopener">Website</a>');
 
     return '<article class="card' + (openThatDay ? '' : ' is-closed') + '">' +
+      photoHTML(place) +
       '<div class="card-head">' +
       (rank ? '<span class="rank" title="Rank by review count">' + rank + '</span>' : '') +
       '<div><h3>' + esc(place.name) + '</h3>' +
