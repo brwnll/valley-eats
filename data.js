@@ -58,12 +58,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/apollo-mediterranean-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Classic Gyro",
-      "Loaded Gyro Fries",
-      "Falafel Plate",
-      "Mediterranean Chop Chop",
-      "Baba Ghanoush"
-    ]
+      {
+        "name": "Classic Gyro",
+        "image": "img/dishes/gyro.jpg"
+      },
+      {
+        "name": "Loaded Gyro Fries",
+        "image": "img/dishes/french-fries.jpg"
+      },
+      {
+        "name": "Falafel Plate",
+        "image": "img/dishes/falafel.jpg"
+      },
+      {
+        "name": "Mediterranean Chop Chop",
+        "image": "img/dishes/greek-salad.jpg"
+      },
+      {
+        "name": "Baba Ghanoush",
+        "image": "img/dishes/baba-ghanoush.jpg"
+      }
+    ],
+    "googleRating": 4.6,
+    "googleReviews": 363,
+    "yelpRating": 4.5,
+    "yelpReviews": 118,
+    "popularity": 481
   },
   {
     "name": "Arby's",
@@ -122,12 +142,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.storeopeninghours.com/arbys-north-bend-wa",
     "hoursConfidence": "medium",
     "dishes": [
-      "Classic Roast Beef",
-      "Beef 'n Cheddar",
-      "Curly Fries",
-      "Jamocha Shake",
-      "Chicken Tenders"
-    ]
+      {
+        "name": "Classic Roast Beef",
+        "image": "img/dishes/roast-beef-sandwich.jpg"
+      },
+      {
+        "name": "Beef 'n Cheddar",
+        "image": "img/dishes/roast-beef-sandwich.jpg"
+      },
+      {
+        "name": "Curly Fries",
+        "image": "img/dishes/curly-fries.jpg"
+      },
+      {
+        "name": "Jamocha Shake",
+        "image": "img/dishes/milkshake.jpg"
+      },
+      {
+        "name": "Chicken Tenders",
+        "image": "img/dishes/chicken-tenders.jpg"
+      }
+    ],
+    "googleRating": 3.6,
+    "googleReviews": 845,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 845
   },
   {
     "name": "Arête Coffee Bar (Pro Ski & Mountain Service)",
@@ -186,12 +226,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.aretepnw.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Sasquatch Breakfast Burrito",
-      "Avocado Toast",
-      "Grilled Cheese",
-      "Spicy Porky Sandwich",
-      "Bourbon Brown Sugar Oat Milk Latte"
-    ]
+      {
+        "name": "Sasquatch Breakfast Burrito",
+        "image": "img/dishes/breakfast-burrito.jpg"
+      },
+      {
+        "name": "Avocado Toast",
+        "image": "img/dishes/avocado-toast.jpg"
+      },
+      {
+        "name": "Grilled Cheese",
+        "image": "img/dishes/grilled-cheese.jpg"
+      },
+      {
+        "name": "Spicy Porky Sandwich",
+        "image": "img/dishes/sandwich.jpg"
+      },
+      {
+        "name": "Bourbon Brown Sugar Oat Milk Latte",
+        "image": "img/dishes/latte.jpg"
+      }
+    ],
+    "googleRating": 4.7,
+    "googleReviews": 247,
+    "yelpRating": null,
+    "yelpReviews": 61,
+    "popularity": 308
   },
   {
     "name": "Arête Coffee Bar @ The Line Bike Experience",
@@ -240,11 +300,28 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.aretepnw.com/",
     "hoursConfidence": "low",
     "dishes": [
-      "Sasquatch Breakfast Burrito",
-      "Avocado Toast",
-      "Yogurt Parfait",
-      "Oat Milk Latte"
-    ]
+      {
+        "name": "Sasquatch Breakfast Burrito",
+        "image": "img/dishes/breakfast-burrito.jpg"
+      },
+      {
+        "name": "Avocado Toast",
+        "image": "img/dishes/avocado-toast.jpg"
+      },
+      {
+        "name": "Yogurt Parfait",
+        "image": "img/dishes/parfait.jpg"
+      },
+      {
+        "name": "Oat Milk Latte",
+        "image": "img/dishes/latte.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": 5,
+    "popularity": 5
   },
   {
     "name": "Blackwater Brewing",
@@ -303,12 +380,32 @@ window.RESTAURANTS = [
     "hoursSource": "http://blackwaterbrewing.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Bada Bing Bada Boom Pizza",
-      "The Duke Meat Lovers Pizza",
-      "Buffalo Wings",
-      "Beef Brisket Sandwich",
-      "Pulled Pork"
-    ]
+      {
+        "name": "Bada Bing Bada Boom Pizza",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "The Duke Meat Lovers Pizza",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Buffalo Wings",
+        "image": "img/dishes/buffalo-wings.jpg"
+      },
+      {
+        "name": "Beef Brisket Sandwich",
+        "image": "img/dishes/brisket-sandwich.jpg"
+      },
+      {
+        "name": "Pulled Pork",
+        "image": "img/dishes/pulled-pork.jpg"
+      }
+    ],
+    "googleRating": 4.3,
+    "googleReviews": 74,
+    "yelpRating": 4.0,
+    "yelpReviews": 7,
+    "popularity": 81
   },
   {
     "name": "Burger King",
@@ -367,12 +464,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.storeopeninghours.com/burger-king-north-bend-wa/amp",
     "hoursConfidence": "low",
     "dishes": [
-      "Whopper",
-      "Original Chicken Sandwich",
-      "Chicken Fries",
-      "Onion Rings",
-      "Croissan'wich"
-    ]
+      {
+        "name": "Whopper",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Original Chicken Sandwich",
+        "image": "img/dishes/chicken-sandwich.jpg"
+      },
+      {
+        "name": "Chicken Fries",
+        "image": "img/dishes/french-fries.jpg"
+      },
+      {
+        "name": "Onion Rings",
+        "image": "img/dishes/onion-rings.jpg"
+      },
+      {
+        "name": "Croissan'wich",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      }
+    ],
+    "googleRating": 3.3,
+    "googleReviews": 1062,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 1062
   },
   {
     "name": "Cascadia Pizza Co.",
@@ -431,12 +548,32 @@ window.RESTAURANTS = [
     "hoursSource": "http://cascadiapizzaco.com/northbend",
     "hoursConfidence": "high",
     "dishes": [
-      "Cascadia Margherita",
-      "Evergreen",
-      "Butcher",
-      "Tahoma",
-      "Night Hawk Dessert Pie"
-    ]
+      {
+        "name": "Cascadia Margherita",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Evergreen",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Butcher",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Tahoma",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Night Hawk Dessert Pie",
+        "image": "img/dishes/dessert-pizza.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 0
   },
   {
     "name": "Chote's Tacos",
@@ -495,12 +632,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/chotes-tacos-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Chorizo Burrito with Tater Tots",
-      "Bacon Breakfast Burrito",
-      "Chicken a la Crema",
-      "Camarones a la Diabla",
-      "Chicken Fajitas"
-    ]
+      {
+        "name": "Chorizo Burrito with Tater Tots",
+        "image": "img/dishes/burrito.jpg"
+      },
+      {
+        "name": "Bacon Breakfast Burrito",
+        "image": "img/dishes/breakfast-burrito.jpg"
+      },
+      {
+        "name": "Chicken a la Crema",
+        "image": "img/dishes/chicken-a-la-crema.jpg"
+      },
+      {
+        "name": "Camarones a la Diabla",
+        "image": "img/dishes/camarones-diabla.jpg"
+      },
+      {
+        "name": "Chicken Fajitas",
+        "image": "img/dishes/fajitas.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": 4.5,
+    "yelpReviews": 17,
+    "popularity": 17
   },
   {
     "name": "Edgewick European Bakery",
@@ -529,12 +686,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.edgewickbakery.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Country Loaf",
-      "Baguette",
-      "Focaccia",
-      "Croissant",
-      "Pain au Chocolat"
-    ]
+      {
+        "name": "Country Loaf",
+        "image": "img/dishes/sourdough-loaf.jpg"
+      },
+      {
+        "name": "Baguette",
+        "image": "img/dishes/baguette.jpg"
+      },
+      {
+        "name": "Focaccia",
+        "image": "img/dishes/focaccia.jpg"
+      },
+      {
+        "name": "Croissant",
+        "image": "img/dishes/croissant.jpg"
+      },
+      {
+        "name": "Pain au Chocolat",
+        "image": "img/dishes/pain-au-chocolat.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 0
   },
   {
     "name": "El Caporal Mexican Restaurant",
@@ -593,12 +770,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/el-caporal-mexican-restaurant-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Caporal Super Nachos",
-      "Chile Relleno and Chimichanga",
-      "Spinach Enchiladas",
-      "Caporal Taco Salad",
-      "Carne Asada"
-    ]
+      {
+        "name": "Caporal Super Nachos",
+        "image": "img/dishes/nachos.jpg"
+      },
+      {
+        "name": "Chile Relleno and Chimichanga",
+        "image": "img/dishes/chile-relleno.jpg"
+      },
+      {
+        "name": "Spinach Enchiladas",
+        "image": "img/dishes/enchiladas.jpg"
+      },
+      {
+        "name": "Caporal Taco Salad",
+        "image": "img/dishes/taco-salad.jpg"
+      },
+      {
+        "name": "Carne Asada",
+        "image": "img/dishes/carne-asada.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 646,
+    "yelpRating": 4.0,
+    "yelpReviews": 113,
+    "popularity": 759
   },
   {
     "name": "Frankie's Pizza",
@@ -657,12 +854,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.frankies-pizza.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Frankie's Special",
-      "Meat Si",
-      "Taco Pizza",
-      "Xtreme Pepperoni",
-      "Pig Wings"
-    ]
+      {
+        "name": "Frankie's Special",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Meat Si",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Taco Pizza",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Xtreme Pepperoni",
+        "image": "img/dishes/pepperoni-pizza.jpg"
+      },
+      {
+        "name": "Pig Wings",
+        "image": "img/dishes/ribs.jpg"
+      }
+    ],
+    "googleRating": 4.3,
+    "googleReviews": 301,
+    "yelpRating": 4.0,
+    "yelpReviews": 118,
+    "popularity": 419
   },
   {
     "name": "Friends & Co Ice Cream",
@@ -721,12 +938,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/friends-and-co-ice-cream-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Lavender Honey",
-      "Mountain Huckleberry",
-      "Yakima Peach",
-      "Toasted Coconut (Vegan)",
-      "Espresso Chip"
-    ]
+      {
+        "name": "Lavender Honey",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Mountain Huckleberry",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Yakima Peach",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Toasted Coconut (Vegan)",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Espresso Chip",
+        "image": "img/dishes/ice-cream.jpg"
+      }
+    ],
+    "googleRating": 4.7,
+    "googleReviews": 123,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 123
   },
   {
     "name": "Hartwood Cafe",
@@ -785,11 +1022,28 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/hartwood-cafe-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Artisan Quiche",
-      "Chocolate Chip Banana Muffin",
-      "Mexican Coffee",
-      "Vanilla Bean Latte"
-    ]
+      {
+        "name": "Artisan Quiche",
+        "image": "img/dishes/quiche.jpg"
+      },
+      {
+        "name": "Chocolate Chip Banana Muffin",
+        "image": "img/dishes/muffin.jpg"
+      },
+      {
+        "name": "Mexican Coffee",
+        "image": "img/dishes/coffee.jpg"
+      },
+      {
+        "name": "Vanilla Bean Latte",
+        "image": "img/dishes/latte.jpg"
+      }
+    ],
+    "googleRating": 4.8,
+    "googleReviews": 111,
+    "yelpRating": null,
+    "yelpReviews": 13,
+    "popularity": 124
   },
   {
     "name": "Hot & Crispy Chicken",
@@ -848,12 +1102,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/hot-and-crispy-chicken-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Ultimate Chicken Sandwich",
-      "Chicken Bacon Avocado Sandwich",
-      "Fried Chicken",
-      "Mac & Cheese",
-      "Chicken Wings"
-    ]
+      {
+        "name": "Ultimate Chicken Sandwich",
+        "image": "img/dishes/chicken-sandwich.jpg"
+      },
+      {
+        "name": "Chicken Bacon Avocado Sandwich",
+        "image": "img/dishes/chicken-sandwich.jpg"
+      },
+      {
+        "name": "Fried Chicken",
+        "image": "img/dishes/fried-chicken.jpg"
+      },
+      {
+        "name": "Mac & Cheese",
+        "image": "img/dishes/mac-and-cheese.jpg"
+      },
+      {
+        "name": "Chicken Wings",
+        "image": "img/dishes/buffalo-wings.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": 4.0,
+    "yelpReviews": 17,
+    "popularity": 17
   },
   {
     "name": "Huxdotter Coffee",
@@ -912,12 +1186,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/huxdotter-coffee-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Twin Peaks Latte",
-      "Iron Horse Breakfast Sandwich",
-      "Mount Si Burrito",
-      "Chicken Pesto Sandwich",
-      "Irish Cream Cold Brew"
-    ]
+      {
+        "name": "Twin Peaks Latte",
+        "image": "img/dishes/latte.jpg"
+      },
+      {
+        "name": "Iron Horse Breakfast Sandwich",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "Mount Si Burrito",
+        "image": "img/dishes/burrito.jpg"
+      },
+      {
+        "name": "Chicken Pesto Sandwich",
+        "image": "img/dishes/sandwich.jpg"
+      },
+      {
+        "name": "Irish Cream Cold Brew",
+        "image": "img/dishes/cold-brew.jpg"
+      }
+    ],
+    "googleRating": 4.7,
+    "googleReviews": 982,
+    "yelpRating": 4.5,
+    "yelpReviews": 259,
+    "popularity": 1241
   },
   {
     "name": "I Luv Teriyaki",
@@ -971,12 +1265,32 @@ window.RESTAURANTS = [
     "hoursSource": "http://www.iluvteriyakinorthbend.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Chicken Teriyaki Bento Box",
-      "Mongolian Beef",
-      "Chicken & Beef Teriyaki",
-      "Chicken Katsu",
-      "Chicken Yakisoba"
-    ]
+      {
+        "name": "Chicken Teriyaki Bento Box",
+        "image": "img/dishes/bento-box.jpg"
+      },
+      {
+        "name": "Mongolian Beef",
+        "image": "img/dishes/mongolian-beef.jpg"
+      },
+      {
+        "name": "Chicken & Beef Teriyaki",
+        "image": "img/dishes/teriyaki.jpg"
+      },
+      {
+        "name": "Chicken Katsu",
+        "image": "img/dishes/chicken-katsu.jpg"
+      },
+      {
+        "name": "Chicken Yakisoba",
+        "image": "img/dishes/yakisoba.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 492,
+    "yelpRating": null,
+    "yelpReviews": 95,
+    "popularity": 587
   },
   {
     "name": "Ignition",
@@ -1020,12 +1334,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://nbignition.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Build-a-Board",
-      "Pretzel & Beer Cheese",
-      "Smoked Brisket Flatbread",
-      "Cubano",
-      "Caprese Flatbread"
-    ]
+      {
+        "name": "Build-a-Board",
+        "image": "img/dishes/charcuterie.jpg"
+      },
+      {
+        "name": "Pretzel & Beer Cheese",
+        "image": "img/dishes/soft-pretzel.jpg"
+      },
+      {
+        "name": "Smoked Brisket Flatbread",
+        "image": "img/dishes/flatbread.jpg"
+      },
+      {
+        "name": "Cubano",
+        "image": "img/dishes/cuban-sandwich.jpg"
+      },
+      {
+        "name": "Caprese Flatbread",
+        "image": "img/dishes/flatbread.jpg"
+      }
+    ],
+    "googleRating": 4.8,
+    "googleReviews": 31,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 31
   },
   {
     "name": "Il Paesano Ristorante Italiano",
@@ -1079,12 +1413,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/il-paesano-ristorante-italiano-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Linguine alla Silana",
-      "Spaghetti Carbonara",
-      "Gnocchi Sorrentina",
-      "Veal Marsala",
-      "Limoncello Cake"
-    ]
+      {
+        "name": "Linguine alla Silana",
+        "image": "img/dishes/linguine.jpg"
+      },
+      {
+        "name": "Spaghetti Carbonara",
+        "image": "img/dishes/carbonara.jpg"
+      },
+      {
+        "name": "Gnocchi Sorrentina",
+        "image": "img/dishes/gnocchi.jpg"
+      },
+      {
+        "name": "Veal Marsala",
+        "image": "img/dishes/chicken-marsala.jpg"
+      },
+      {
+        "name": "Limoncello Cake",
+        "image": "img/dishes/lemon-cake.jpg"
+      }
+    ],
+    "googleRating": 4.6,
+    "googleReviews": 489,
+    "yelpRating": null,
+    "yelpReviews": 164,
+    "popularity": 653
   },
   {
     "name": "Jersey Mike's Subs",
@@ -1143,12 +1497,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://reviews.birdeye.com/jersey-mikes-subs-173505137359474",
     "hoursConfidence": "medium",
     "dishes": [
-      "#13 The Original Italian",
-      "#7 Turkey and Provolone",
-      "#17 Mike's Famous Philly",
-      "#8 Club Sub",
-      "#43 Chipotle Cheese Steak"
-    ]
+      {
+        "name": "#13 The Original Italian",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      },
+      {
+        "name": "#7 Turkey and Provolone",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      },
+      {
+        "name": "#17 Mike's Famous Philly",
+        "image": "img/dishes/cheesesteak.jpg"
+      },
+      {
+        "name": "#8 Club Sub",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      },
+      {
+        "name": "#43 Chipotle Cheese Steak",
+        "image": "img/dishes/cheesesteak.jpg"
+      }
+    ],
+    "googleRating": 3.9,
+    "googleReviews": 425,
+    "yelpRating": null,
+    "yelpReviews": 61,
+    "popularity": 486
   },
   {
     "name": "Little Si Restaurant and Lounge",
@@ -1207,12 +1581,32 @@ window.RESTAURANTS = [
     "hoursSource": "http://littlesirestaurantandlounge.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Chicken Fried Steak and Eggs",
-      "Seafood Fettuccine",
-      "Chicken Marsala",
-      "French Dip Sandwich",
-      "Little Si Nachos"
-    ]
+      {
+        "name": "Chicken Fried Steak and Eggs",
+        "image": "img/dishes/chicken-fried-steak.jpg"
+      },
+      {
+        "name": "Seafood Fettuccine",
+        "image": "img/dishes/seafood-pasta.jpg"
+      },
+      {
+        "name": "Chicken Marsala",
+        "image": "img/dishes/chicken-marsala.jpg"
+      },
+      {
+        "name": "French Dip Sandwich",
+        "image": "img/dishes/french-dip.jpg"
+      },
+      {
+        "name": "Little Si Nachos",
+        "image": "img/dishes/nachos.jpg"
+      }
+    ],
+    "googleRating": 4.2,
+    "googleReviews": 883,
+    "yelpRating": null,
+    "yelpReviews": 155,
+    "popularity": 1038
   },
   {
     "name": "McDonald's",
@@ -1271,12 +1665,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.storeopeninghours.com/mcdonalds-north-bend-wa",
     "hoursConfidence": "medium",
     "dishes": [
-      "Big Mac",
-      "Quarter Pounder with Cheese",
-      "McChicken",
-      "Egg McMuffin",
-      "World Famous Fries"
-    ]
+      {
+        "name": "Big Mac",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Quarter Pounder with Cheese",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "McChicken",
+        "image": "img/dishes/chicken-sandwich.jpg"
+      },
+      {
+        "name": "Egg McMuffin",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "World Famous Fries",
+        "image": "img/dishes/french-fries.jpg"
+      }
+    ],
+    "googleRating": 3.2,
+    "googleReviews": 3257,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 3257
   },
   {
     "name": "Mt. Si Pub (Mt. Si Tavern)",
@@ -1335,12 +1749,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://startpage.mapquest.com/us/washington/mtsi-tavern-431448106",
     "hoursConfidence": "low",
     "dishes": [
-      "Mur's Cold Cuts Sandwich",
-      "Loaded Baked Potato",
-      "Faux Pho",
-      "Valley Dog",
-      "Smoked Chicken Nachos"
-    ]
+      {
+        "name": "Mur's Cold Cuts Sandwich",
+        "image": "img/dishes/sandwich.jpg"
+      },
+      {
+        "name": "Loaded Baked Potato",
+        "image": "img/dishes/baked-potato.jpg"
+      },
+      {
+        "name": "Faux Pho",
+        "image": "img/dishes/pho.jpg"
+      },
+      {
+        "name": "Valley Dog",
+        "image": "img/dishes/hot-dog.jpg"
+      },
+      {
+        "name": "Smoked Chicken Nachos",
+        "image": "img/dishes/nachos.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 700,
+    "yelpRating": null,
+    "yelpReviews": 59,
+    "popularity": 759
   },
   {
     "name": "North Bend Bar & Grill",
@@ -1399,12 +1833,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.northbendbarandgrill.com/location/north-bend-bar-and-grill/",
     "hoursConfidence": "high",
     "dishes": [
-      "Snoqualmie Smoke Burger",
-      "Pretzel Burger and Fries",
-      "Blackened Salmon Caesar Salad",
-      "Cedar Plank Steelhead Trout",
-      "Smoked Pork Nachos"
-    ]
+      {
+        "name": "Snoqualmie Smoke Burger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Pretzel Burger and Fries",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Blackened Salmon Caesar Salad",
+        "image": "img/dishes/caesar-salad.jpg"
+      },
+      {
+        "name": "Cedar Plank Steelhead Trout",
+        "image": "img/dishes/cedar-plank-salmon.jpg"
+      },
+      {
+        "name": "Smoked Pork Nachos",
+        "image": "img/dishes/nachos.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 2445,
+    "yelpRating": null,
+    "yelpReviews": 885,
+    "popularity": 3330
   },
   {
     "name": "Papa Murphy's Take 'N' Bake Pizza",
@@ -1463,12 +1917,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://locations.papamurphys.com/wa/north-bend/456-south-west-mt.-si-blvd.",
     "hoursConfidence": "high",
     "dishes": [
-      "Cowboy Pizza",
-      "Papa's All Meat Pizza",
-      "Murphy's Combo Pizza",
-      "Hawaiian Pizza",
-      "BBQ Chicken Pizza"
-    ]
+      {
+        "name": "Cowboy Pizza",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Papa's All Meat Pizza",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Murphy's Combo Pizza",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Hawaiian Pizza",
+        "image": "img/dishes/hawaiian-pizza.jpg"
+      },
+      {
+        "name": "BBQ Chicken Pizza",
+        "image": "img/dishes/pizza.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 116,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 116
   },
   {
     "name": "Pour House Bar & Grill",
@@ -1527,12 +2001,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/pour-house-bar-and-grill-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Buffalo Chicken Tenders",
-      "Chicken Strip Basket",
-      "Fried Green Beans",
-      "Chili Burger",
-      "Cheesy Tots"
-    ]
+      {
+        "name": "Buffalo Chicken Tenders",
+        "image": "img/dishes/chicken-tenders.jpg"
+      },
+      {
+        "name": "Chicken Strip Basket",
+        "image": "img/dishes/chicken-tenders.jpg"
+      },
+      {
+        "name": "Fried Green Beans",
+        "image": "img/dishes/fried-green-beans.jpg"
+      },
+      {
+        "name": "Chili Burger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Cheesy Tots",
+        "image": "img/dishes/tater-tots.jpg"
+      }
+    ],
+    "googleRating": 4.2,
+    "googleReviews": 861,
+    "yelpRating": 3.5,
+    "yelpReviews": 148,
+    "popularity": 1009
   },
   {
     "name": "Pressed On Main",
@@ -1591,12 +2085,32 @@ window.RESTAURANTS = [
     "hoursSource": "http://www.pressedonmain.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Original Vegan Gluten-Free Waffles",
-      "Fresh Beet and Ginger Juice",
-      "Avocado Toast",
-      "Pesto Chicken Sandwich",
-      "French Toast"
-    ]
+      {
+        "name": "Original Vegan Gluten-Free Waffles",
+        "image": "img/dishes/waffles.jpg"
+      },
+      {
+        "name": "Fresh Beet and Ginger Juice",
+        "image": "img/dishes/juice.jpg"
+      },
+      {
+        "name": "Avocado Toast",
+        "image": "img/dishes/avocado-toast.jpg"
+      },
+      {
+        "name": "Pesto Chicken Sandwich",
+        "image": "img/dishes/chicken-sandwich.jpg"
+      },
+      {
+        "name": "French Toast",
+        "image": "img/dishes/french-toast.jpg"
+      }
+    ],
+    "googleRating": 4.7,
+    "googleReviews": 155,
+    "yelpRating": null,
+    "yelpReviews": 33,
+    "popularity": 188
   },
   {
     "name": "Rent's Due BBQ",
@@ -1635,12 +2149,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/rent-s-due-bbq-/",
     "hoursConfidence": "low",
     "dishes": [
-      "Texas Twinkies",
-      "Brisket",
-      "Pork Belly Burnt Ends",
-      "Ribs",
-      "Banana Pudding"
-    ]
+      {
+        "name": "Texas Twinkies",
+        "image": "img/dishes/jalapeno-poppers.jpg"
+      },
+      {
+        "name": "Brisket",
+        "image": "img/dishes/brisket.jpg"
+      },
+      {
+        "name": "Pork Belly Burnt Ends",
+        "image": "img/dishes/burnt-ends.jpg"
+      },
+      {
+        "name": "Ribs",
+        "image": "img/dishes/ribs.jpg"
+      },
+      {
+        "name": "Banana Pudding",
+        "image": "img/dishes/banana-pudding.jpg"
+      }
+    ],
+    "googleRating": 4.9,
+    "googleReviews": 134,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 134
   },
   {
     "name": "Rio Bravo",
@@ -1699,12 +2233,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/rio-bravo-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Breakfast Burrito with Chorizo",
-      "Traditional Red Pozole",
-      "Smothered Tacos Plate",
-      "Carne Asada Burrito",
-      "Chicken Enchiladas"
-    ]
+      {
+        "name": "Breakfast Burrito with Chorizo",
+        "image": "img/dishes/breakfast-burrito.jpg"
+      },
+      {
+        "name": "Traditional Red Pozole",
+        "image": "img/dishes/pozole.jpg"
+      },
+      {
+        "name": "Smothered Tacos Plate",
+        "image": "img/dishes/tacos.jpg"
+      },
+      {
+        "name": "Carne Asada Burrito",
+        "image": "img/dishes/burrito.jpg"
+      },
+      {
+        "name": "Chicken Enchiladas",
+        "image": "img/dishes/enchiladas.jpg"
+      }
+    ],
+    "googleRating": 4.6,
+    "googleReviews": 1662,
+    "yelpRating": 4.5,
+    "yelpReviews": 418,
+    "popularity": 2080
   },
   {
     "name": "Rocky Mountain Chocolate Factory",
@@ -1763,11 +2317,28 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.rmcf.com/pages/rocky-mountain-chocolate-factory-of-north-bend-wa",
     "hoursConfidence": "high",
     "dishes": [
-      "Caramel Apples",
-      "Fudge",
-      "Bears",
-      "Ice Cream"
-    ]
+      {
+        "name": "Caramel Apples",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Fudge",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Bears",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Ice Cream",
+        "image": "img/dishes/ice-cream.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 360,
+    "yelpRating": 3.5,
+    "yelpReviews": 32,
+    "popularity": 392
   },
   {
     "name": "Sage & Spice",
@@ -1845,11 +2416,28 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.tripadvisor.com/Restaurant_Review-g58640-d34331228-Reviews-Sage_Spice-North_Bend_Washington.html",
     "hoursConfidence": "medium",
     "dishes": [
-      "Tandoori Paneer",
-      "Roasted Cauliflower",
-      "Mini Samosas",
-      "House Beef Curry"
-    ]
+      {
+        "name": "Tandoori Paneer",
+        "image": "img/dishes/paneer-tikka.jpg"
+      },
+      {
+        "name": "Roasted Cauliflower",
+        "image": "img/dishes/gobi.jpg"
+      },
+      {
+        "name": "Mini Samosas",
+        "image": "img/dishes/samosas.jpg"
+      },
+      {
+        "name": "House Beef Curry",
+        "image": "img/dishes/beef-curry.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 0
   },
   {
     "name": "Scott's Dairy Freeze",
@@ -1908,12 +2496,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/scotts-dairy-freeze-ice-cream-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Double Bacon Cheeseburger",
-      "Deep Fried Mushrooms",
-      "Chocolate Shake",
-      "Onion Rings",
-      "Ice Cream Cone"
-    ]
+      {
+        "name": "Double Bacon Cheeseburger",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Deep Fried Mushrooms",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Chocolate Shake",
+        "image": "img/dishes/milkshake.jpg"
+      },
+      {
+        "name": "Onion Rings",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Ice Cream Cone",
+        "image": "img/dishes/ice-cream.jpg"
+      }
+    ],
+    "googleRating": 4.3,
+    "googleReviews": 1416,
+    "yelpRating": 3.5,
+    "yelpReviews": 351,
+    "popularity": 1767
   },
   {
     "name": "South Fork North Bend",
@@ -1967,12 +2575,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://southforknorthbend.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Bigfoot Burger",
-      "Brisket Mac & Cheese",
-      "BBQ Brisket Sandwich",
-      "Chicken and Waffles",
-      "Corned Beef Hash Eggs Benedict"
-    ]
+      {
+        "name": "Bigfoot Burger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Brisket Mac & Cheese",
+        "image": "img/dishes/mac-and-cheese.jpg"
+      },
+      {
+        "name": "BBQ Brisket Sandwich",
+        "image": "img/dishes/brisket-sandwich.jpg"
+      },
+      {
+        "name": "Chicken and Waffles",
+        "image": "img/dishes/chicken-and-waffles.jpg"
+      },
+      {
+        "name": "Corned Beef Hash Eggs Benedict",
+        "image": "img/dishes/eggs-benedict.jpg"
+      }
+    ],
+    "googleRating": 4.7,
+    "googleReviews": 1353,
+    "yelpRating": 4.5,
+    "yelpReviews": 268,
+    "popularity": 1621
   },
   {
     "name": "Starbucks",
@@ -2031,12 +2659,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.storeopeninghours.com/starbucks-721-si-north-bend-wa",
     "hoursConfidence": "medium",
     "dishes": [
-      "Caffè Latte",
-      "Caramel Macchiato",
-      "Cold Brew",
-      "Bacon, Gouda & Egg Sandwich",
-      "Butter Croissant"
-    ]
+      {
+        "name": "Caffè Latte",
+        "image": "img/dishes/latte.jpg"
+      },
+      {
+        "name": "Caramel Macchiato",
+        "image": "img/dishes/caramel-macchiato.jpg"
+      },
+      {
+        "name": "Cold Brew",
+        "image": "img/dishes/cold-brew.jpg"
+      },
+      {
+        "name": "Bacon, Gouda & Egg Sandwich",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "Butter Croissant",
+        "image": "img/dishes/croissant.jpg"
+      }
+    ],
+    "googleRating": 3.8,
+    "googleReviews": 935,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 935
   },
   {
     "name": "Subway",
@@ -2095,12 +2743,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://restaurants.subway.com/united-states/wa/north-bend/470-e-north-bend-way",
     "hoursConfidence": "high",
     "dishes": [
-      "Italian B.M.T.",
-      "Turkey Breast",
-      "Meatball Marinara",
-      "Steak & Cheese",
-      "Cold Cut Combo"
-    ]
+      {
+        "name": "Italian B.M.T.",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      },
+      {
+        "name": "Turkey Breast",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      },
+      {
+        "name": "Meatball Marinara",
+        "image": "img/dishes/meatball-sub.jpg"
+      },
+      {
+        "name": "Steak & Cheese",
+        "image": "img/dishes/cheesesteak.jpg"
+      },
+      {
+        "name": "Cold Cut Combo",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      }
+    ],
+    "googleRating": 3.3,
+    "googleReviews": 147,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 147
   },
   {
     "name": "Sure Shot Pub",
@@ -2159,12 +2827,32 @@ window.RESTAURANTS = [
     "hoursSource": "http://sureshotnorthbend.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Nachos",
-      "Cheese Burger & Fries",
-      "Chicken Taquitos",
-      "Taco Salad",
-      "Personal Flatbread Pizza"
-    ]
+      {
+        "name": "Nachos",
+        "image": "img/dishes/nachos.jpg"
+      },
+      {
+        "name": "Cheese Burger & Fries",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Chicken Taquitos",
+        "image": "img/dishes/taquitos.jpg"
+      },
+      {
+        "name": "Taco Salad",
+        "image": "img/dishes/taco-salad.jpg"
+      },
+      {
+        "name": "Personal Flatbread Pizza",
+        "image": "img/dishes/flatbread.jpg"
+      }
+    ],
+    "googleRating": 4.6,
+    "googleReviews": 145,
+    "yelpRating": null,
+    "yelpReviews": 12,
+    "popularity": 157
   },
   {
     "name": "Taan Thai Cookery",
@@ -2239,12 +2927,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/taan-thai-cookery-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Khao Soi",
-      "Panang Curry",
-      "Phad Kee-Mao",
-      "Papaya Salad",
-      "Beef Noodle Soup"
-    ]
+      {
+        "name": "Khao Soi",
+        "image": "img/dishes/khao-soi.jpg"
+      },
+      {
+        "name": "Panang Curry",
+        "image": "img/dishes/panang-curry.jpg"
+      },
+      {
+        "name": "Phad Kee-Mao",
+        "image": "img/dishes/drunken-noodles.jpg"
+      },
+      {
+        "name": "Papaya Salad",
+        "image": "img/dishes/papaya-salad.jpg"
+      },
+      {
+        "name": "Beef Noodle Soup",
+        "image": "img/dishes/beef-noodle-soup.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 174,
+    "yelpRating": null,
+    "yelpReviews": 44,
+    "popularity": 218
   },
   {
     "name": "Taco Time NW",
@@ -2303,12 +3011,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://tacotimenw.com/locations/north-bend/",
     "hoursConfidence": "high",
     "dishes": [
-      "Crisp Meat Burrito",
-      "Casita Burrito",
-      "Natural Soft Taco",
-      "Mexi-Fries",
-      "Crisp Beef Taco"
-    ]
+      {
+        "name": "Crisp Meat Burrito",
+        "image": "img/dishes/burrito.jpg"
+      },
+      {
+        "name": "Casita Burrito",
+        "image": "img/dishes/burrito.jpg"
+      },
+      {
+        "name": "Natural Soft Taco",
+        "image": "img/dishes/tacos.jpg"
+      },
+      {
+        "name": "Mexi-Fries",
+        "image": "img/dishes/tater-tots.jpg"
+      },
+      {
+        "name": "Crisp Beef Taco",
+        "image": "img/dishes/tacos.jpg"
+      }
+    ],
+    "googleRating": 4.1,
+    "googleReviews": 1344,
+    "yelpRating": null,
+    "yelpReviews": 69,
+    "popularity": 1413
   },
   {
     "name": "The Daily Grind 12",
@@ -2367,11 +3095,28 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/the-daily-grind-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Breakfast Sandwiches",
-      "Raspberry Jammers",
-      "White Coffee",
-      "Muffin Tops"
-    ]
+      {
+        "name": "Breakfast Sandwiches",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "Raspberry Jammers",
+        "image": "img/dishes/donuts.jpg"
+      },
+      {
+        "name": "White Coffee",
+        "image": "img/dishes/latte.jpg"
+      },
+      {
+        "name": "Muffin Tops",
+        "image": "img/dishes/muffin.jpg"
+      }
+    ],
+    "googleRating": 4.3,
+    "googleReviews": 103,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 103
   },
   {
     "name": "The Iron Duck Public House",
@@ -2425,12 +3170,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://theironduckpublichouse.com/contact",
     "hoursConfidence": "high",
     "dishes": [
-      "Old Fashioned Burger",
-      "Bacon Ale Burger",
-      "Pork and Peppers Pizza",
-      "Mojo Pork Sandwich",
-      "Grilled Artichoke"
-    ]
+      {
+        "name": "Old Fashioned Burger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Bacon Ale Burger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Pork and Peppers Pizza",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Mojo Pork Sandwich",
+        "image": "img/dishes/cuban-sandwich.jpg"
+      },
+      {
+        "name": "Grilled Artichoke",
+        "image": "img/dishes/artichoke.jpg"
+      }
+    ],
+    "googleRating": 4.3,
+    "googleReviews": 917,
+    "yelpRating": 4.0,
+    "yelpReviews": 339,
+    "popularity": 1256
   },
   {
     "name": "The North Bend Bakery",
@@ -2484,12 +3249,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/georgias-bakery-and-cafe-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Ham and Cheese Croissant",
-      "Blueberry Cake Donut",
-      "Almond Croissant",
-      "Cinnamon Roll",
-      "Maple Bar"
-    ]
+      {
+        "name": "Ham and Cheese Croissant",
+        "image": "img/dishes/ham-cheese-croissant.jpg"
+      },
+      {
+        "name": "Blueberry Cake Donut",
+        "image": "img/dishes/donuts.jpg"
+      },
+      {
+        "name": "Almond Croissant",
+        "image": "img/dishes/almond-croissant.jpg"
+      },
+      {
+        "name": "Cinnamon Roll",
+        "image": "img/dishes/cinnamon-roll.jpg"
+      },
+      {
+        "name": "Maple Bar",
+        "image": "img/dishes/maple-bar.jpg"
+      }
+    ],
+    "googleRating": 4.3,
+    "googleReviews": 715,
+    "yelpRating": 4.0,
+    "yelpReviews": 252,
+    "popularity": 967
   },
   {
     "name": "The Swirl (Swirl Snackshop)",
@@ -2543,11 +3328,28 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/the-swirl-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Frozen Yogurt",
-      "Dole Whip Pineapple Froyo",
-      "Taro Milk Tea with Boba",
-      "Vietnamese Coffee"
-    ]
+      {
+        "name": "Frozen Yogurt",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Dole Whip Pineapple Froyo",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Taro Milk Tea with Boba",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Vietnamese Coffee",
+        "image": "img/dishes/ice-cream.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 134,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 134
   },
   {
     "name": "Trail Youth Coffee Home",
@@ -2601,11 +3403,28 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/trail-youth-coffee-home-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Blended Mocha",
-      "Latte",
-      "Frappe",
-      "Italian Soda"
-    ]
+      {
+        "name": "Blended Mocha",
+        "image": "img/dishes/mocha.jpg"
+      },
+      {
+        "name": "Latte",
+        "image": "img/dishes/latte.jpg"
+      },
+      {
+        "name": "Frappe",
+        "image": "img/dishes/frappe.jpg"
+      },
+      {
+        "name": "Italian Soda",
+        "image": "img/dishes/italian-soda.jpg"
+      }
+    ],
+    "googleRating": 5.0,
+    "googleReviews": 140,
+    "yelpRating": null,
+    "yelpReviews": 20,
+    "popularity": 160
   },
   {
     "name": "Trapper's Sushi",
@@ -2664,12 +3483,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.trapperssushi.com/northbend",
     "hoursConfidence": "high",
     "dishes": [
-      "All-You-Can-Eat Sushi",
-      "Skywalker Roll",
-      "Roll of the Week",
-      "Teriyaki Chicken",
-      "Tempura Shrimp"
-    ]
+      {
+        "name": "All-You-Can-Eat Sushi",
+        "image": "img/dishes/sushi-roll.jpg"
+      },
+      {
+        "name": "Skywalker Roll",
+        "image": "img/dishes/sushi-roll.jpg"
+      },
+      {
+        "name": "Roll of the Week",
+        "image": "img/dishes/sushi-roll.jpg"
+      },
+      {
+        "name": "Teriyaki Chicken",
+        "image": "img/dishes/teriyaki.jpg"
+      },
+      {
+        "name": "Tempura Shrimp",
+        "image": "img/dishes/shrimp-tempura.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 1259,
+    "yelpRating": 4.0,
+    "yelpReviews": 314,
+    "popularity": 1573
   },
   {
     "name": "Twede's Cafe",
@@ -2728,12 +3567,32 @@ window.RESTAURANTS = [
     "hoursSource": "http://www.twedescafe.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Twin Peaks Cherry Pie",
-      "Twin Peaks Burger and Fries",
-      "Chicken Fried Steak and Eggs",
-      "Bacon Cheeseburger and Fries",
-      "Banana Cream Pie"
-    ]
+      {
+        "name": "Twin Peaks Cherry Pie",
+        "image": "img/dishes/cherry-pie.jpg"
+      },
+      {
+        "name": "Twin Peaks Burger and Fries",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Chicken Fried Steak and Eggs",
+        "image": "img/dishes/chicken-fried-steak.jpg"
+      },
+      {
+        "name": "Bacon Cheeseburger and Fries",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Banana Cream Pie",
+        "image": "img/dishes/banana-cream-pie.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 3266,
+    "yelpRating": null,
+    "yelpReviews": 731,
+    "popularity": 3997
   },
   {
     "name": "Twin Peaks Pub",
@@ -2792,11 +3651,28 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/twin-peaks-pub-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Elote",
-      "Almond-and-Coconut-Crusted Fried Cod",
-      "Tacos",
-      "Nachos"
-    ]
+      {
+        "name": "Elote",
+        "image": "img/dishes/elote.jpg"
+      },
+      {
+        "name": "Almond-and-Coconut-Crusted Fried Cod",
+        "image": "img/dishes/fish-and-chips.jpg"
+      },
+      {
+        "name": "Tacos",
+        "image": "img/dishes/tacos.jpg"
+      },
+      {
+        "name": "Nachos",
+        "image": "img/dishes/nachos.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 71,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 71
   },
   {
     "name": "UnPhogettable",
@@ -2845,12 +3721,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/unphogettable-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Beef Brisket Pho",
-      "Chicken Pho",
-      "Vegetarian Pho",
-      "Fresh Spring Rolls",
-      "Meatball Pho"
-    ]
+      {
+        "name": "Beef Brisket Pho",
+        "image": "img/dishes/pho.jpg"
+      },
+      {
+        "name": "Chicken Pho",
+        "image": "img/dishes/pho.jpg"
+      },
+      {
+        "name": "Vegetarian Pho",
+        "image": "img/dishes/pho.jpg"
+      },
+      {
+        "name": "Fresh Spring Rolls",
+        "image": "img/dishes/fresh-spring-rolls.jpg"
+      },
+      {
+        "name": "Meatball Pho",
+        "image": "img/dishes/pho.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 505,
+    "yelpRating": null,
+    "yelpReviews": 279,
+    "popularity": 784
   },
   {
     "name": "Vintage Baristas Drive-Thru",
@@ -2909,12 +3805,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/vintage-baristas-/",
     "hoursConfidence": "low",
     "dishes": [
-      "Breakfast Burritos",
-      "Croissant Sandwiches",
-      "Italian Sodas",
-      "Fresh Donuts",
-      "Chocolate Brownie"
-    ]
+      {
+        "name": "Breakfast Burritos",
+        "image": "img/dishes/breakfast-burrito.jpg"
+      },
+      {
+        "name": "Croissant Sandwiches",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "Italian Sodas",
+        "image": "img/dishes/italian-soda.jpg"
+      },
+      {
+        "name": "Fresh Donuts",
+        "image": "img/dishes/donuts.jpg"
+      },
+      {
+        "name": "Chocolate Brownie",
+        "image": "img/dishes/brownie.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": 4.6,
+    "yelpReviews": 8,
+    "popularity": 8
   },
   {
     "name": "Volition Brewing",
@@ -2973,12 +3889,32 @@ window.RESTAURANTS = [
     "hoursSource": "http://www.volitionbrewing.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Escape Velocity Hazy IPA",
-      "Fancy Rations Coffee Milk Stout",
-      "Vampire Beach Party Hazy IPA",
-      "River Light Lager",
-      "Anthropometry Saison"
-    ]
+      {
+        "name": "Escape Velocity Hazy IPA",
+        "image": "img/dishes/craft-beer.jpg"
+      },
+      {
+        "name": "Fancy Rations Coffee Milk Stout",
+        "image": "img/dishes/craft-beer.jpg"
+      },
+      {
+        "name": "Vampire Beach Party Hazy IPA",
+        "image": "img/dishes/craft-beer.jpg"
+      },
+      {
+        "name": "River Light Lager",
+        "image": "img/dishes/craft-beer.jpg"
+      },
+      {
+        "name": "Anthropometry Saison",
+        "image": "img/dishes/craft-beer.jpg"
+      }
+    ],
+    "googleRating": 4.9,
+    "googleReviews": 293,
+    "yelpRating": 4.5,
+    "yelpReviews": 70,
+    "popularity": 363
   },
   {
     "name": "Yama Si Japanese Kitchen",
@@ -3032,12 +3968,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/north-bend/yama-si-japanese-kitchen-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Black Garlic Tonkotsu Ramen",
-      "Chicken Katsu Curry",
-      "Chicken & Beef Teriyaki",
-      "Red Lava Ramen",
-      "Chicken Yakisoba"
-    ]
+      {
+        "name": "Black Garlic Tonkotsu Ramen",
+        "image": "img/dishes/ramen.jpg"
+      },
+      {
+        "name": "Chicken Katsu Curry",
+        "image": "img/dishes/katsu-curry.jpg"
+      },
+      {
+        "name": "Chicken & Beef Teriyaki",
+        "image": "img/dishes/teriyaki.jpg"
+      },
+      {
+        "name": "Red Lava Ramen",
+        "image": "img/dishes/ramen.jpg"
+      },
+      {
+        "name": "Chicken Yakisoba",
+        "image": "img/dishes/yakisoba.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 0
   },
   {
     "name": "Aahaar an Indian Eatery",
@@ -3115,12 +4071,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.aahaaronline.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Butter Chicken",
-      "Chicken Tikka Masala",
-      "Malabar Parotta",
-      "Kerala Fried Fish",
-      "Badam Halwa"
-    ]
+      {
+        "name": "Butter Chicken",
+        "image": "img/dishes/butter-chicken.jpg"
+      },
+      {
+        "name": "Chicken Tikka Masala",
+        "image": "img/dishes/tikka-masala.jpg"
+      },
+      {
+        "name": "Malabar Parotta",
+        "image": "img/dishes/parotta.jpg"
+      },
+      {
+        "name": "Kerala Fried Fish",
+        "image": "img/dishes/kerala-fish-fry.jpg"
+      },
+      {
+        "name": "Badam Halwa",
+        "image": "img/dishes/halwa.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 2154,
+    "yelpRating": 4.0,
+    "yelpReviews": 728,
+    "popularity": 2882
   },
   {
     "name": "Anejo Small Plates & Tequila Bar",
@@ -3179,12 +4155,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://anejosmallplatesandtequila.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Street Tacos",
-      "Empanadas",
-      "Boom Shrimp",
-      "Rare Seared Ahi Tostadas",
-      "Molten Lava Cake"
-    ]
+      {
+        "name": "Street Tacos",
+        "image": "img/dishes/tacos.jpg"
+      },
+      {
+        "name": "Empanadas",
+        "image": "img/dishes/empanadas.jpg"
+      },
+      {
+        "name": "Boom Shrimp",
+        "image": "img/dishes/fried-shrimp.jpg"
+      },
+      {
+        "name": "Rare Seared Ahi Tostadas",
+        "image": "img/dishes/seared-ahi.jpg"
+      },
+      {
+        "name": "Molten Lava Cake",
+        "image": "img/dishes/lava-cake.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": 4.0,
+    "yelpReviews": 39,
+    "popularity": 39
   },
   {
     "name": "Buckshot Honey",
@@ -3233,12 +4229,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://buckshothoney.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Dave's Way Smoked Brisket Sandwich",
-      "Hoggnaw Pulled Pork Sandwich",
-      "Burnt Ends Chili",
-      "Brisket Mac and Cheese",
-      "Cornbread"
-    ]
+      {
+        "name": "Dave's Way Smoked Brisket Sandwich",
+        "image": "img/dishes/brisket-sandwich.jpg"
+      },
+      {
+        "name": "Hoggnaw Pulled Pork Sandwich",
+        "image": "img/dishes/pulled-pork-sandwich.jpg"
+      },
+      {
+        "name": "Burnt Ends Chili",
+        "image": "img/dishes/chili.jpg"
+      },
+      {
+        "name": "Brisket Mac and Cheese",
+        "image": "img/dishes/mac-and-cheese.jpg"
+      },
+      {
+        "name": "Cornbread",
+        "image": "img/dishes/cornbread.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 567,
+    "yelpRating": 4.4,
+    "yelpReviews": 240,
+    "popularity": 807
   },
   {
     "name": "Caadxi Oaxaca",
@@ -3292,12 +4308,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/snoqualmie/caadxi-oaxaca-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Mole Rojo",
-      "Sopitos Oaxaquenos",
-      "Tacos de Carne Asada",
-      "Tacos de Pescado",
-      "Tlayuda"
-    ]
+      {
+        "name": "Mole Rojo",
+        "image": "img/dishes/mole.jpg"
+      },
+      {
+        "name": "Sopitos Oaxaquenos",
+        "image": "img/dishes/sopes.jpg"
+      },
+      {
+        "name": "Tacos de Carne Asada",
+        "image": "img/dishes/tacos.jpg"
+      },
+      {
+        "name": "Tacos de Pescado",
+        "image": "img/dishes/fish-tacos.jpg"
+      },
+      {
+        "name": "Tlayuda",
+        "image": "img/dishes/tlayuda.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 1242,
+    "yelpRating": 4.0,
+    "yelpReviews": 531,
+    "popularity": 1773
   },
   {
     "name": "Chickadee Bakeshop",
@@ -3356,12 +4392,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.chickadeebakeshop.com/contact",
     "hoursConfidence": "medium",
     "dishes": [
-      "Humbleberry Pie",
-      "Pain au Chocolat",
-      "Cinnamon Rolls",
-      "Bacon & Cheddar Quiche Puff",
-      "Cream Cheese Everything Croissant"
-    ]
+      {
+        "name": "Humbleberry Pie",
+        "image": "img/dishes/berry-pie.jpg"
+      },
+      {
+        "name": "Pain au Chocolat",
+        "image": "img/dishes/pain-au-chocolat.jpg"
+      },
+      {
+        "name": "Cinnamon Rolls",
+        "image": "img/dishes/cinnamon-roll.jpg"
+      },
+      {
+        "name": "Bacon & Cheddar Quiche Puff",
+        "image": "img/dishes/quiche.jpg"
+      },
+      {
+        "name": "Cream Cheese Everything Croissant",
+        "image": "img/dishes/croissant.jpg"
+      }
+    ],
+    "googleRating": 4.9,
+    "googleReviews": 86,
+    "yelpRating": null,
+    "yelpReviews": 16,
+    "popularity": 102
   },
   {
     "name": "Copperstone Family Spaghetti Restaurant",
@@ -3415,12 +4471,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.copperstonepasta.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Salmon Fettuccine with Spinach",
-      "Chicken Penne with Pesto",
-      "Slow-Cooker Spaghetti with Meatballs",
-      "Pasta Puttanesca",
-      "Garlic Cheese Toast"
-    ]
+      {
+        "name": "Salmon Fettuccine with Spinach",
+        "image": "img/dishes/seafood-pasta.jpg"
+      },
+      {
+        "name": "Chicken Penne with Pesto",
+        "image": "img/dishes/pesto-pasta.jpg"
+      },
+      {
+        "name": "Slow-Cooker Spaghetti with Meatballs",
+        "image": "img/dishes/spaghetti-meatballs.jpg"
+      },
+      {
+        "name": "Pasta Puttanesca",
+        "image": "img/dishes/puttanesca.jpg"
+      },
+      {
+        "name": "Garlic Cheese Toast",
+        "image": "img/dishes/cheesy-bread.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 615,
+    "yelpRating": 3.9,
+    "yelpReviews": 207,
+    "popularity": 822
   },
   {
     "name": "Dark Horse Brew",
@@ -3479,12 +4555,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/snoqualmie/coffee-express-o-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Ham & Cheddar Croissant",
-      "Breakfast Burrito",
-      "Keto Mocha",
-      "Apple Fritter",
-      "Espresso Milkshake"
-    ]
+      {
+        "name": "Ham & Cheddar Croissant",
+        "image": "img/dishes/ham-cheese-croissant.jpg"
+      },
+      {
+        "name": "Breakfast Burrito",
+        "image": "img/dishes/breakfast-burrito.jpg"
+      },
+      {
+        "name": "Keto Mocha",
+        "image": "img/dishes/mocha.jpg"
+      },
+      {
+        "name": "Apple Fritter",
+        "image": "img/dishes/donuts.jpg"
+      },
+      {
+        "name": "Espresso Milkshake",
+        "image": "img/dishes/milkshake.jpg"
+      }
+    ],
+    "googleRating": 4.7,
+    "googleReviews": 265,
+    "yelpRating": null,
+    "yelpReviews": 33,
+    "popularity": 298
   },
   {
     "name": "Domino's Pizza",
@@ -3543,12 +4639,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://pizza.dominos.com/washington/snoqualmie/7328-better-way-se/",
     "hoursConfidence": "high",
     "dishes": [
-      "Pepperoni Hand Tossed Pizza",
-      "ExtravaganZZa",
-      "Stuffed Cheesy Bread",
-      "Parmesan Bread Bites",
-      "Chocolate Lava Crunch Cakes"
-    ]
+      {
+        "name": "Pepperoni Hand Tossed Pizza",
+        "image": "img/dishes/pepperoni-pizza.jpg"
+      },
+      {
+        "name": "ExtravaganZZa",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Stuffed Cheesy Bread",
+        "image": "img/dishes/cheesy-bread.jpg"
+      },
+      {
+        "name": "Parmesan Bread Bites",
+        "image": "img/dishes/cheesy-bread.jpg"
+      },
+      {
+        "name": "Chocolate Lava Crunch Cakes",
+        "image": "img/dishes/lava-cake.jpg"
+      }
+    ],
+    "googleRating": 3.3,
+    "googleReviews": 200,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 200
   },
   {
     "name": "Falls Avenue Cookie Co.",
@@ -3597,12 +4713,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.valleyrecord.com/?p=58549",
     "hoursConfidence": "medium",
     "dishes": [
-      "Chocolate Chip",
-      "Peanut Butter",
-      "Campfire (s'mores) Cookie",
-      "Mount Si Cookie",
-      "Blueberry Cheesecake Cookie"
-    ]
+      {
+        "name": "Chocolate Chip",
+        "image": "img/dishes/cookies.jpg"
+      },
+      {
+        "name": "Peanut Butter",
+        "image": "img/dishes/cookies.jpg"
+      },
+      {
+        "name": "Campfire (s'mores) Cookie",
+        "image": "img/dishes/cookies.jpg"
+      },
+      {
+        "name": "Mount Si Cookie",
+        "image": "img/dishes/cookies.jpg"
+      },
+      {
+        "name": "Blueberry Cheesecake Cookie",
+        "image": "img/dishes/cookies.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": 4.6,
+    "yelpReviews": 9,
+    "popularity": 9
   },
   {
     "name": "Francesco Ristorante Italiano",
@@ -3661,12 +4797,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://francescoristoranteitaliano.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Lasagna",
-      "Rigatoni alla Norma",
-      "Spaghetti Carbonara",
-      "Rack of Lamb",
-      "Tiramisu"
-    ]
+      {
+        "name": "Lasagna",
+        "image": "img/dishes/lasagna.jpg"
+      },
+      {
+        "name": "Rigatoni alla Norma",
+        "image": "img/dishes/pasta-alla-norma.jpg"
+      },
+      {
+        "name": "Spaghetti Carbonara",
+        "image": "img/dishes/carbonara.jpg"
+      },
+      {
+        "name": "Rack of Lamb",
+        "image": "img/dishes/rack-of-lamb.jpg"
+      },
+      {
+        "name": "Tiramisu",
+        "image": "img/dishes/tiramisu.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 356,
+    "yelpRating": 3.5,
+    "yelpReviews": 250,
+    "popularity": 606
   },
   {
     "name": "Frankie's Pizza",
@@ -3725,12 +4881,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://frankies-pizza.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Frankie's Special",
-      "Meat Si",
-      "Kahuna",
-      "Creamy Pesto Chicken",
-      "Frankie's Cheesy Styx"
-    ]
+      {
+        "name": "Frankie's Special",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Meat Si",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Kahuna",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Creamy Pesto Chicken",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Frankie's Cheesy Styx",
+        "image": "img/dishes/cheesy-bread.jpg"
+      }
+    ],
+    "googleRating": 4.3,
+    "googleReviews": 163,
+    "yelpRating": 4.0,
+    "yelpReviews": 31,
+    "popularity": 194
   },
   {
     "name": "Freestone Collective",
@@ -3788,12 +4964,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.thefreestone.co/",
     "hoursConfidence": "high",
     "dishes": [
-      "Coffee Cake",
-      "Farm Fresh Breakfast Sandwich",
-      "Sausage Breakfast Burrito",
-      "Miss Figgy Sandwich",
-      "Thursday Pizza Night pizzas"
-    ]
+      {
+        "name": "Coffee Cake",
+        "image": "img/dishes/coffee-cake.jpg"
+      },
+      {
+        "name": "Farm Fresh Breakfast Sandwich",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "Sausage Breakfast Burrito",
+        "image": "img/dishes/breakfast-burrito.jpg"
+      },
+      {
+        "name": "Miss Figgy Sandwich",
+        "image": "img/dishes/sandwich.jpg"
+      },
+      {
+        "name": "Thursday Pizza Night pizzas",
+        "image": "img/dishes/pizza.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": 19,
+    "popularity": 19
   },
   {
     "name": "Gianfranco Ristorante Italiano",
@@ -3847,12 +5043,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.gianfrancosnoqualmie.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Shrimp and Crab Ravioli in Pesto Cream Sauce",
-      "Baked Three Cheese Gnocchi with Langostino",
-      "Beef Osso Buco Risotto",
-      "Veal Saltimbocca",
-      "Tiramisu"
-    ]
+      {
+        "name": "Shrimp and Crab Ravioli in Pesto Cream Sauce",
+        "image": "img/dishes/ravioli.jpg"
+      },
+      {
+        "name": "Baked Three Cheese Gnocchi with Langostino",
+        "image": "img/dishes/gnocchi.jpg"
+      },
+      {
+        "name": "Beef Osso Buco Risotto",
+        "image": "img/dishes/osso-buco.jpg"
+      },
+      {
+        "name": "Veal Saltimbocca",
+        "image": "img/dishes/saltimbocca.jpg"
+      },
+      {
+        "name": "Tiramisu",
+        "image": "img/dishes/tiramisu.jpg"
+      }
+    ],
+    "googleRating": 4.6,
+    "googleReviews": 798,
+    "yelpRating": 4.4,
+    "yelpReviews": 449,
+    "popularity": 1247
   },
   {
     "name": "Happy at the Bay Teriyaki",
@@ -3906,12 +5122,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.yelp.com/biz/happy-at-the-bay-teriyaki-snoqualmie",
     "hoursConfidence": "medium",
     "dishes": [
-      "Chicken Teriyaki",
-      "Mongolian Beef",
-      "Gyoza",
-      "General Tao Orange Chicken",
-      "Beef Teriyaki"
-    ]
+      {
+        "name": "Chicken Teriyaki",
+        "image": "img/dishes/teriyaki.jpg"
+      },
+      {
+        "name": "Mongolian Beef",
+        "image": "img/dishes/mongolian-beef.jpg"
+      },
+      {
+        "name": "Gyoza",
+        "image": "img/dishes/gyoza.jpg"
+      },
+      {
+        "name": "General Tao Orange Chicken",
+        "image": "img/dishes/orange-chicken.jpg"
+      },
+      {
+        "name": "Beef Teriyaki",
+        "image": "img/dishes/teriyaki.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 341,
+    "yelpRating": 4.0,
+    "yelpReviews": 136,
+    "popularity": 477
   },
   {
     "name": "Herfy's Burgers",
@@ -3965,12 +5201,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/snoqualmie/herfys-burger-and-bbq-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Bacon Sourdough Burger",
-      "Double Cheeseburger",
-      "Jalapeno Burger",
-      "Chocolate Peanut Butter Shake",
-      "Fish and Chips"
-    ]
+      {
+        "name": "Bacon Sourdough Burger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Double Cheeseburger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Jalapeno Burger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Chocolate Peanut Butter Shake",
+        "image": "img/dishes/milkshake.jpg"
+      },
+      {
+        "name": "Fish and Chips",
+        "image": "img/dishes/fish-and-chips.jpg"
+      }
+    ],
+    "googleRating": 4.1,
+    "googleReviews": 1020,
+    "yelpRating": 3.6,
+    "yelpReviews": 160,
+    "popularity": 1180
   },
   {
     "name": "Himitsu Teriyaki",
@@ -4024,12 +5280,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.yelp.com/biz/himitsu-teriyaki-snoqualmie",
     "hoursConfidence": "medium",
     "dishes": [
-      "Chicken Teriyaki",
-      "Spicy Chicken Teriyaki",
-      "Chicken Katsu",
-      "Gyoza",
-      "Chicken Yakisoba"
-    ]
+      {
+        "name": "Chicken Teriyaki",
+        "image": "img/dishes/teriyaki.jpg"
+      },
+      {
+        "name": "Spicy Chicken Teriyaki",
+        "image": "img/dishes/teriyaki.jpg"
+      },
+      {
+        "name": "Chicken Katsu",
+        "image": "img/dishes/chicken-katsu.jpg"
+      },
+      {
+        "name": "Gyoza",
+        "image": "img/dishes/gyoza.jpg"
+      },
+      {
+        "name": "Chicken Yakisoba",
+        "image": "img/dishes/yakisoba.jpg"
+      }
+    ],
+    "googleRating": 4.3,
+    "googleReviews": 194,
+    "yelpRating": 4.0,
+    "yelpReviews": 50,
+    "popularity": 244
   },
   {
     "name": "Hot Diggity Doug's",
@@ -4088,12 +5364,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://hotdiggitydougs.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Chili Doug",
-      "German Doug",
-      "Chicago Doug",
-      "Naked Doug",
-      "Bowl of Chili"
-    ]
+      {
+        "name": "Chili Doug",
+        "image": "img/dishes/chili-dog.jpg"
+      },
+      {
+        "name": "German Doug",
+        "image": "img/dishes/hot-dog.jpg"
+      },
+      {
+        "name": "Chicago Doug",
+        "image": "img/dishes/chicago-hot-dog.jpg"
+      },
+      {
+        "name": "Naked Doug",
+        "image": "img/dishes/hot-dog.jpg"
+      },
+      {
+        "name": "Bowl of Chili",
+        "image": "img/dishes/chili.jpg"
+      }
+    ],
+    "googleRating": 4.8,
+    "googleReviews": 26,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 26
   },
   {
     "name": "Huxdotter Coffee (Snoqualmie)",
@@ -4152,12 +5448,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/snoqualmie/huxdotter-coffee-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Iron Horse Breakfast Sandwich",
-      "Breakfast Burrito",
-      "Twin Peaks Latte",
-      "Irish Cream Cold Brew",
-      "Caramel Silk"
-    ]
+      {
+        "name": "Iron Horse Breakfast Sandwich",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "Breakfast Burrito",
+        "image": "img/dishes/breakfast-burrito.jpg"
+      },
+      {
+        "name": "Twin Peaks Latte",
+        "image": "img/dishes/latte.jpg"
+      },
+      {
+        "name": "Irish Cream Cold Brew",
+        "image": "img/dishes/cold-brew.jpg"
+      },
+      {
+        "name": "Caramel Silk",
+        "image": "img/dishes/latte.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 177,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 177
   },
   {
     "name": "India Belly",
@@ -4224,12 +5540,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://india-belly.hey-restaurants.com/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Samosa Chaat",
-      "India Belly Special Chicken",
-      "Butter Chicken",
-      "Veg Hakka Noodles",
-      "Bullet Naan"
-    ]
+      {
+        "name": "Samosa Chaat",
+        "image": "img/dishes/samosa-chaat.jpg"
+      },
+      {
+        "name": "India Belly Special Chicken",
+        "image": "img/dishes/chicken-curry.jpg"
+      },
+      {
+        "name": "Butter Chicken",
+        "image": "img/dishes/butter-chicken.jpg"
+      },
+      {
+        "name": "Veg Hakka Noodles",
+        "image": "img/dishes/hakka-noodles.jpg"
+      },
+      {
+        "name": "Bullet Naan",
+        "image": "img/dishes/naan.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": 4.5,
+    "yelpReviews": 60,
+    "popularity": 60
   },
   {
     "name": "MOD Pizza",
@@ -4288,12 +5624,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://locations.modpizza.com/usa/wa/snoqualmie/34817-snoqualmie-pkwy",
     "hoursConfidence": "high",
     "dishes": [
-      "Mad Dog",
-      "Maddy's Favorite",
-      "OG Pepperoni",
-      "Carnivore",
-      "CinnaMOD"
-    ]
+      {
+        "name": "Mad Dog",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Maddy's Favorite",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "OG Pepperoni",
+        "image": "img/dishes/pepperoni-pizza.jpg"
+      },
+      {
+        "name": "Carnivore",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "CinnaMOD",
+        "image": "img/dishes/cinnamon-roll.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 857,
+    "yelpRating": null,
+    "yelpReviews": 75,
+    "popularity": 932
   },
   {
     "name": "Mount Si Golf Course Restaurant",
@@ -4347,12 +5703,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.mtsigolf.com/restaurant",
     "hoursConfidence": "medium",
     "dishes": [
-      "Country Breakfast",
-      "Chicken Fried Steak",
-      "Biscuits and Gravy Platter",
-      "Mt Si Omelet",
-      "Fish Tacos"
-    ]
+      {
+        "name": "Country Breakfast",
+        "image": "img/dishes/american-breakfast.jpg"
+      },
+      {
+        "name": "Chicken Fried Steak",
+        "image": "img/dishes/chicken-fried-steak.jpg"
+      },
+      {
+        "name": "Biscuits and Gravy Platter",
+        "image": "img/dishes/biscuits-gravy.jpg"
+      },
+      {
+        "name": "Mt Si Omelet",
+        "image": "img/dishes/omelet.jpg"
+      },
+      {
+        "name": "Fish Tacos",
+        "image": "img/dishes/fish-tacos.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 219,
+    "yelpRating": null,
+    "yelpReviews": 76,
+    "popularity": 295
   },
   {
     "name": "No Boat Brewing Company",
@@ -4411,12 +5787,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://noboatbrewing.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Mozzie IPA",
-      "Snoqualmie Maybe Pale Ale",
-      "Jandy TDH Imperial Hazy IPA",
-      "Bia Hoi Lager",
-      "Illuminaughty Double IPA"
-    ]
+      {
+        "name": "Mozzie IPA",
+        "image": "img/dishes/craft-beer.jpg"
+      },
+      {
+        "name": "Snoqualmie Maybe Pale Ale",
+        "image": "img/dishes/craft-beer.jpg"
+      },
+      {
+        "name": "Jandy TDH Imperial Hazy IPA",
+        "image": "img/dishes/craft-beer.jpg"
+      },
+      {
+        "name": "Bia Hoi Lager",
+        "image": "img/dishes/craft-beer.jpg"
+      },
+      {
+        "name": "Illuminaughty Double IPA",
+        "image": "img/dishes/craft-beer.jpg"
+      }
+    ],
+    "googleRating": 4.7,
+    "googleReviews": 411,
+    "yelpRating": 4.5,
+    "yelpReviews": 145,
+    "popularity": 556
   },
   {
     "name": "Ridge Cupbop & Ramen",
@@ -4470,12 +5866,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.yelp.com/biz/ridge-cupbop-and-ramen-snoqualmie",
     "hoursConfidence": "medium",
     "dishes": [
-      "Ridge Cupbop",
-      "Pork Belly Tonkatsu Ramen",
-      "Korean Spicy Ramen",
-      "Korean BBQ Chicken Wings",
-      "Seafood Pancake"
-    ]
+      {
+        "name": "Ridge Cupbop",
+        "image": "img/dishes/cupbop.jpg"
+      },
+      {
+        "name": "Pork Belly Tonkatsu Ramen",
+        "image": "img/dishes/ramen.jpg"
+      },
+      {
+        "name": "Korean Spicy Ramen",
+        "image": "img/dishes/ramen.jpg"
+      },
+      {
+        "name": "Korean BBQ Chicken Wings",
+        "image": "img/dishes/korean-fried-chicken.jpg"
+      },
+      {
+        "name": "Seafood Pancake",
+        "image": "img/dishes/seafood-pancake.jpg"
+      }
+    ],
+    "googleRating": 4.6,
+    "googleReviews": 288,
+    "yelpRating": 4.5,
+    "yelpReviews": 103,
+    "popularity": 391
   },
   {
     "name": "Rio Bravito",
@@ -4534,12 +5950,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.yelp.com/biz/rio-bravito-snoqualmie",
     "hoursConfidence": "high",
     "dishes": [
-      "Carne Asada Burrito",
-      "Taco Plate",
-      "Enchiladas",
-      "Breakfast Burrito",
-      "3 Breakfast Tacos"
-    ]
+      {
+        "name": "Carne Asada Burrito",
+        "image": "img/dishes/burrito.jpg"
+      },
+      {
+        "name": "Taco Plate",
+        "image": "img/dishes/tacos.jpg"
+      },
+      {
+        "name": "Enchiladas",
+        "image": "img/dishes/enchiladas.jpg"
+      },
+      {
+        "name": "Breakfast Burrito",
+        "image": "img/dishes/breakfast-burrito.jpg"
+      },
+      {
+        "name": "3 Breakfast Tacos",
+        "image": "img/dishes/tacos.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 373,
+    "yelpRating": 4.4,
+    "yelpReviews": 120,
+    "popularity": 493
   },
   {
     "name": "River & Rain Coffee and Books",
@@ -4563,10 +5999,24 @@ window.RESTAURANTS = [
     "hoursSource": "https://twinpeaksblog.com/2026/08/08/a-guide-to-damn-fine-coffee-in-the-real-twin-peaks-of-snoqualmie-valley-washington/",
     "hoursConfidence": "low",
     "dishes": [
-      "Specialty espresso drinks",
-      "Handcrafted tea beverages",
-      "Fresh pastries"
-    ]
+      {
+        "name": "Specialty espresso drinks",
+        "image": "img/dishes/espresso.jpg"
+      },
+      {
+        "name": "Handcrafted tea beverages",
+        "image": "img/dishes/tea.jpg"
+      },
+      {
+        "name": "Fresh pastries",
+        "image": "img/dishes/pastries.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 0
   },
   {
     "name": "Sahara Pizza & Snoqualmie Bowl",
@@ -4625,12 +6075,32 @@ window.RESTAURANTS = [
     "hoursSource": "http://www.saharapizza.com/",
     "hoursConfidence": "low",
     "dishes": [
-      "Chicken, Bacon, Ranch Pizza",
-      "The Sahara",
-      "Lion's Feast",
-      "Firebird",
-      "Maui Wowie!"
-    ]
+      {
+        "name": "Chicken, Bacon, Ranch Pizza",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "The Sahara",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Lion's Feast",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Firebird",
+        "image": "img/dishes/pizza.jpg"
+      },
+      {
+        "name": "Maui Wowie!",
+        "image": "img/dishes/pizza.jpg"
+      }
+    ],
+    "googleRating": 3.7,
+    "googleReviews": 147,
+    "yelpRating": 2.9,
+    "yelpReviews": 53,
+    "popularity": 200
   },
   {
     "name": "Saints & Scholars Irish Pub",
@@ -4684,12 +6154,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://saintsandscholars.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Fish and Chips",
-      "Sausage Rolls",
-      "S&S Burger",
-      "Corned Beef Sandwich",
-      "Bangers and Mash"
-    ]
+      {
+        "name": "Fish and Chips",
+        "image": "img/dishes/fish-and-chips.jpg"
+      },
+      {
+        "name": "Sausage Rolls",
+        "image": "img/dishes/sausage-rolls.jpg"
+      },
+      {
+        "name": "S&S Burger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Corned Beef Sandwich",
+        "image": "img/dishes/corned-beef-sandwich.jpg"
+      },
+      {
+        "name": "Bangers and Mash",
+        "image": "img/dishes/bangers-mash.jpg"
+      }
+    ],
+    "googleRating": 4.8,
+    "googleReviews": 588,
+    "yelpRating": 4.6,
+    "yelpReviews": 204,
+    "popularity": 792
   },
   {
     "name": "Sigillo Cellars",
@@ -4743,12 +6233,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://sigillocellars.com/visit-snoqualmie/",
     "hoursConfidence": "high",
     "dishes": [
-      "Mo's Hot Honey Flatbread",
-      "Brie & Prosciutto Flatbread",
-      "Charcuterie Board",
-      "Baked Brie",
-      "Lamb Meatballs"
-    ]
+      {
+        "name": "Mo's Hot Honey Flatbread",
+        "image": "img/dishes/flatbread.jpg"
+      },
+      {
+        "name": "Brie & Prosciutto Flatbread",
+        "image": "img/dishes/flatbread.jpg"
+      },
+      {
+        "name": "Charcuterie Board",
+        "image": "img/dishes/charcuterie.jpg"
+      },
+      {
+        "name": "Baked Brie",
+        "image": "img/dishes/baked-brie.jpg"
+      },
+      {
+        "name": "Lamb Meatballs",
+        "image": "img/dishes/meatballs.jpg"
+      }
+    ],
+    "googleRating": 4.7,
+    "googleReviews": 157,
+    "yelpRating": 4.0,
+    "yelpReviews": 73,
+    "popularity": 230
   },
   {
     "name": "Smokey Joe's Bar and Grill",
@@ -4802,12 +6312,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/snoqualmie/smokey-joes-tavern-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Smokey Bacon Cheddar Burger",
-      "Chicken Strips & Fries",
-      "Fried Pickle Chips",
-      "Onion Strings",
-      "Cheeseburger"
-    ]
+      {
+        "name": "Smokey Bacon Cheddar Burger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Chicken Strips & Fries",
+        "image": "img/dishes/french-fries.jpg"
+      },
+      {
+        "name": "Fried Pickle Chips",
+        "image": "img/dishes/fried-pickles.jpg"
+      },
+      {
+        "name": "Onion Strings",
+        "image": "img/dishes/onion-rings.jpg"
+      },
+      {
+        "name": "Cheeseburger",
+        "image": "img/dishes/hamburger.jpg"
+      }
+    ],
+    "googleRating": 4.1,
+    "googleReviews": 198,
+    "yelpRating": 3.7,
+    "yelpReviews": 32,
+    "popularity": 230
   },
   {
     "name": "Sno Thai Café",
@@ -4886,12 +6416,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.yelp.com/biz/sno-thai-caf%C3%A9-snoqualmie-2",
     "hoursConfidence": "low",
     "dishes": [
-      "Pad Thai",
-      "Panang Curry",
-      "Pad See Ew",
-      "Pad Kee Mao",
-      "Green Curry"
-    ]
+      {
+        "name": "Pad Thai",
+        "image": "img/dishes/pad-thai.jpg"
+      },
+      {
+        "name": "Panang Curry",
+        "image": "img/dishes/panang-curry.jpg"
+      },
+      {
+        "name": "Pad See Ew",
+        "image": "img/dishes/pad-see-ew.jpg"
+      },
+      {
+        "name": "Pad Kee Mao",
+        "image": "img/dishes/drunken-noodles.jpg"
+      },
+      {
+        "name": "Green Curry",
+        "image": "img/dishes/green-curry.jpg"
+      }
+    ],
+    "googleRating": 4.1,
+    "googleReviews": 227,
+    "yelpRating": 4.0,
+    "yelpReviews": 186,
+    "popularity": 413
   },
   {
     "name": "Snoqualmie Falls Brewery & Taproom",
@@ -4950,12 +6500,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.fallsbrew.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Fish & Chips",
-      "Snoqualmie Burger",
-      "Brew-Wings",
-      "Bavarian Style Soft Pretzel",
-      "Carnitas Street Tacos"
-    ]
+      {
+        "name": "Fish & Chips",
+        "image": "img/dishes/fish-and-chips.jpg"
+      },
+      {
+        "name": "Snoqualmie Burger",
+        "image": "img/dishes/hamburger.jpg"
+      },
+      {
+        "name": "Brew-Wings",
+        "image": "img/dishes/buffalo-wings.jpg"
+      },
+      {
+        "name": "Bavarian Style Soft Pretzel",
+        "image": "img/dishes/soft-pretzel.jpg"
+      },
+      {
+        "name": "Carnitas Street Tacos",
+        "image": "img/dishes/tacos.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 1172,
+    "yelpRating": 3.5,
+    "yelpReviews": 690,
+    "popularity": 1862
   },
   {
     "name": "Snoqualmie Ice Cream",
@@ -5014,12 +6584,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.valleyrecord.com/?p=58549",
     "hoursConfidence": "medium",
     "dishes": [
-      "Danish Vanilla",
-      "Salted Caramel",
-      "Chocolate Mudslide",
-      "Mint Chip",
-      "Cascade Berries"
-    ]
+      {
+        "name": "Danish Vanilla",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Salted Caramel",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Chocolate Mudslide",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Mint Chip",
+        "image": "img/dishes/ice-cream.jpg"
+      },
+      {
+        "name": "Cascade Berries",
+        "image": "img/dishes/ice-cream.jpg"
+      }
+    ],
+    "googleRating": 4.6,
+    "googleReviews": 349,
+    "yelpRating": null,
+    "yelpReviews": 60,
+    "popularity": 409
   },
   {
     "name": "Snoqualmie Mexican Food Truck",
@@ -5078,12 +6668,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/snoqualmie/snoqualmie-mexican-food-truck-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Carne Asada Tacos",
-      "Torta de Asada",
-      "Carnitas Burrito",
-      "Chorizo Nachos",
-      "Tacos al Pastor"
-    ]
+      {
+        "name": "Carne Asada Tacos",
+        "image": "img/dishes/tacos.jpg"
+      },
+      {
+        "name": "Torta de Asada",
+        "image": "img/dishes/torta.jpg"
+      },
+      {
+        "name": "Carnitas Burrito",
+        "image": "img/dishes/burrito.jpg"
+      },
+      {
+        "name": "Chorizo Nachos",
+        "image": "img/dishes/nachos.jpg"
+      },
+      {
+        "name": "Tacos al Pastor",
+        "image": "img/dishes/tacos-al-pastor.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": 20,
+    "popularity": 20
   },
   {
     "name": "Starbucks",
@@ -5142,12 +6752,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.yelp.com/biz/starbucks-snoqualmie-3",
     "hoursConfidence": "medium",
     "dishes": [
-      "Caffè Latte",
-      "Caramel Macchiato",
-      "Pumpkin Spice Latte",
-      "Bacon, Gouda & Egg Sandwich",
-      "Birthday Cake Pop"
-    ]
+      {
+        "name": "Caffè Latte",
+        "image": "img/dishes/latte.jpg"
+      },
+      {
+        "name": "Caramel Macchiato",
+        "image": "img/dishes/caramel-macchiato.jpg"
+      },
+      {
+        "name": "Pumpkin Spice Latte",
+        "image": "img/dishes/latte.jpg"
+      },
+      {
+        "name": "Bacon, Gouda & Egg Sandwich",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "Birthday Cake Pop",
+        "image": "img/dishes/cake-pop.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": 2.8,
+    "yelpReviews": 26,
+    "popularity": 26
   },
   {
     "name": "Subway",
@@ -5206,12 +6836,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://restaurants.subway.com/united-states/wa/snoqualmie/7329-better-way-se",
     "hoursConfidence": "high",
     "dishes": [
-      "Subway Club",
-      "Chicken & Bacon Ranch",
-      "Steak Philly",
-      "Italian B.M.T.",
-      "Turkey Breast"
-    ]
+      {
+        "name": "Subway Club",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      },
+      {
+        "name": "Chicken & Bacon Ranch",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      },
+      {
+        "name": "Steak Philly",
+        "image": "img/dishes/cheesesteak.jpg"
+      },
+      {
+        "name": "Italian B.M.T.",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      },
+      {
+        "name": "Turkey Breast",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      }
+    ],
+    "googleRating": 3.5,
+    "googleReviews": 195,
+    "yelpRating": 1.8,
+    "yelpReviews": 28,
+    "popularity": 223
   },
   {
     "name": "Thai Eatery",
@@ -5281,12 +6931,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.yelp.com/biz/thai-eatery-snoqualmie-2",
     "hoursConfidence": "medium",
     "dishes": [
-      "Pad Thai",
-      "Jungle Crispy Chicken",
-      "Drunken Noodles",
-      "Fresh Spring Rolls",
-      "Yellow Curry"
-    ]
+      {
+        "name": "Pad Thai",
+        "image": "img/dishes/pad-thai.jpg"
+      },
+      {
+        "name": "Jungle Crispy Chicken",
+        "image": "img/dishes/fried-chicken.jpg"
+      },
+      {
+        "name": "Drunken Noodles",
+        "image": "img/dishes/drunken-noodles.jpg"
+      },
+      {
+        "name": "Fresh Spring Rolls",
+        "image": "img/dishes/fresh-spring-rolls.jpg"
+      },
+      {
+        "name": "Yellow Curry",
+        "image": "img/dishes/yellow-curry.jpg"
+      }
+    ],
+    "googleRating": 4.2,
+    "googleReviews": 502,
+    "yelpRating": 4.0,
+    "yelpReviews": 260,
+    "popularity": 762
   },
   {
     "name": "The Bindlestick",
@@ -5349,12 +7019,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://bindlestick.org/",
     "hoursConfidence": "low",
     "dishes": [
-      "Bindle Breakfast Sandwich",
-      "Mediterranean Panini",
-      "Less Boring Grilled Cheese",
-      "Brock's Besto Pesto",
-      "Espresso Martini"
-    ]
+      {
+        "name": "Bindle Breakfast Sandwich",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "Mediterranean Panini",
+        "image": "img/dishes/panini.jpg"
+      },
+      {
+        "name": "Less Boring Grilled Cheese",
+        "image": "img/dishes/grilled-cheese.jpg"
+      },
+      {
+        "name": "Brock's Besto Pesto",
+        "image": "img/dishes/sandwich.jpg"
+      },
+      {
+        "name": "Espresso Martini",
+        "image": "img/dishes/espresso-martini.jpg"
+      }
+    ],
+    "googleRating": 4.6,
+    "googleReviews": 279,
+    "yelpRating": 4.0,
+    "yelpReviews": 107,
+    "popularity": 386
   },
   {
     "name": "The Black Dog Arts Cafe",
@@ -5408,12 +7098,32 @@ window.RESTAURANTS = [
     "hoursSource": "http://www.blackdogsnoqualmie.com/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Mock Tuna Sandwich",
-      "Mushroom Oat Groat Soup",
-      "Vegan Burrito",
-      "Vegan Cinnamon Bun",
-      "Quiche of the Day"
-    ]
+      {
+        "name": "Mock Tuna Sandwich",
+        "image": "img/dishes/sandwich.jpg"
+      },
+      {
+        "name": "Mushroom Oat Groat Soup",
+        "image": "img/dishes/mushroom-soup.jpg"
+      },
+      {
+        "name": "Vegan Burrito",
+        "image": "img/dishes/burrito.jpg"
+      },
+      {
+        "name": "Vegan Cinnamon Bun",
+        "image": "img/dishes/cinnamon-roll.jpg"
+      },
+      {
+        "name": "Quiche of the Day",
+        "image": "img/dishes/quiche.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 475,
+    "yelpRating": 3.9,
+    "yelpReviews": 184,
+    "popularity": 659
   },
   {
     "name": "The Cafe & Coffee Bar at Salish Lodge (Snoqualmie Falls Gift Shop & Visitor Center)",
@@ -5472,12 +7182,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.salishlodge.com/dining/the-caf-coffee-bar",
     "hoursConfidence": "high",
     "dishes": [
-      "S'mores Bites",
-      "Ham & Cheese Croissant",
-      "Espresso and pour-over coffee",
-      "Fresh-baked scones and galettes",
-      "Ice cream by the scoop"
-    ]
+      {
+        "name": "S'mores Bites",
+        "image": "img/dishes/smores.jpg"
+      },
+      {
+        "name": "Ham & Cheese Croissant",
+        "image": "img/dishes/ham-cheese-croissant.jpg"
+      },
+      {
+        "name": "Espresso and pour-over coffee",
+        "image": "img/dishes/espresso.jpg"
+      },
+      {
+        "name": "Fresh-baked scones and galettes",
+        "image": "img/dishes/pastries.jpg"
+      },
+      {
+        "name": "Ice cream by the scoop",
+        "image": "img/dishes/ice-cream.jpg"
+      }
+    ],
+    "googleRating": 4.5,
+    "googleReviews": 158,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 158
   },
   {
     "name": "The Lounge at Salish Lodge & Spa",
@@ -5536,12 +7266,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.salishlodge.com/dining/the-lounge",
     "hoursConfidence": "high",
     "dishes": [
-      "Razor Clam Chowder",
-      "Little Skookum Inlet Clams",
-      "Beef Tartare",
-      "Shrimp Toast",
-      "The Dale Cooper cocktail"
-    ]
+      {
+        "name": "Razor Clam Chowder",
+        "image": "img/dishes/clam-chowder.jpg"
+      },
+      {
+        "name": "Little Skookum Inlet Clams",
+        "image": "img/dishes/steamed-clams.jpg"
+      },
+      {
+        "name": "Beef Tartare",
+        "image": "img/dishes/beef-tartare.jpg"
+      },
+      {
+        "name": "Shrimp Toast",
+        "image": "img/dishes/shrimp-toast.jpg"
+      },
+      {
+        "name": "The Dale Cooper cocktail",
+        "image": "img/dishes/cocktail.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": 4.0,
+    "yelpReviews": 461,
+    "popularity": 461
   },
   {
     "name": "The Rec Room",
@@ -5590,12 +7340,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://therecroomsnoqualmie.com/",
     "hoursConfidence": "high",
     "dishes": [
-      "Mole Carnitas Sammy",
-      "The Grinderoni",
-      "Loaded Tots",
-      "Street Corn Caesar Salad",
-      "Pesto Chicken Pizza"
-    ]
+      {
+        "name": "Mole Carnitas Sammy",
+        "image": "img/dishes/sandwich.jpg"
+      },
+      {
+        "name": "The Grinderoni",
+        "image": "img/dishes/submarine-sandwich.jpg"
+      },
+      {
+        "name": "Loaded Tots",
+        "image": "img/dishes/tater-tots.jpg"
+      },
+      {
+        "name": "Street Corn Caesar Salad",
+        "image": "img/dishes/caesar-salad.jpg"
+      },
+      {
+        "name": "Pesto Chicken Pizza",
+        "image": "img/dishes/pizza.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 0
   },
   {
     "name": "The Restaurant & Terrace Bar at Salish Lodge & Spa",
@@ -5682,12 +7452,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.salishlodge.com/dining/the-restaurant",
     "hoursConfidence": "high",
     "dishes": [
-      "The Country Breakfast with Honey from Heaven",
-      "Pork Shank Eggs Benedict",
-      "Salish Fish and Chips",
-      "Chateaubriand",
-      "Damn Fine Cherry Pie"
-    ]
+      {
+        "name": "The Country Breakfast with Honey from Heaven",
+        "image": "img/dishes/american-breakfast.jpg"
+      },
+      {
+        "name": "Pork Shank Eggs Benedict",
+        "image": "img/dishes/eggs-benedict.jpg"
+      },
+      {
+        "name": "Salish Fish and Chips",
+        "image": "img/dishes/fish-and-chips.jpg"
+      },
+      {
+        "name": "Chateaubriand",
+        "image": "img/dishes/chateaubriand.jpg"
+      },
+      {
+        "name": "Damn Fine Cherry Pie",
+        "image": "img/dishes/cherry-pie.jpg"
+      }
+    ],
+    "googleRating": 4.4,
+    "googleReviews": 1150,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 1150
   },
   {
     "name": "The Weekend Coffee",
@@ -5746,12 +7536,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.restaurantji.com/wa/snoqualmie/the-weekend-coffee-/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Signature Mocha",
-      "Bacon & Egg Biscuit",
-      "Smoked Brisket Breakfast Sandwich",
-      "Croissant",
-      "Berry Smoothie"
-    ]
+      {
+        "name": "Signature Mocha",
+        "image": "img/dishes/mocha.jpg"
+      },
+      {
+        "name": "Bacon & Egg Biscuit",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "Smoked Brisket Breakfast Sandwich",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      },
+      {
+        "name": "Croissant",
+        "image": "img/dishes/croissant.jpg"
+      },
+      {
+        "name": "Berry Smoothie",
+        "image": "img/dishes/smoothie.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": 5.0,
+    "yelpReviews": 6,
+    "popularity": 6
   },
   {
     "name": "Trails End Café",
@@ -5800,12 +7610,32 @@ window.RESTAURANTS = [
     "hoursSource": "https://snoqualmievalleyhealth.org/hospital-cafe/",
     "hoursConfidence": "medium",
     "dishes": [
-      "Breakfast Burrito",
-      "Two Egg Breakfast",
-      "Breakfast Hash",
-      "Buttermilk Shortstack",
-      "Breakfast Sandwich"
-    ]
+      {
+        "name": "Breakfast Burrito",
+        "image": "img/dishes/breakfast-burrito.jpg"
+      },
+      {
+        "name": "Two Egg Breakfast",
+        "image": "img/dishes/american-breakfast.jpg"
+      },
+      {
+        "name": "Breakfast Hash",
+        "image": "img/dishes/breakfast-hash.jpg"
+      },
+      {
+        "name": "Buttermilk Shortstack",
+        "image": "img/dishes/pancakes.jpg"
+      },
+      {
+        "name": "Breakfast Sandwich",
+        "image": "img/dishes/breakfast-sandwich.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 0
   },
   {
     "name": "UNA",
@@ -5892,11 +7722,31 @@ window.RESTAURANTS = [
     "hoursSource": "https://www.yelp.com/biz/una-snoqualmie",
     "hoursConfidence": "medium",
     "dishes": [
-      "Chirashi",
-      "Dragon Roll",
-      "Salmon Bento Box",
-      "Curry Katsu",
-      "Tonkatsu Ramen"
-    ]
+      {
+        "name": "Chirashi",
+        "image": "img/dishes/chirashi.jpg"
+      },
+      {
+        "name": "Dragon Roll",
+        "image": "img/dishes/sushi-roll.jpg"
+      },
+      {
+        "name": "Salmon Bento Box",
+        "image": "img/dishes/bento-box.jpg"
+      },
+      {
+        "name": "Curry Katsu",
+        "image": "img/dishes/katsu-curry.jpg"
+      },
+      {
+        "name": "Tonkatsu Ramen",
+        "image": "img/dishes/ramen.jpg"
+      }
+    ],
+    "googleRating": null,
+    "googleReviews": null,
+    "yelpRating": null,
+    "yelpReviews": null,
+    "popularity": 0
   }
 ];

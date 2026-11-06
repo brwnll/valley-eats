@@ -146,8 +146,15 @@ h1 span { color: var(--accent); }
 .pill.soon { background: var(--warn-soft); color: var(--warn); }
 .pill.closed { background: var(--closed-soft); color: var(--closed); }
 .pill.unverified { background: var(--warn-soft); color: var(--warn); font-weight: 600; }
-.dishes { margin: 2px 0 0; padding: 0 0 0 1.3em; }
-.dishes li { margin: 2px 0; }
+.dishes { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.dishes li { display: flex; align-items: center; gap: 10px; min-height: 56px; }
+.dishes img, .dish-placeholder { width: 56px; height: 56px; border-radius: 10px; object-fit: cover; flex: none; background: var(--surface-2); display: block; }
+.dish-num { flex: none; width: 1.4em; height: 1.4em; border-radius: 50%; background: var(--surface-2); color: var(--muted); font-size: .72rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.dish-name { line-height: 1.3; }
+.card-head { display: flex; gap: 10px; align-items: flex-start; }
+.rank { flex: none; min-width: 2em; height: 2em; padding: 0 .4em; border-radius: 8px; background: var(--accent-soft); color: var(--accent); font-weight: 800; font-size: .85rem; display: inline-flex; align-items: center; justify-content: center; margin-top: 2px; }
+.rating { display: block; margin-top: 4px; font-size: .88rem; color: var(--muted); }
+.rating .star { color: var(--warn); }
 .dishes-label { margin: 4px 0 0; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
 .desc { margin: 0; color: var(--muted); font-size: .92rem; }
 .links { margin-top: auto; padding-top: 6px; border-top: 1px dashed var(--line); font-size: .9rem; display: flex; flex-wrap: wrap; gap: 4px 12px; }

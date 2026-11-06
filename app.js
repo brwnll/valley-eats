@@ -74,7 +74,6 @@
       span = rangeSpan(today[i]); if (!span) continue;
       if (t >= span.open && t < span.close) return (span.close - t) <= 60 ? 'closing' : 'open';
     }
-    // Still open from a range that started yesterday and ran past midnight.
     for (i = 0; i < yesterday.length; i++) {
       span = rangeSpan(yesterday[i]); if (!span) continue;
       if (span.close > 24 * 60 && t + 24 * 60 < span.close) return 'open';
@@ -86,6 +85,27 @@
     return 'closed';
   }
 
+  // ---- Popularity: review counts from Google and Yelp, gathered when the data was compiled ----
+  function popularity(place) {
+    if (typeof place.popularity === 'number') return place.popularity;
+    return (place.googleReviews || 0) + (place.yelpReviews || 0);
+  }
+
+  function fmtCount(n) {
+    if (n >= 1000) return (Math.round(n / 100) / 10).toFixed(1).replace(/\.0$/, '') + 'k';
+    return String(n);
+  }
+
+  function ratingHTML(place) {
+    var src, rating, count;
+    if (place.googleReviews) { src = 'Google'; rating = place.googleRating; count = place.googleReviews; }
+    else if (place.yelpReviews) { src = 'Yelp'; rating = place.yelpRating; count = place.yelpReviews; }
+    else return '';
+    return '<span class="rating" title="' + esc(src) + ' rating and review count when this list was compiled">' +
+      (rating ? '<span class="star">★</span> ' + esc(rating.toFixed(1)) + ' · ' : '') +
+      esc(fmtCount(count)) + ' ' + esc(src) + ' reviews</span>';
+  }
+
   // ---- State ----
   var now = pacificNow();
   var params = new URLSearchParams(location.search);
@@ -93,6 +113,7 @@
     day: DAY_KEYS.indexOf(params.get('day')) >= 0 ? params.get('day') : now.dayKey,
     town: 'all',
     query: '',
+    sort: params.get('sort') === 'name' ? 'name' : 'popular',
     showClosed: false,
     hideChains: false
   };
@@ -134,13 +155,16 @@
     });
   }
 
+  function dishName(d) { return typeof d === 'string' ? d : (d && d.name) || ''; }
+  function dishImage(d) { return typeof d === 'string' ? '' : (d && d.image) || ''; }
+
   function matchesQuery(place, q) {
     if (!q) return true;
-    var hay = [place.name, place.cuisine, place.town, place.description].concat(place.dishes || []).join(' ').toLowerCase();
+    var hay = [place.name, place.cuisine, place.town, place.description].concat((place.dishes || []).map(dishName)).join(' ').toLowerCase();
     return q.split(/\s+/).every(function (word) { return hay.indexOf(word) >= 0; });
   }
 
-  function cardHTML(place, dayKey, isToday) {
+  function cardHTML(place, dayKey, isToday, rank) {
     var ranges = hoursFor(place, dayKey);
     var openThatDay = !!ranges;
     var status = isToday && openThatDay ? statusNow(place, now) : null;
@@ -161,7 +185,13 @@
 
     var dishes = (place.dishes || []).slice(0, 5);
     var dishesHTML = dishes.length
-      ? '<p class="dishes-label">Popular dishes</p><ol class="dishes">' + dishes.map(function (d) { return '<li>' + esc(d) + '</li>'; }).join('') + '</ol>'
+      ? '<p class="dishes-label">Popular dishes</p><ol class="dishes">' + dishes.map(function (d, i) {
+          var img = dishImage(d);
+          return '<li>' +
+            (img ? '<img src="' + esc(img) + '" alt="" width="56" height="56" loading="lazy" decoding="async" title="Representative photo of this kind of dish, not the restaurant\'s own">'
+                 : '<span class="dish-placeholder" aria-hidden="true"></span>') +
+            '<span class="dish-num">' + (i + 1) + '</span><span class="dish-name">' + esc(dishName(d)) + '</span></li>';
+        }).join('') + '</ol>'
       : '';
 
     var links = [];
@@ -170,12 +200,14 @@
     if (place.website) links.push('<a href="' + esc(place.website) + '" target="_blank" rel="noopener">Website</a>');
 
     return '<article class="card' + (openThatDay ? '' : ' is-closed') + '">' +
+      '<div class="card-head">' +
+      (rank ? '<span class="rank" title="Rank by review count">' + rank + '</span>' : '') +
       '<div><h3>' + esc(place.name) + '</h3>' +
       '<div class="meta"><span class="badge ' + townClass + '">' + esc(place.town) + '</span>' +
       (place.cuisine ? '<span>' + esc(place.cuisine) + '</span>' : '') +
       (place.price ? '<span>' + esc(place.price) + '</span>' : '') +
       (place.chain ? '<span class="badge chain">Chain</span>' : '') +
-      '</div></div>' +
+      '</div>' + ratingHTML(place) + '</div></div>' +
       '<p class="hours">' + hoursLine + '</p>' +
       dishesHTML +
       (place.description ? '<p class="desc">' + esc(place.description) + '</p>' : '') +
@@ -207,27 +239,42 @@
     }).length;
 
     summary.textContent = openCount + ' of ' + totalConsidered + ' places open ' + (isToday ? 'today' : 'on ' + DAY_NAMES[dayKey]) +
-      (q ? ' matching “' + state.query.trim() + '”' : '') + '.';
+      (q ? ' matching “' + state.query.trim() + '”' : '') +
+      (state.sort === 'popular' ? ', most reviewed first.' : ', A to Z.');
 
     if (!visible.length) {
       results.innerHTML = '<div class="empty">Nothing matches. Try another day, clear the search, or tick “Show places closed that day”.</div>';
       return;
     }
 
+    // Popularity rank is computed across the whole town list so the number means the same whatever filters are on.
+    var rankByTown = {};
+    TOWN_ORDER.forEach(function (town) {
+      data.filter(function (p) { return p.town === town; })
+        .sort(function (a, b) { return popularity(b) - popularity(a) || a.name.localeCompare(b.name); })
+        .forEach(function (p, i) { rankByTown[town + '|' + p.name] = popularity(p) ? i + 1 : 0; });
+    });
+
+    function compare(a, b) {
+      var ao = !!hoursFor(a, dayKey), bo = !!hoursFor(b, dayKey);
+      if (ao !== bo) return ao ? -1 : 1;
+      if (state.sort === 'popular') {
+        var d = popularity(b) - popularity(a);
+        if (d) return d;
+      }
+      return a.name.localeCompare(b.name);
+    }
+
     var html = '';
-    TOWN_ORDER.concat(Object.keys(visible.reduce(function (acc, p) { acc[p.town] = 1; return acc; }, {})).filter(function (t) { return TOWN_ORDER.indexOf(t) < 0; }))
-      .forEach(function (town) {
-        var inTown = visible.filter(function (p) { return p.town === town; });
-        if (!inTown.length) return;
-        inTown.sort(function (a, b) {
-          var ao = !!hoursFor(a, dayKey), bo = !!hoursFor(b, dayKey);
-          if (ao !== bo) return ao ? -1 : 1;
-          return a.name.localeCompare(b.name);
-        });
-        var openInTown = inTown.filter(function (p) { return !!hoursFor(p, dayKey); }).length;
-        html += '<section class="town-section"><h2>' + esc(town) + ' <span class="count">' + openInTown + ' open</span></h2><div class="grid">' +
-          inTown.map(function (p) { return cardHTML(p, dayKey, isToday); }).join('') + '</div></section>';
-      });
+    var towns = TOWN_ORDER.concat(Object.keys(visible.reduce(function (acc, p) { acc[p.town] = 1; return acc; }, {})).filter(function (t) { return TOWN_ORDER.indexOf(t) < 0; }));
+    towns.forEach(function (town) {
+      var inTown = visible.filter(function (p) { return p.town === town; });
+      if (!inTown.length) return;
+      inTown.sort(compare);
+      var openInTown = inTown.filter(function (p) { return !!hoursFor(p, dayKey); }).length;
+      html += '<section class="town-section"><h2>' + esc(town) + ' <span class="count">' + openInTown + ' open</span></h2><div class="grid">' +
+        inTown.map(function (p) { return cardHTML(p, dayKey, isToday, state.sort === 'popular' ? rankByTown[town + '|' + p.name] : 0); }).join('') + '</div></section>';
+    });
     results.innerHTML = html;
   }
 
@@ -235,15 +282,29 @@
   $('#search').addEventListener('input', function (e) { state.query = e.target.value; render(); });
   $('#show-closed').addEventListener('change', function (e) { state.showClosed = e.target.checked; render(); });
   $('#hide-chains').addEventListener('change', function (e) { state.hideChains = e.target.checked; render(); });
-  Array.prototype.forEach.call(document.querySelectorAll('#town-filter button'), function (b) {
-    b.addEventListener('click', function () {
-      state.town = b.dataset.town;
-      Array.prototype.forEach.call(document.querySelectorAll('#town-filter button'), function (x) {
-        var on = x === b; x.classList.toggle('is-active', on); x.setAttribute('aria-pressed', on ? 'true' : 'false');
+  function wireSegmented(sel, key, after) {
+    Array.prototype.forEach.call(document.querySelectorAll(sel + ' button'), function (b) {
+      b.addEventListener('click', function () {
+        state[key] = b.dataset[key];
+        Array.prototype.forEach.call(document.querySelectorAll(sel + ' button'), function (x) {
+          var on = x === b; x.classList.toggle('is-active', on); x.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        if (after) after();
+        render();
       });
-      render();
     });
+  }
+  wireSegmented('#town-filter', 'town');
+  wireSegmented('#sort-control', 'sort', function () {
+    var url = new URL(location.href);
+    if (state.sort === 'popular') url.searchParams.delete('sort'); else url.searchParams.set('sort', state.sort);
+    history.replaceState(null, '', url);
   });
+  if (state.sort === 'name') {
+    Array.prototype.forEach.call(document.querySelectorAll('#sort-control button'), function (x) {
+      var on = x.dataset.sort === 'name'; x.classList.toggle('is-active', on); x.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
 
   var updated = $('#data-updated');
   if (updated) updated.textContent = meta.updated || 'recently';

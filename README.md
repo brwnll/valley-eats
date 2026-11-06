@@ -1,11 +1,12 @@
 # Valley Eats Today
 
-A single-page site listing the restaurants in North Bend and Snoqualmie, Washington that are open on the day you visit, with each one's five most popular dishes. There is no build step and no backend: `index.html`, `styles.css`, `app.js`, and `data.js` are everything.
+A single-page site listing the restaurants in North Bend and Snoqualmie, Washington that are open on the day you visit, ordered by popularity, with each one's five most popular dishes and a picture of each. There is no build step and no backend: `index.html`, `styles.css`, `app.js`, `data.js`, and the `img/dishes` folder are everything.
 
 ## How it works
 
-- `data.js` holds the restaurant list. Each entry has hours for every day of the week, a short description, and up to five popular dishes.
-- `app.js` works out the current day in Pacific time, shows the places open that day, and adds an "Open now" badge when the current time falls inside a listing's hours. The day picker lets a visitor peek at other days (`?day=sat` in the URL does the same).
+- `data.js` holds the restaurant list. Each entry has hours for every day of the week, a short description, Google and Yelp review counts, and up to five popular dishes with a photo each.
+- `app.js` works out the current day in Pacific time, shows the places open that day, and adds an "Open now" badge when the current time falls inside a listing's hours. The day picker lets a visitor peek at other days (`?day=sat` in the URL does the same). Restaurants are ordered by total review count; the "A to Z" toggle (or `?sort=name`) switches to alphabetical.
+- `img/dishes/` holds one small square photo per kind of dish (burger, pho, cinnamon roll, and so on). They are openly licensed photos from Wikimedia Commons chosen to represent each dish type, not photos taken at the restaurants. `credits.html` lists every photo's source and license, generated from `img/dishes/credits.json`.
 - Everything runs in the visitor's browser, so the page can be served from any static host.
 
 ## Publishing on GitHub Pages
@@ -42,9 +43,22 @@ Open `data.js`. Each restaurant looks like this:
     "sun": [["07:00", "15:00"]]
   },
   "hoursConfidence": "high",       // "low" shows an "Hours unverified" badge
-  "dishes": ["Cherry Pie", "Twin Peaks Burger", "Chicken Fried Steak", "Biscuits & Gravy", "Milkshake"]
+  "googleRating": 4.4,             // shown on the card; either source may be null
+  "googleReviews": 3266,
+  "yelpRating": null,
+  "yelpReviews": 731,
+  "popularity": 3997,              // googleReviews + yelpReviews; drives the default sort order
+  "dishes": [
+    { "name": "Cherry Pie", "image": "img/dishes/cherry-pie.jpg" },
+    { "name": "Twin Peaks Burger", "image": "img/dishes/hamburger.jpg" },
+    { "name": "Chicken Fried Steak", "image": "img/dishes/chicken-fried-steak.jpg" },
+    { "name": "Biscuits & Gravy", "image": "img/dishes/biscuits-gravy.jpg" },
+    { "name": "Milkshake" }        // a dish with no image shows a blank tile; a plain string works too
+  ]
 }
 ```
+
+To use a real photo for a dish, drop the file in `img/dishes/` and point that dish's `image` at it. Square images around 320px look best. If you add a photo you did not take yourself, add its source and license to `credits.html`.
 
 A closing time earlier than the opening time (for example `["16:00", "01:00"]`) is read as running past midnight. Update the `updated` date in `RESTAURANTS_META` at the top of the file when you make changes so the footer stays honest.
 

@@ -30,6 +30,10 @@
           <button type="button" data-town="North Bend" aria-pressed="false">North Bend</button>
           <button type="button" data-town="Snoqualmie" aria-pressed="false">Snoqualmie</button>
         </div>
+        <div class="segmented" id="sort-control" role="group" aria-label="Sort order">
+          <button type="button" data-sort="popular" class="is-active" aria-pressed="true">Most popular</button>
+          <button type="button" data-sort="name" aria-pressed="false">A to Z</button>
+        </div>
         <label class="check"><input type="checkbox" id="show-closed"> Show places closed that day</label>
         <label class="check"><input type="checkbox" id="hide-chains"> Hide chains</label>
       </div>
@@ -43,7 +47,8 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <p>Hours and menus change. Each listing links to the restaurant's own site or map listing; check there before you drive over. "Popular dishes" are drawn from menus, review sites, and local coverage, so they're a best guess rather than a ranking.</p>
+      <p>Hours and menus change. Each listing links to the restaurant's own site or map listing; check there before you drive over. "Popular dishes" are drawn from menus, review sites, and local coverage, so they're a best guess rather than a ranking. Restaurants are ordered by how many Google and Yelp reviews they had when the list was compiled.</p>
+      <p>Dish photos are representative pictures of each kind of dish from Wikimedia Commons, not photos taken at these restaurants. See the <a href="credits.html">photo credits</a>.</p>
       <p>Data last updated <span id="data-updated"></span>. Spotted a mistake? Edit <code>data.js</code> in the repository.</p>
     </div>
   </footer>
