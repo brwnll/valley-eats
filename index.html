@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Valley Eats Today</title>
+  <meta name="description" content="Restaurants in North Bend and Snoqualmie, Washington that are open today, with each one's five most popular dishes.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%BD%EF%B8%8F%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="eyebrow">North Bend &amp; Snoqualmie, Washington</p>
+      <h1>What's open <span id="day-word">today</span></h1>
+      <p class="date-line" id="date-line">Loading…</p>
+    </div>
+  </header>
+
+  <nav class="toolbar" aria-label="Filters">
+    <div class="wrap toolbar-inner">
+      <div class="day-picker" id="day-picker" role="tablist" aria-label="Day of the week"></div>
+      <div class="controls">
+        <label class="search">
+          <span class="visually-hidden">Search restaurants or dishes</span>
+          <input type="search" id="search" placeholder="Search names, cuisine, dishes…" autocomplete="off">
+        </label>
+        <div class="segmented" id="town-filter" role="group" aria-label="Town">
+          <button type="button" data-town="all" class="is-active" aria-pressed="true">Both towns</button>
+          <button type="button" data-town="North Bend" aria-pressed="false">North Bend</button>
+          <button type="button" data-town="Snoqualmie" aria-pressed="false">Snoqualmie</button>
+        </div>
+        <label class="check"><input type="checkbox" id="show-closed"> Show places closed that day</label>
+        <label class="check"><input type="checkbox" id="hide-chains"> Hide chains</label>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap" id="main">
+    <p class="summary" id="summary"></p>
+    <div id="results"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Hours and menus change. Each listing links to the restaurant's own site or map listing; check there before you drive over. "Popular dishes" are drawn from menus, review sites, and local coverage, so they're a best guess rather than a ranking.</p>
+      <p>Data last updated <span id="data-updated"></span>. Spotted a mistake? Edit <code>data.js</code> in the repository.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
