@@ -235,7 +235,7 @@
     return '<article class="card' + (openThatDay ? '' : ' is-closed') + '">' +
       photoHTML(place) +
       '<div class="card-head">' +
-      (rank ? '<span class="rank" title="Rank by review count">' + rank + '</span>' : '') +
+      (rank ? '<span class="rank" title="Rank by review count">#' + rank + '</span>' : '') +
       '<div><h3>' + esc(place.name) + '</h3>' +
       '<div class="meta"><span class="badge ' + townClass + '">' + esc(place.town) + '</span>' +
       (place.cuisine ? '<span>' + esc(place.cuisine) + '</span>' : '') +
@@ -250,6 +250,7 @@
   }
 
   function render() {
+    markActiveFilters();
     var dayKey = state.day;
     var isToday = dayKey === now.dayKey;
     var q = state.query.trim().toLowerCase();
@@ -274,7 +275,7 @@
 
     summary.textContent = openCount + ' of ' + totalConsidered + ' places open ' + (isToday ? 'today' : 'on ' + DAY_NAMES[dayKey]) +
       (q ? ' matching “' + state.query.trim() + '”' : '') +
-      (state.sort === 'popular' ? ', most reviewed first.' : ', A to Z.');
+      (state.sort === 'popular' ? '. Most reviewed first.' : '. Alphabetical.');
 
     if (!visible.length) {
       results.innerHTML = '<div class="empty">Nothing matches. Try another day, clear the search, or tick “Show places closed that day”.</div>';
@@ -306,7 +307,10 @@
       if (!inTown.length) return;
       inTown.sort(compare);
       var openInTown = inTown.filter(function (p) { return !!hoursFor(p, dayKey); }).length;
-      html += '<section class="town-section"><h2>' + esc(town) + ' <span class="count">' + openInTown + ' open</span></h2><div class="grid">' +
+      var townTotal = data.filter(function (p) { return p.town === town && !(state.hideChains && p.chain); }).length;
+      var other = towns.filter(function (t) { return t !== town && visible.some(function (p) { return p.town === t; }); })[0];
+      var jump = other ? '<a class="jump" href="#town-' + esc(other.toLowerCase().replace(/\s+/g, '-')) + '">Jump to ' + esc(other) + ' ↓</a>' : '';
+      html += '<section class="town-section" id="town-' + esc(town.toLowerCase().replace(/\s+/g, '-')) + '"><div class="town-head"><h2>' + esc(town) + '</h2><span class="count">' + openInTown + ' of ' + townTotal + ' open' + (isToday ? ' today' : '') + '</span>' + jump + '</div><div class="grid">' +
         inTown.map(function (p) { return cardHTML(p, dayKey, isToday, state.sort === 'popular' ? rankByTown[town + '|' + p.name] : 0); }).join('') + '</div></section>';
     });
     results.innerHTML = html;
@@ -338,6 +342,20 @@
     Array.prototype.forEach.call(document.querySelectorAll('#sort-control button'), function (x) {
       var on = x.dataset.sort === 'name'; x.classList.toggle('is-active', on); x.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
+  }
+
+  var toolbar = $('.toolbar'), filtersToggle = $('#filters-toggle');
+  if (filtersToggle) {
+    filtersToggle.addEventListener('click', function () {
+      var open = toolbar.classList.toggle('is-open');
+      filtersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      filtersToggle.textContent = open ? 'Hide filters' : 'Filters';
+    });
+  }
+  function markActiveFilters() {
+    if (!filtersToggle) return;
+    var active = !!state.query.trim() || state.town !== 'all' || state.sort !== 'popular' || state.showClosed || state.hideChains;
+    filtersToggle.classList.toggle('has-active', active);
   }
 
   var updated = $('#data-updated');

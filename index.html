@@ -2,40 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Valley Eats Today</title>
-  <meta name="description" content="Restaurants in North Bend and Snoqualmie, Washington that are open today, with each one's five most popular dishes.">
+  <meta name="description" content="Restaurants in North Bend and Snoqualmie, Washington that are open today, ordered by popularity, with each one's five most popular dishes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%BD%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap">
-      <p class="eyebrow">North Bend &amp; Snoqualmie, Washington</p>
-      <h1>What's open <span id="day-word">today</span></h1>
-      <p class="date-line" id="date-line">Loading…</p>
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="brand" href="index.html" aria-label="Valley Eats Today home">
+        <svg class="brand-mark" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 22 L10 8 L14 14 L18 6 L26 22 Z" fill="currentColor"/><path d="M2 24 H26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="brand-name">Valley Eats Today</span>
+      </a>
+      <nav class="masthead-nav" aria-label="Site">
+        <a href="credits.html">Photo credits</a>
+        <a href="terms.html">Terms</a>
+      </nav>
     </div>
+    <svg class="ridge" viewBox="0 0 1200 34" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,34 0,26 90,20 170,24 260,10 340,18 430,12 520,22 600,6 690,16 780,10 870,20 960,14 1050,22 1130,16 1200,20 1200,34"/></svg>
   </header>
+
+  <section class="wrap hero">
+    <p class="label eyebrow">North Bend &amp; Snoqualmie, Washington</p>
+    <h1>What's open <span id="day-word">today</span></h1>
+    <p class="date-line" id="date-line">Loading…</p>
+  </section>
 
   <nav class="toolbar" aria-label="Filters">
     <div class="wrap toolbar-inner">
-      <div class="day-picker" id="day-picker" role="tablist" aria-label="Day of the week"></div>
-      <div class="controls">
-        <label class="search">
-          <span class="visually-hidden">Search restaurants or dishes</span>
-          <input type="search" id="search" placeholder="Search names, cuisine, dishes…" autocomplete="off">
-        </label>
-        <div class="segmented" id="town-filter" role="group" aria-label="Town">
-          <button type="button" data-town="all" class="is-active" aria-pressed="true">Both towns</button>
+      <div class="control full">
+        <div class="control-head">
+          <span class="label" id="day-label">Day</span>
+          <button type="button" class="filters-toggle" id="filters-toggle" aria-expanded="false" aria-controls="toolbar-more">Filters</button>
+        </div>
+        <div class="day-picker" id="day-picker" role="tablist" aria-labelledby="day-label"></div>
+      </div>
+      <div class="toolbar-more" id="toolbar-more">
+      <div class="control grow search">
+        <label class="label" for="search">Find</label>
+        <input type="search" id="search" placeholder="Name, cuisine, or dish" autocomplete="off">
+      </div>
+      <div class="control">
+        <span class="label" id="town-label">Town</span>
+        <div class="segmented" id="town-filter" role="group" aria-labelledby="town-label">
+          <button type="button" data-town="all" class="is-active" aria-pressed="true">Both</button>
           <button type="button" data-town="North Bend" aria-pressed="false">North Bend</button>
           <button type="button" data-town="Snoqualmie" aria-pressed="false">Snoqualmie</button>
         </div>
-        <div class="segmented" id="sort-control" role="group" aria-label="Sort order">
-          <button type="button" data-sort="popular" class="is-active" aria-pressed="true">Most popular</button>
+      </div>
+      <div class="control">
+        <span class="label" id="sort-label">Order</span>
+        <div class="segmented" id="sort-control" role="group" aria-labelledby="sort-label">
+          <button type="button" data-sort="popular" class="is-active" aria-pressed="true">Most reviewed</button>
           <button type="button" data-sort="name" aria-pressed="false">A to Z</button>
         </div>
-        <label class="check"><input type="checkbox" id="show-closed"> Show places closed that day</label>
-        <label class="check"><input type="checkbox" id="hide-chains"> Hide chains</label>
+      </div>
+      <div class="control">
+        <span class="label">Show</span>
+        <div class="checks">
+          <label class="check"><input type="checkbox" id="show-closed"> Closed that day</label>
+          <label class="check"><input type="checkbox" id="hide-chains"> Hide chains</label>
+        </div>
+      </div>
       </div>
     </div>
   </nav>
@@ -47,9 +79,20 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <p>Hours and menus change. Each listing links to the restaurant's own site or map listing; check there before you drive over. "Popular dishes" are drawn from menus, review sites, and local coverage, so they're a best guess rather than a ranking. Restaurants are ordered by how many Google and Yelp reviews they had when the list was compiled.</p>
-      <p>Restaurant photos come from Google Maps and are credited to their photographers. Dish photos are representative pictures of each kind of dish from Wikimedia Commons, not photos taken at these restaurants. See the <a href="credits.html">photo credits</a> and the <a href="terms.html">terms and privacy</a> page.</p>
-      <p>Data last updated <span id="data-updated"></span>. Spotted a mistake? Edit <code>data.js</code> in the repository.</p>
+      <div>
+        <h2>About</h2>
+        <p>A guide to eating in the upper Snoqualmie Valley: every restaurant, café, pub, and food truck in North Bend and Snoqualmie, filtered to what's open on the day you look. Times are Pacific.</p>
+      </div>
+      <div>
+        <h2>About the data</h2>
+        <p>Hours and menus change; each listing links to the restaurant's own site or map listing, so check there before you drive over. "Popular dishes" come from menus, review sites, and local coverage, so they're a best guess rather than a ranking. Order is by Google and Yelp review count when the list was compiled.</p>
+        <p>Data last updated <span id="data-updated"></span>. Spotted a mistake? Edit <code>data.js</code> in the repository.</p>
+      </div>
+      <div>
+        <h2>Photos</h2>
+        <p>Restaurant photos come from Google Maps and are credited to their photographers. Dish photos are representative pictures of each kind of dish from Wikimedia Commons, not photos taken at these restaurants.</p>
+        <p><a href="credits.html">Photo credits</a> · <a href="terms.html">Terms and privacy</a> · <a href="https://github.com/brwnll/valley-eats">Source on GitHub</a></p>
+      </div>
     </div>
   </footer>
 
