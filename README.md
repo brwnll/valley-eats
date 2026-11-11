@@ -64,30 +64,31 @@ A closing time earlier than the opening time (for example `["16:00", "01:00"]`) 
 
 ## Restaurant photos from Google
 
-Each card can show a photo of the restaurant itself from Google Maps, loaded through the Google Places API. This is optional; without a key the cards simply have no header photo.
+Each card can show a photo of the restaurant itself from Google Maps, through the Google Places API. This is optional; without it the cards simply have no header photo.
 
-1. In [Google Cloud Console](https://console.cloud.google.com/), create or pick a project and make sure billing is enabled (Google requires it even within the free monthly allowance).
-2. Enable **Places API (New)** under APIs & Services → Library.
-3. Create an API key under APIs & Services → Credentials. Then edit the key:
-   - Application restrictions: **Websites**, and add `https://<your-username>.github.io/*` plus `http://localhost:8765/*` for local previews.
-   - API restrictions: restrict the key to **Places API (New)** only.
-   - Consider a daily quota cap on Places API (New) in Google Maps Platform → Quotas, so a traffic spike can't run up a bill.
-4. Put the key in `config.js` as `PLACES_API_KEY`, and set `SITE_URL` to your site's address. A key restricted this way is safe to commit: it only works from your site.
-5. Run the lookup once:
+**How it works.** Google's terms let a site store place IDs but nothing else from the Places API, not photos and not photo references. So `places.js` holds one Google place ID per restaurant, and the visitor's browser asks Google for the current photo when a card scrolls into view. Photos are kept only for that page view. If Google returns nothing three times in a row, the page stops asking until it is reloaded.
 
-```bash
-python3 scripts/fetch_places.py
-```
+**The pieces.**
 
-It finds each restaurant on Google by name and address, writes `places.js` with the place ID and a lead photo reference, and lists any matches worth a second look. Fix a wrong match by editing that entry's `placeId` in `places.js` and re-running.
+- `config.js` holds the site address and a Google Maps browser key (`PLACES_API_KEY`). A static site has no server to hide a key on, so the key is visible to every visitor; what protects it is restricting it in Google Cloud to this site's address (Websites restriction) and to Places API (New) only. Requests from any other site are then refused.
+- `scripts/fetch_places.py` finds each restaurant's place ID by name and address and writes `places.js`. It skips restaurants that already have an ID, drops matches at a different street number, and prints anything worth a second look. To fix a wrong match, edit that entry's `placeId` in `places.js`, or delete the entry.
+- `.github/workflows/refresh-places.yml` runs that script when `data.js` changes and once a week, so new restaurants pick up a place ID on their own.
 
-**Costs.** Each lookup run makes one Text Search request per restaurant. Each visitor's browser then makes one Place Photo request per card that scrolls into view (94 for the full list). Google's pricing gives every SKU a monthly free allowance and bills per thousand requests beyond it; check the current [Places API pricing](https://developers.google.com/maps/billing-and-pricing/pricing) and set a quota cap to match your comfort level.
+**Billing is required for photos.** A Google Cloud project with no billing account still answers place lookups (with a cap of 100 searches a day), but Google leaves the photos out of every response. To turn photos on, link an active billing account to the project under Billing in Google Cloud Console. Nothing on the site needs to change afterwards.
 
-**Refreshing.** Google's terms let a site keep place IDs indefinitely but photo references for only 30 days, so the page stops showing Google photos when `places.js` is older than that. The included GitHub Actions workflow (`.github/workflows/refresh-places.yml`) re-runs the lookup on the 1st and 15th of each month and commits the result; it needs Actions enabled on the repository with write permission for workflows (Settings → Actions → General → Workflow permissions → Read and write). It uses a `PLACES_API_KEY` repository secret if one exists, otherwise the key in `config.js`.
+**What it costs.** As of November 2026, per Google's [pricing table](https://developers.google.com/maps/billing-and-pricing/pricing):
 
-**Attribution.** Google requires its logo and the photographer's name next to each photo, which the caption on every card provides, plus the terms and privacy page linked in the footer.
+| Request | When it happens | Price |
+| --- | --- | --- |
+| Place lookup (IDs only) | once per card that comes into view | free, unlimited |
+| Place photo | once per card that comes into view and has a photo | first 1,000 a month free, then $7 per 1,000 |
+| Text search | once per restaurant when `fetch_places.py` looks it up | first 5,000 a month free |
 
-To use your own photo of a restaurant instead, add to that restaurant in `data.js`:
+A visitor who scrolls the whole list loads about 90 photos, so the free allowance covers roughly eleven full scrolls a month. To keep the bill bounded, set a daily cap on photo requests under Google Maps Platform → Quotas → Places API (New). A cap of 32 a day stays inside the free allowance; visitors past the cap just see cards without photos until the next day.
+
+**Attribution.** Google requires its logo and the photographer's name next to each photo, which the caption on every photo provides, plus the terms and privacy page linked in the footer.
+
+To use your own photo of a restaurant instead, add this to that restaurant in `data.js`:
 
 ```js
 "photo": { "url": "img/places/twedes.jpg", "credit": "Photo: your name" }

@@ -11,18 +11,99 @@
   var data = Array.isArray(window.RESTAURANTS) ? window.RESTAURANTS : [];
   var meta = window.RESTAURANTS_META || {};
 
-  // ---- Google Places photos (optional; needs config.js key and a fresh places.js) ----
+  // ---- Google Places photos (optional; needs a key in config.js and place IDs in places.js) ----
+  // Google's terms let a site store place IDs but not photos or photo references. So each photo is looked up
+  // by the visitor's browser when its card comes into view, and is kept only for this page view.
   var PLACES = window.PLACES || {};
-  var PLACES_META = window.PLACES_META || {};
   var API_KEY = window.PLACES_API_KEY || '';
-  function placesAgeDays() {
-    if (!PLACES_META.fetched) return Infinity;
-    return (Date.now() - new Date(PLACES_META.fetched + 'T00:00:00Z').getTime()) / 864e5;
+  var PLACES_BASE = 'https://places.googleapis.com/v1/';
+  var photosEnabled = !!API_KEY && !!window.fetch && 'IntersectionObserver' in window;
+  var photoCache = {};      // placeId -> { uri, author, authorUri }, or null when Google has no photo to give
+  var photoPending = {};    // placeId -> true while a lookup is running
+  var photoHits = 0, missesInARow = 0;
+  var photoObserver = null, dwellTimers = typeof WeakMap === 'function' ? new WeakMap() : null;
+
+  function placeIdFor(place) {
+    var pl = PLACES[place.name + '|' + place.town];
+    return (pl && pl.placeId) || '';
   }
-  // Google's terms allow photo references to be kept for 30 days, so stale ones are not used.
-  var photosEnabled = !!API_KEY && placesAgeDays() <= 30;
-  if (API_KEY && !photosEnabled && window.console) {
-    console.warn('Google photos are hidden: places.js is ' + (PLACES_META.fetched ? 'older than 30 days' : 'empty') + '. Re-run scripts/fetch_places.py.');
+
+  function googlePhotoInner(photo) {
+    var author = photo.author
+      ? ' · ' + (photo.authorUri ? '<a href="' + esc(photo.authorUri) + '" target="_blank" rel="noopener">' + esc(photo.author) + '</a>' : esc(photo.author))
+      : '';
+    return '<img src="' + esc(photo.uri) + '" alt="" decoding="async" onerror="this.parentNode.remove()">' +
+      '<span class="photo-credit"><img class="glogo" src="img/google-maps-logo-white.svg" alt="Google Maps">' + author + '</span>';
+  }
+
+  function cardsFor(placeId) {
+    return Array.prototype.filter.call(document.querySelectorAll('.card[data-place-id]'), function (c) { return c.getAttribute('data-place-id') === placeId; });
+  }
+
+  function loadPhoto(placeId) {
+    if (!photosEnabled || photoPending[placeId] || (placeId in photoCache)) return;
+    photoPending[placeId] = true;
+    var key = encodeURIComponent(API_KEY);
+    fetch(PLACES_BASE + 'places/' + encodeURIComponent(placeId) + '?fields=photos&key=' + key)
+      .then(function (r) { if (!r.ok) throw new Error('details ' + r.status); return r.json(); })
+      .then(function (d) {
+        var photos = d.photos || [], pick = null;
+        for (var i = 0; i < photos.length && i < 5; i++) {
+          if ((photos[i].widthPx || 0) >= (photos[i].heightPx || 0)) { pick = photos[i]; break; }
+        }
+        pick = pick || photos[0];
+        if (!pick) return null;
+        // skipHttpRedirect returns the image address as JSON, so the photo is requested from Google once per page view.
+        return fetch(PLACES_BASE + pick.name + '/media?maxWidthPx=640&maxHeightPx=360&skipHttpRedirect=true&key=' + key)
+          .then(function (r) { if (!r.ok) throw new Error('photo ' + r.status); return r.json(); })
+          .then(function (m) {
+            var a = (pick.authorAttributions || [])[0] || {};
+            return m.photoUri ? { uri: m.photoUri, author: a.displayName || '', authorUri: a.uri || '' } : null;
+          });
+      })
+      .then(function (photo) { photoDone(placeId, photo); }, function () { photoDone(placeId, null); });
+  }
+
+  function photoDone(placeId, photo) {
+    delete photoPending[placeId];
+    photoCache[placeId] = photo;
+    cardsFor(placeId).forEach(function (card) {
+      card.removeAttribute('data-photo-pending');
+      var slot = card.querySelector('.photo.is-loading');
+      if (!photo) { if (slot) slot.remove(); return; }
+      if (slot) { slot.classList.remove('is-loading'); slot.innerHTML = googlePhotoInner(photo); }
+      else card.insertAdjacentHTML('afterbegin', '<div class="photo">' + googlePhotoInner(photo) + '</div>');
+    });
+    if (photo) { photoHits++; missesInARow = 0; return; }
+    if (++missesInARow >= 3) {
+      // Nothing is coming back: the Google project has no billing account, or today's request cap is used up.
+      // Stop asking for the rest of this page view.
+      photosEnabled = false;
+      if (photoObserver) photoObserver.disconnect();
+      Array.prototype.forEach.call(document.querySelectorAll('.photo.is-loading'), function (el) { el.remove(); });
+    }
+  }
+
+  // Look a photo up only after its card has stayed near the viewport for a moment, so a fast scroll
+  // down the page does not request every photo on it.
+  function watchPhotos() {
+    if (!photosEnabled) return;
+    if (!photoObserver) {
+      photoObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var card = entry.target, id = card.getAttribute('data-place-id');
+          var timer = dwellTimers && dwellTimers.get(card);
+          if (entry.isIntersecting && !timer) {
+            timer = setTimeout(function () { photoObserver.unobserve(card); loadPhoto(id); }, 350);
+            if (dwellTimers) dwellTimers.set(card, timer);
+          } else if (!entry.isIntersecting && timer) {
+            clearTimeout(timer); dwellTimers.delete(card);
+          }
+        });
+      }, { rootMargin: '200px 0px' });
+    }
+    photoObserver.disconnect();
+    Array.prototype.forEach.call(document.querySelectorAll('.card[data-photo-pending]'), function (card) { photoObserver.observe(card); });
   }
 
   // ---- Time helpers (always in Pacific time, so visitors elsewhere see the valley's day) ----
@@ -178,23 +259,23 @@
     return q.split(/\s+/).every(function (word) { return hay.indexOf(word) >= 0; });
   }
 
-  function photoHTML(place) {
+  // Returns { html, attrs } for the top of a card: a hand-set photo, a Google photo already looked up
+  // during this page view, or a marker that tells watchPhotos() to look one up.
+  function photoFor(place) {
     // A photo set by hand in data.js wins: place.photo = { url, credit, creditUrl }
     if (place.photo && place.photo.url) {
       var credit = place.photo.credit
         ? '<span class="photo-credit">' + (place.photo.creditUrl ? '<a href="' + esc(place.photo.creditUrl) + '" target="_blank" rel="noopener">' + esc(place.photo.credit) + '</a>' : esc(place.photo.credit)) + '</span>'
         : '';
-      return '<div class="photo"><img src="' + esc(place.photo.url) + '" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()">' + credit + '</div>';
+      return { html: '<div class="photo"><img src="' + esc(place.photo.url) + '" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()">' + credit + '</div>', attrs: '' };
     }
-    if (!photosEnabled) return '';
-    var pl = PLACES[place.name + '|' + place.town];
-    if (!pl || !pl.photo) return '';
-    var src = 'https://places.googleapis.com/v1/' + pl.photo + '/media?maxWidthPx=640&maxHeightPx=360&key=' + encodeURIComponent(API_KEY);
-    var author = pl.author
-      ? ' · ' + (pl.authorUri ? '<a href="' + esc(pl.authorUri) + '" target="_blank" rel="noopener">' + esc(pl.author) + '</a>' : esc(pl.author))
-      : '';
-    return '<div class="photo"><img src="' + esc(src) + '" alt="" loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin" onerror="this.parentNode.remove()">' +
-      '<span class="photo-credit"><img class="glogo" src="img/google-maps-logo-white.svg" alt="Google Maps">' + author + '</span></div>';
+    var id = placeIdFor(place);
+    if (!id) return { html: '', attrs: '' };
+    var idAttr = ' data-place-id="' + esc(id) + '"';
+    if (photoCache[id]) return { html: '<div class="photo">' + googlePhotoInner(photoCache[id]) + '</div>', attrs: idAttr };
+    if (!photosEnabled || (id in photoCache)) return { html: '', attrs: '' };
+    // Once photos are known to be coming back, hold their space so cards do not jump as they arrive.
+    return { html: photoHits ? '<div class="photo is-loading"></div>' : '', attrs: idAttr + ' data-photo-pending' };
   }
 
   function cardHTML(place, dayKey, isToday, rank) {
@@ -232,8 +313,9 @@
     if (place.phone) links.push('<a href="tel:' + esc(place.phone.replace(/[^\d+]/g, '')) + '">' + esc(place.phone) + '</a>');
     if (place.website) links.push('<a href="' + esc(place.website) + '" target="_blank" rel="noopener">Website</a>');
 
-    return '<article class="card' + (openThatDay ? '' : ' is-closed') + '">' +
-      photoHTML(place) +
+    var photo = photoFor(place);
+    return '<article class="card' + (openThatDay ? '' : ' is-closed') + '"' + photo.attrs + '>' +
+      photo.html +
       '<div class="card-head">' +
       (rank ? '<span class="rank" title="Rank by review count">#' + rank + '</span>' : '') +
       '<div><h3>' + esc(place.name) + '</h3>' +
@@ -248,6 +330,8 @@
       (links.length ? '<div class="links">' + links.join('') + '</div>' : '') +
       '</article>';
   }
+
+  var lastHtml = null;
 
   function render() {
     markActiveFilters();
@@ -278,6 +362,7 @@
       (state.sort === 'popular' ? '. Most reviewed first.' : '. Alphabetical.');
 
     if (!visible.length) {
+      lastHtml = null;
       results.innerHTML = '<div class="empty">Nothing matches. Try another day, clear the search, or tick “Show places closed that day”.</div>';
       return;
     }
@@ -313,7 +398,12 @@
       html += '<section class="town-section" id="town-' + esc(town.toLowerCase().replace(/\s+/g, '-')) + '"><div class="town-head"><h2>' + esc(town) + '</h2><span class="count">' + openInTown + ' of ' + townTotal + ' open' + (isToday ? ' today' : '') + '</span>' + jump + '</div><div class="grid">' +
         inTown.map(function (p) { return cardHTML(p, dayKey, isToday, state.sort === 'popular' ? rankByTown[town + '|' + p.name] : 0); }).join('') + '</div></section>';
     });
+    // The list is re-rendered every minute to keep the open/closed badges current. Leave the page alone
+    // when nothing changed, so photos are not reloaded for no reason.
+    if (html === lastHtml) return;
+    lastHtml = html;
     results.innerHTML = html;
+    watchPhotos();
   }
 
   // ---- Wire up controls ----

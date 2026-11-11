@@ -1,32 +1,47 @@
-name: Refresh Google Places photos
+name: Look up Google place IDs
 
-# Google's terms allow photo references to be kept for 30 days, so refresh them twice a month.
+# Finds the Google place ID for any restaurant in data.js that does not have one yet and commits places.js.
+# Runs when data.js changes, once a week, and on demand. Tick "refresh" on a manual run to look every
+# restaurant up again (Google suggests refreshing stored place IDs about once a year).
 # Uses the PLACES_API_KEY repository secret if one is set, otherwise the browser key in config.js.
 on:
+  push:
+    branches: [main]
+    paths: [data.js]
   schedule:
-    - cron: "17 9 1,15 * *"
+    - cron: "17 9 * * 1"
   workflow_dispatch:
+    inputs:
+      refresh:
+        description: "Look every restaurant up again"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
 
 jobs:
-  refresh:
+  places:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Look up places and photos
+      - name: Look up place IDs
         run: |
           if [ -z "$PLACES_API_KEY" ] && ! grep -Eq 'PLACES_API_KEY = "[^"]+"' config.js; then
-            echo "No Places API key configured yet; nothing to refresh."; exit 0
+            echo "No Places API key configured; nothing to do."; exit 0
           fi
-          python3 scripts/fetch_places.py
+          python3 scripts/fetch_places.py ${{ inputs.refresh && '--refresh' || '' }}
         env:
           PLACES_API_KEY: ${{ secrets.PLACES_API_KEY }}
-      - name: Commit the refreshed references
+      - name: Commit new place IDs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add places.js
-          git diff --cached --quiet || git commit -m "Refresh Google Places photo references"
-          git push
+          # The file's date line changes on every run; only commit when the place IDs themselves changed.
+          if git diff --cached -U0 | grep -E '^[+-] ' | grep -vq 'PLACES_META'; then
+            git commit -m "Update Google place IDs"
+            git push
+          else
+            echo "No place ID changes."
+          fi

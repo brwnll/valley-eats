@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
-"""Look up every restaurant in data.js on Google Places and record its place ID and lead photo.
+"""Find the Google place ID for every restaurant in data.js and save them in places.js.
 
-    PLACES_API_KEY=your-key python3 scripts/fetch_places.py
+    python3 scripts/fetch_places.py            # look up restaurants that have no place ID yet
+    python3 scripts/fetch_places.py --refresh  # look every restaurant up again
 
-With no PLACES_API_KEY in the environment, the key in config.js is used. Writes places.js.
-Place IDs are kept from an earlier places.js when present (Google allows caching them indefinitely);
-photo references are refreshed every run and must be refreshed at least every 30 days under Google's terms.
+The key comes from PLACES_API_KEY in the environment, or else from config.js.
+
+Only place IDs are saved. Google's terms let a site store place IDs but nothing else from the
+Places API, so photos are fetched by the visitor's browser when a card comes into view (see app.js).
+Google suggests refreshing stored place IDs about once a year.
 """
 import datetime, json, os, re, sys, time, urllib.error, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VALLEY_CENTER = {"latitude": 47.51, "longitude": -121.80}  # between North Bend and Snoqualmie
 ENDPOINT = "https://places.googleapis.com/v1/places:searchText"
-FIELDS = "places.id,places.displayName,places.formattedAddress,places.photos"
+FIELDS = "places.id,places.displayName,places.formattedAddress"  # name and address are only used to check the match
+REFRESH = "--refresh" in sys.argv
 
 
 def read_js_value(path, var):
@@ -32,15 +36,23 @@ if not key:
     sys.exit("No API key. Set PLACES_API_KEY in the environment or fill in PLACES_API_KEY in config.js.")
 
 restaurants = read_js_value(os.path.join(ROOT, "data.js"), "RESTAURANTS") or []
-previous = {}
 try:
     previous = read_js_value(os.path.join(ROOT, "places.js"), "PLACES") or {}
 except Exception:
+    previous = {}
+
+
+class QuotaExhausted(Exception):
     pass
 
 
-def norm_tokens(s):
-    return {t for t in re.sub(r"[^a-z0-9 ]", " ", s.lower()).split() if len(t) > 2 and t not in {"the", "and", "restaurant", "cafe", "bar", "grill"}}
+def norm(s):
+    return re.sub(r"[^a-z0-9]", "", (s or "").lower().replace("&", "and"))
+
+
+def street_number(s):
+    m = re.match(r"\s*(\d+)", s or "")
+    return m.group(1) if m else None
 
 
 def search(query):
@@ -54,51 +66,63 @@ def search(query):
             with urllib.request.urlopen(req, timeout=30) as r:
                 return json.load(r)
         except urllib.error.HTTPError as e:
-            detail = e.read().decode("utf-8", "replace")[:400]
+            detail = e.read().decode("utf-8", "replace")
+            if e.code == 429 and "per day" in detail:
+                raise QuotaExhausted(detail)
             if e.code in (429, 500, 503) and attempt < 3:
                 time.sleep(2 ** attempt); continue
             if e.code == 403:
-                sys.exit(f"Google refused the key (403). Check that Places API (New) is enabled, billing is on, and the key's "
-                         f"website restriction includes {site_url}\n{detail}")
-            raise SystemExit(f"HTTP {e.code} from Places API: {detail}")
+                sys.exit(f"Google refused the key (403). Check that Places API (New) is enabled and that the key's "
+                         f"website restriction includes {site_url}\n{detail[:400]}")
+            raise SystemExit(f"HTTP {e.code} from Places API: {detail[:400]}")
     return {}
 
 
-out, flagged, calls = {}, [], 0
+out, notes, calls, stopped = {}, [], 0, False
 for p in restaurants:
     k = f"{p['name']}|{p['town']}"
-    resp = search(f"{p['name']}, {p['address']}"); calls += 1
+    kept = (previous.get(k) or {}).get("placeId")
+    if kept and not REFRESH:
+        out[k] = {"placeId": kept}; continue
+    if stopped:
+        if kept: out[k] = {"placeId": kept}
+        continue
+    try:
+        resp = search(f"{p['name']}, {p['address']}"); calls += 1
+    except QuotaExhausted:
+        stopped = True
+        notes.append("Google's daily lookup allowance ran out; the remaining restaurants keep what they had. Run again tomorrow.")
+        if kept: out[k] = {"placeId": kept}
+        continue
     places = resp.get("places") or []
     if not places:
-        flagged.append(f"NOT FOUND: {p['name']} ({p['town']})")
-        if k in previous and previous[k].get("placeId"):
-            out[k] = {"placeId": previous[k]["placeId"], "name": previous[k].get("name")}
+        notes.append(f"NOT FOUND: {p['name']} ({p['town']})")
+        if kept: out[k] = {"placeId": kept}
         continue
     g = places[0]
     gname = (g.get("displayName") or {}).get("text", "")
     gaddr = g.get("formattedAddress", "")
-    ok_name = bool(norm_tokens(p["name"]) & norm_tokens(gname))
-    ok_town = p["town"].lower() in gaddr.lower()
-    entry = {"placeId": g.get("id"), "name": gname, "address": gaddr, "match": "ok" if (ok_name and ok_town) else "check"}
-    photos = g.get("photos") or []
-    pick = next((ph for ph in photos[:5] if (ph.get("widthPx") or 0) >= (ph.get("heightPx") or 0)), photos[0] if photos else None)
-    if pick:
-        auth = (pick.get("authorAttributions") or [{}])[0]
-        entry.update({"photo": pick.get("name"), "photoWidth": pick.get("widthPx"), "photoHeight": pick.get("heightPx"),
-                      "author": auth.get("displayName", ""), "authorUri": auth.get("uri", "")})
-    else:
-        flagged.append(f"NO PHOTO: {p['name']} ({p['town']}) -> {gname}")
-    if entry["match"] == "check":
-        flagged.append(f"CHECK MATCH: {p['name']} ({p['town']}) -> {gname} | {gaddr}")
-    out[k] = entry
+    ours, theirs = street_number(p["address"]), street_number(gaddr)
+    wrong_street = bool(ours and theirs and ours != theirs)
+    same_name = norm(gname) in norm(p["name"]) or norm(p["name"]) in norm(gname)
+    if wrong_street or p["town"].lower() not in gaddr.lower():
+        # A different street number or town means Google found some other business. No photo beats a wrong photo.
+        notes.append(f"SKIPPED, wrong place: {p['name']} ({p['address'].split(',')[0]}) -> {gname} ({gaddr.split(',')[0]})")
+        continue
+    if not same_name:
+        notes.append(f"Kept, but the name differs: {p['name']} -> {gname} ({gaddr.split(',')[0]})")
+    out[k] = {"placeId": g.get("id")}
     time.sleep(0.15)
 
 today = datetime.date.today().isoformat()
 with open(os.path.join(ROOT, "places.js"), "w", encoding="utf-8") as f:
-    f.write("/* Generated by scripts/fetch_places.py. Do not edit by hand; re-run the script to refresh. */\n")
-    f.write(f'window.PLACES_META = {{ fetched: "{today}" }};\n')
+    f.write("/* Google place IDs for each restaurant, keyed by \"name|town\". Generated by scripts/fetch_places.py.\n"
+            "   To fix a wrong match, replace that entry's placeId (or delete the entry to show no photo). */\n")
+    f.write(f'window.PLACES_META = {{ updated: "{today}" }};\n')
     f.write("window.PLACES = " + json.dumps(out, indent=1, ensure_ascii=False) + ";\n")
-with_photo = sum(1 for v in out.values() if v.get("photo"))
-print(f"{calls} lookups; {len(out)} places recorded; {with_photo} with a photo; written to places.js (fetched {today})")
-if flagged:
-    print("\nReview these:"); [print(" -", x) for x in flagged]
+missing = [f"{p['name']} ({p['town']})" for p in restaurants if f"{p['name']}|{p['town']}" not in out]
+print(f"{calls} lookups made; {len(out)} of {len(restaurants)} restaurants have a place ID; written to places.js")
+if missing:
+    print("No place ID yet:", "; ".join(missing))
+for n in notes:
+    print(" -", n)
