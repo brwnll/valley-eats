@@ -20,8 +20,10 @@ HEAD = '''<!doctype html>
         <span class="brand-name">Valley Eats Today</span>
       </a>
       <nav class="masthead-nav" aria-label="Site">
-        <a href="credits.html"{credits_current}>Photo credits</a>
-        <a href="terms.html"{terms_current}>Terms</a>
+        <a href="index.html">Browse</a>
+        <a href="play.html">Dish Match</a>
+        <a class="nav-secondary" href="credits.html"{credits_current}>Photo credits</a>
+        <a class="nav-secondary" href="terms.html"{terms_current}>Terms</a>
       </nav>
     </div>
     <svg class="ridge" viewBox="0 0 1200 34" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,34 0,26 90,20 170,24 260,10 340,18 430,12 520,22 600,6 690,16 780,10 870,20 960,14 1050,22 1130,16 1200,20 1200,34"/></svg>
@@ -31,7 +33,7 @@ FOOT = '''
   <footer class="site-footer">
     <div class="wrap">
       <div><h2>Valley Eats Today</h2><p>Restaurants open today in North Bend and Snoqualmie, Washington.</p><p><a href="index.html">Back to the list</a></p></div>
-      <div><h2>More</h2><p><a href="credits.html">Photo credits</a> · <a href="terms.html">Terms and privacy</a> · <a href="https://github.com/brwnll/valley-eats">Source on GitHub</a></p></div>
+      <div><h2>More</h2><p><a href="play.html">Dish Match</a> · <a href="credits.html">Photo credits</a> · <a href="terms.html">Terms and privacy</a> · <a href="https://github.com/brwnll/valley-eats">Source on GitHub</a></p></div>
     </div>
   </footer>
 </body>

@@ -62,6 +62,17 @@ To use a real photo for a dish, drop the file in `img/dishes/` and point that di
 
 A closing time earlier than the opening time (for example `["16:00", "01:00"]`) is read as running past midnight. Update the `updated` date in `RESTAURANTS_META` at the top of the file when you make changes so the footer stays honest.
 
+## Dish Match
+
+`play.html` turns the list into a game for two. Each person swipes the same stack of dishes from restaurants open on the day they pick; when both like a dish from the same restaurant (not necessarily the same dish), that restaurant is a match. The results screen ranks the matches and shows hours, links, and what each person liked.
+
+- **One phone:** players take turns and pass the phone. Matches pop up during the second turn.
+- **Two phones:** the first player swipes and sends a link. The link carries the game after the `#`, so it never reaches the web server. The second player swipes the same stack on their own phone, sees matches as they happen, and can send a results link back.
+
+There is no server or account. Games in progress are saved in the browser on that device (`localStorage`), and both players get the same stack because it is built from the same day, filters, and random seed in the link. The game code is in `play.js` and `play.css`, and it reads the same `data.js` as the list.
+
+Live syncing, where both phones swipe at once and see matches together, would need a small hosted database (for example Firebase or Supabase).
+
 ## Restaurant photos from Google
 
 Each card can show a photo of the restaurant itself from Google Maps, through the Google Places API. This is optional; without it the cards simply have no header photo.

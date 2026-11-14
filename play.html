@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dish Match</title>
+  <meta name="description" content="Swipe through dishes from North Bend and Snoqualmie restaurants with your partner. Like something from the same place and it's a match.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="play.css">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+</head>
+<body class="play">
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="brand" href="index.html" aria-label="Valley Eats Today home">
+        <svg class="brand-mark" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 22 L10 8 L14 14 L18 6 L26 22 Z" fill="currentColor"/><path d="M2 24 H26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="brand-name">Valley Eats Today</span>
+      </a>
+      <nav class="masthead-nav" aria-label="Site">
+        <a href="index.html">Browse</a>
+        <a href="play.html" aria-current="page">Dish Match</a>
+        <a class="nav-secondary" href="credits.html">Photo credits</a>
+        <a class="nav-secondary" href="terms.html">Terms</a>
+      </nav>
+    </div>
+    <svg class="ridge" viewBox="0 0 1200 34" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,34 0,26 90,20 170,24 260,10 340,18 430,12 520,22 600,6 690,16 780,10 870,20 960,14 1050,22 1130,16 1200,20 1200,34"/></svg>
+  </header>
+
+  <main class="wrap game" id="game">
+
+    <!-- Setup -->
+    <section class="screen" id="screen-setup" aria-labelledby="setup-title">
+      <div class="intro">
+        <p class="label eyebrow">North Bend &amp; Snoqualmie</p>
+        <h1 id="setup-title">Dish Match</h1>
+        <p class="lede">Can't decide where to eat? You each swipe the same stack of dishes from places that are open. Like something from the same restaurant and it's a match.</p>
+      </div>
+
+      <div class="resume" id="resume" hidden>
+        <p id="resume-text"></p>
+        <div class="row">
+          <button type="button" class="btn btn-primary" id="resume-go">Resume</button>
+          <button type="button" class="btn" id="resume-drop">Start a new game</button>
+        </div>
+      </div>
+
+      <form class="setup" id="setup-form" novalidate>
+        <fieldset class="field-group">
+          <legend class="label">Who's playing</legend>
+          <div class="names">
+            <label class="field"><span>Your name</span><input type="text" id="p1-name" maxlength="24" autocomplete="given-name" placeholder="Player 1"></label>
+            <label class="field"><span>Your partner's name</span><input type="text" id="p2-name" maxlength="24" autocomplete="off" placeholder="Player 2"></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend class="label">How you're playing</legend>
+          <div class="modes">
+            <label class="mode"><input type="radio" name="mode" value="same" id="mode-same" checked>
+              <span class="mode-body"><strong>One phone</strong><span>Take turns. Swipe, then pass the phone.</span></span></label>
+            <label class="mode"><input type="radio" name="mode" value="link" id="mode-link">
+              <span class="mode-body"><strong>Two phones</strong><span>Swipe on your own phone, then send your partner a link.</span></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend class="label">When</legend>
+          <select id="when" class="select" aria-label="Day you're going out"></select>
+        </fieldset>
+
+        <div class="split">
+          <fieldset class="field-group">
+            <legend class="label">Where</legend>
+            <div class="segmented" id="town-choice" role="group" aria-label="Town">
+              <button type="button" data-value="all" class="is-active" aria-pressed="true">Both</button>
+              <button type="button" data-value="North Bend" aria-pressed="false">North Bend</button>
+              <button type="button" data-value="Snoqualmie" aria-pressed="false">Snoqualmie</button>
+            </div>
+          </fieldset>
+          <fieldset class="field-group">
+            <legend class="label">How many dishes</legend>
+            <div class="segmented" id="size-choice" role="group" aria-label="Deck size">
+              <button type="button" data-value="20" class="is-active" aria-pressed="true">20</button>
+              <button type="button" data-value="40" aria-pressed="false">40</button>
+              <button type="button" data-value="80" aria-pressed="false">80</button>
+            </div>
+          </fieldset>
+        </div>
+
+        <label class="check"><input type="checkbox" id="no-chains"> Skip chains</label>
+
+        <p class="setup-note" id="setup-note" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary btn-big" id="start">Start swiping</button>
+      </form>
+    </section>
+
+    <!-- Invite (second player opening a link) -->
+    <section class="screen" id="screen-invite" aria-labelledby="invite-title" hidden>
+      <div class="intro">
+        <p class="label eyebrow">Dish Match</p>
+        <h1 id="invite-title"></h1>
+        <p class="lede" id="invite-text"></p>
+        <p class="setup-note" id="invite-note"></p>
+      </div>
+      <form class="setup" id="invite-form" novalidate>
+        <label class="field"><span>Your name</span><input type="text" id="invite-name" maxlength="24" autocomplete="given-name" placeholder="Player 2"></label>
+        <button type="submit" class="btn btn-primary btn-big">Start swiping</button>
+      </form>
+    </section>
+
+    <!-- Swiping -->
+    <section class="screen" id="screen-swipe" aria-labelledby="turn-title" hidden>
+      <div class="turn-head">
+        <h1 id="turn-title" class="turn-title"></h1>
+        <p class="turn-sub" id="turn-sub"></p>
+        <div class="progress" role="progressbar" aria-label="Dishes swiped" aria-valuemin="0" id="progress"><span id="progress-bar"></span></div>
+      </div>
+      <div class="deck" id="deck" aria-live="off"></div>
+      <div class="controls">
+        <button type="button" class="round round-pass" id="btn-pass" aria-label="Pass">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>
+        </button>
+        <button type="button" class="round round-undo" id="btn-undo" aria-label="Undo last swipe">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7H5V3M5.5 7A8 8 0 1 1 4 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </button>
+        <button type="button" class="round round-like" id="btn-like" aria-label="Like">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.2-9.3C1.6 7.7 3.7 4.5 7 4.5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.3 0 5.4 3.2 4.2 6.7-1.7 4.7-9.2 9.3-9.2 9.3z" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <p class="hint">Swipe right if you'd eat it, left to pass. Arrow keys work too.</p>
+      <p class="visually-hidden" id="swipe-status" aria-live="polite"></p>
+    </section>
+
+    <!-- Pass the phone -->
+    <section class="screen screen-center" id="screen-handoff" aria-labelledby="handoff-title" hidden>
+      <p class="big-emblem" aria-hidden="true">
+        <svg viewBox="0 0 48 48"><rect x="14" y="4" width="20" height="40" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M21 38h6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      </p>
+      <h1 id="handoff-title"></h1>
+      <p class="lede" id="handoff-text"></p>
+      <button type="button" class="btn btn-primary btn-big" id="handoff-go"></button>
+    </section>
+
+    <!-- Send the link (two phones, first player done) -->
+    <section class="screen screen-center" id="screen-send" aria-labelledby="send-title" hidden>
+      <h1 id="send-title"></h1>
+      <p class="lede" id="send-text"></p>
+      <div class="share-box">
+        <button type="button" class="btn btn-primary btn-big" id="send-share">Send the link</button>
+        <div class="copy-row">
+          <label class="visually-hidden" for="send-url">Game link</label>
+          <input type="text" id="send-url" readonly>
+          <button type="button" class="btn" id="send-copy">Copy</button>
+        </div>
+        <p class="setup-note" id="send-status" aria-live="polite"></p>
+      </div>
+      <p class="fine" id="send-fine"></p>
+      <button type="button" class="btn btn-quiet" id="send-restart">Start a new game</button>
+    </section>
+
+    <!-- Results -->
+    <section class="screen" id="screen-results" aria-labelledby="results-title" hidden>
+      <div class="intro">
+        <p class="label eyebrow" id="results-eyebrow"></p>
+        <h1 id="results-title"></h1>
+        <p class="lede" id="results-text"></p>
+      </div>
+      <div class="results-actions" id="results-share" hidden>
+        <button type="button" class="btn btn-primary" id="results-send"></button>
+        <button type="button" class="btn" id="results-copy">Copy link</button>
+        <p class="setup-note" id="results-status" aria-live="polite"></p>
+      </div>
+      <ol class="match-list" id="match-list"></ol>
+      <div class="also" id="also"></div>
+      <div class="results-actions">
+        <button type="button" class="btn btn-primary" id="again">Play again</button>
+        <a class="btn" href="index.html">Browse every restaurant</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Match pop-up -->
+  <div class="match-overlay" id="match-overlay" hidden>
+    <div class="match-box" role="dialog" aria-modal="true" aria-labelledby="match-name" aria-describedby="match-dishes">
+      <div class="burst" aria-hidden="true"></div>
+      <p class="match-kicker">It's a match</p>
+      <h2 id="match-name"></h2>
+      <p class="match-meta" id="match-meta"></p>
+      <ul class="match-dishes" id="match-dishes"></ul>
+      <button type="button" class="btn btn-primary btn-big" id="match-close">Keep swiping</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div><h2>Dish Match</h2><p>Dishes come from restaurants open on the day you pick. Photos show a typical version of each dish from Wikimedia Commons, not the restaurant's own plate.</p></div>
+      <div><h2>Privacy</h2><p>Games are saved only on this device. In two-phone mode, your names and likes travel in the link you send, after the # so they never reach the web server.</p></div>
+      <div><h2>More</h2><p><a href="index.html">Browse every restaurant</a> · <a href="credits.html">Photo credits</a> · <a href="terms.html">Terms and privacy</a></p></div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="play.js"></script>
+</body>
+</html>

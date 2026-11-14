@@ -54,6 +54,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: 140px; }
 body {
   margin: 0;
@@ -86,6 +87,16 @@ h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
 .masthead-nav a { color: var(--band-muted); }
 .masthead-nav a:hover, .masthead-nav a[aria-current="page"] { color: var(--band-ink); }
 .ridge { display: block; width: 100%; height: 34px; }
+.play-cta {
+  margin-top: 16px; display: flex; align-items: center; gap: 12px; max-width: 640px;
+  padding: 12px 14px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--accent-soft); color: var(--ink);
+}
+.play-cta:hover { text-decoration: none; border-color: var(--ink-2); }
+.play-cta-mark { flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--open); color: var(--surface); display: inline-flex; align-items: center; justify-content: center; }
+.play-cta-mark svg { width: 18px; height: 18px; }
+.play-cta-text { min-width: 0; font-size: .95rem; line-height: 1.35; }
+.play-cta-text strong { font-family: var(--font-display); }
+.play-cta-go { margin-left: auto; font-size: 1.3rem; color: var(--accent); }
 .ridge polygon { fill: var(--bg); }
 
 /* ---- Hero ---- */
@@ -219,6 +230,7 @@ h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
 .credits b { font-family: var(--font-display); text-transform: capitalize; font-size: 1rem; }
 .credits .muted { color: var(--muted); }
 
+@media (max-width: 560px) { .nav-secondary { display: none; } }
 @media (max-width: 640px) {
   .filters-toggle { display: inline-flex; }
   .toolbar-more { display: none; flex-basis: 100%; flex-direction: column; gap: 10px; }
