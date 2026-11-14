@@ -1,0 +1,38 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "games": {
+      "$gid": {
+        ".read": "$gid.matches(/^[A-Za-z0-9_-]{20,40}$/)",
+        ".write": "!data.exists() && newData.exists() && $gid.matches(/^[A-Za-z0-9_-]{20,40}$/)",
+        ".validate": "newData.hasChildren(['v', 'd', 't', 'n', 's', 'c', 'at', 'p'])",
+        "v": { ".validate": "newData.val() === 1" },
+        "d": { ".validate": "newData.isString() && newData.val().matches(/^20[0-9][0-9]-[01][0-9]-[0-3][0-9]$/)" },
+        "t": { ".validate": "newData.val() === 'a' || newData.val() === 'n' || newData.val() === 's'" },
+        "n": { ".validate": "newData.isNumber() && newData.val() >= 5 && newData.val() <= 200" },
+        "s": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 4294967295" },
+        "c": { ".validate": "newData.val() === 0 || newData.val() === 1" },
+        "at": { ".validate": "newData.isNumber() && (data.exists() ? newData.val() === data.val() : newData.val() === now)" },
+        "next": {
+          ".write": "!data.exists() && newData.exists() && data.parent().child('v').exists()",
+          ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]{20,40}$/)"
+        },
+        "p": {
+          ".validate": "newData.hasChild('a')",
+          "$slot": {
+            ".write": "($slot === 'a' || $slot === 'b') && newData.exists() && data.parent().parent().child('v').exists()",
+            ".validate": "($slot === 'a' || $slot === 'b') && newData.hasChildren(['name', 'pos', 'done'])",
+            "name": { ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 24" },
+            "pos": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 200" },
+            "done": { ".validate": "newData.isBoolean()" },
+            "likes": { ".validate": "newData.isString() && newData.val().length <= 1800 && newData.val().matches(/^[0-9a-z.]*$/)" },
+            "seen": { ".validate": "newData.isNumber() && newData.val() <= now + 60000" },
+            "$other": { ".validate": false }
+          }
+        },
+        "$other": { ".validate": false }
+      }
+    }
+  }
+}

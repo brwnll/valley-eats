@@ -62,7 +62,7 @@
             <label class="mode"><input type="radio" name="mode" value="same" id="mode-same" checked>
               <span class="mode-body"><strong>One phone</strong><span>Take turns. Swipe, then pass the phone.</span></span></label>
             <label class="mode"><input type="radio" name="mode" value="link" id="mode-link">
-              <span class="mode-body"><strong>Two phones</strong><span>Swipe on your own phone, then send your partner a link.</span></span></label>
+              <span class="mode-body"><strong>Two phones</strong><span>Swipe at the same time, each on your own phone. Matches pop up on both.</span></span></label>
           </div>
         </fieldset>
 
@@ -108,7 +108,9 @@
       <form class="setup" id="invite-form" novalidate>
         <label class="field"><span>Your name</span><input type="text" id="invite-name" maxlength="24" autocomplete="given-name" placeholder="Player 2"></label>
         <button type="submit" class="btn btn-primary btn-big">Start swiping</button>
+        <button type="button" class="btn btn-quiet invite-alt" id="invite-alt" hidden></button>
       </form>
+      <div class="who-row" id="invite-who" hidden></div>
     </section>
 
     <!-- Swiping -->
@@ -117,8 +119,12 @@
         <h1 id="turn-title" class="turn-title"></h1>
         <p class="turn-sub" id="turn-sub"></p>
         <div class="progress" role="progressbar" aria-label="Dishes swiped" aria-valuemin="0" id="progress"><span id="progress-bar"></span></div>
+        <p class="partner-status" id="partner-status" aria-live="polite" hidden></p>
       </div>
-      <div class="deck" id="deck" aria-live="off"></div>
+      <div class="deck-wrap">
+        <div class="deck" id="deck" aria-live="off"></div>
+        <div class="deck-fx" id="deck-fx" aria-hidden="true"></div>
+      </div>
       <div class="controls">
         <button type="button" class="round round-pass" id="btn-pass" aria-label="Pass">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>
@@ -130,7 +136,7 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.2-9.3C1.6 7.7 3.7 4.5 7 4.5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.3 0 5.4 3.2 4.2 6.7-1.7 4.7-9.2 9.3-9.2 9.3z" fill="currentColor"/></svg>
         </button>
       </div>
-      <p class="hint">Swipe right if you'd eat it, left to pass. Arrow keys work too.</p>
+      <p class="hint" id="swipe-hint">Swipe right if you'd eat it, left to pass. Arrow keys work too.</p>
       <p class="visually-hidden" id="swipe-status" aria-live="polite"></p>
     </section>
 
@@ -148,6 +154,7 @@
     <section class="screen screen-center" id="screen-send" aria-labelledby="send-title" hidden>
       <h1 id="send-title"></h1>
       <p class="lede" id="send-text"></p>
+      <p class="partner-status" id="send-partner" aria-live="polite" hidden></p>
       <div class="share-box">
         <button type="button" class="btn btn-primary btn-big" id="send-share">Send the link</button>
         <div class="copy-row">
@@ -156,6 +163,7 @@
           <button type="button" class="btn" id="send-copy">Copy</button>
         </div>
         <p class="setup-note" id="send-status" aria-live="polite"></p>
+        <button type="button" class="btn btn-big" id="send-start" hidden>Start swiping</button>
       </div>
       <p class="fine" id="send-fine"></p>
       <button type="button" class="btn btn-quiet" id="send-restart">Start a new game</button>
@@ -168,6 +176,7 @@
         <h1 id="results-title"></h1>
         <p class="lede" id="results-text"></p>
       </div>
+      <div class="live-banner" id="results-live" aria-live="polite" hidden></div>
       <div class="results-actions" id="results-share" hidden>
         <button type="button" class="btn btn-primary" id="results-send"></button>
         <button type="button" class="btn" id="results-copy">Copy link</button>
@@ -197,11 +206,12 @@
   <footer class="site-footer">
     <div class="wrap">
       <div><h2>Dish Match</h2><p>Dishes come from restaurants open on the day you pick. Photos show a typical version of each dish from Wikimedia Commons, not the restaurant's own plate.</p></div>
-      <div><h2>Privacy</h2><p>Games are saved only on this device. In two-phone mode, your names and likes travel in the link you send, after the # so they never reach the web server.</p></div>
+      <div><h2>Privacy</h2><p>One-phone games stay on this device. Two-phone games keep your first names and liked dishes in a small game record on Google Firebase so both phones can sync. Only someone with the link can open it.</p></div>
       <div><h2>More</h2><p><a href="index.html">Browse every restaurant</a> · <a href="credits.html">Photo credits</a> · <a href="terms.html">Terms and privacy</a></p></div>
     </div>
   </footer>
 
+  <script src="config.js"></script>
   <script src="data.js"></script>
   <script src="play.js"></script>
 </body>

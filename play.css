@@ -69,12 +69,16 @@ body[data-screen="swipe"] .game { padding-bottom: 20px; }
 .progress { height: 6px; border-radius: 999px; background: var(--surface-3); overflow: hidden; margin-top: 8px; }
 .progress span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
 
-.deck { position: relative; width: 100%; max-width: 400px; height: clamp(340px, calc(100svh - 340px), 560px); margin: 0 auto; }
+.deck-wrap { position: relative; width: 100%; max-width: 400px; margin: 0 auto; }
+.deck { position: relative; width: 100%; height: clamp(340px, calc(100svh - 340px), 560px); margin: 0 auto; }
+body.is-live .deck { height: clamp(320px, calc(100svh - 366px), 540px); }
 .swipe-card {
+  --like: 0; --pass: 0;
   position: absolute; inset: 0; display: flex; flex-direction: column;
   background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
-  box-shadow: var(--shadow-pop); touch-action: none; user-select: none; -webkit-user-select: none;
-  cursor: grab; transition: transform .25s ease;
+  box-shadow: var(--shadow-pop), 0 0 0 calc(var(--like) * 4px) var(--open), 0 0 0 calc(var(--pass) * 4px) var(--closed);
+  touch-action: none; user-select: none; -webkit-user-select: none;
+  cursor: grab; transition: transform .25s ease, box-shadow .2s ease;
 }
 .swipe-card.is-dragging { transition: none; cursor: grabbing; }
 .swipe-card[data-depth="1"] { transform: translateY(12px) scale(.95); pointer-events: none; }
@@ -82,13 +86,23 @@ body[data-screen="swipe"] .game { padding-bottom: 20px; }
 .swipe-photo { position: relative; flex: 1 1 auto; min-height: 0; background: var(--surface-2); }
 .swipe-photo img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
 .photo-note { position: absolute; right: 10px; bottom: 10px; padding: 2px 8px; border-radius: 999px; background: rgba(0, 0, 0, .55); color: #fff; font-size: .7rem; font-weight: 600; letter-spacing: .02em; }
+/* Drag feedback. --like and --pass run from 0 to 1 as the card nears the point where letting go counts. */
+.tint { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .2s ease; }
+.tint-like { background: linear-gradient(115deg, rgba(31, 122, 63, .66) 0%, rgba(31, 122, 63, .22) 50%, rgba(31, 122, 63, 0) 78%); opacity: var(--like); }
+.tint-pass { background: linear-gradient(245deg, rgba(155, 58, 58, .66) 0%, rgba(155, 58, 58, .22) 50%, rgba(155, 58, 58, 0) 78%); opacity: var(--pass); }
 .stamp {
-  position: absolute; top: 18px; padding: 2px 12px; border: 3px solid currentColor; border-radius: 8px;
-  background: rgba(255, 255, 255, .88); font-family: var(--font-display); font-weight: 800; font-size: 1.8rem;
-  letter-spacing: .06em; text-transform: uppercase; opacity: 0; pointer-events: none;
+  position: absolute; top: 18px; display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 14px 3px 10px; border: 3px solid currentColor; border-radius: 10px;
+  background: rgba(255, 255, 255, .94); font-family: var(--font-display); font-weight: 800; font-size: 1.75rem; line-height: 1.15;
+  letter-spacing: .06em; text-transform: uppercase; pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease, background-color .12s ease, color .12s ease;
 }
-.stamp-like { left: 16px; color: #1f7a3f; transform: rotate(-12deg); }
-.stamp-pass { right: 16px; color: #9b3a3a; transform: rotate(12deg); }
+.stamp svg { width: 24px; height: 24px; flex: none; }
+.stamp-like { left: 16px; color: #1f7a3f; opacity: min(1, calc(var(--like) * 1.8)); transform: rotate(-12deg) scale(calc(.7 + var(--like) * .3)); transform-origin: left center; }
+.stamp-pass { right: 16px; color: #9b3a3a; opacity: min(1, calc(var(--pass) * 1.8)); transform: rotate(12deg) scale(calc(.7 + var(--pass) * .3)); transform-origin: right center; }
+.is-dragging .tint, .is-dragging .stamp { transition: background-color .12s ease, color .12s ease; }
+.armed-like .stamp-like { background: #1f7a3f; border-color: #1f7a3f; color: #fff; transform: rotate(-12deg) scale(1.1); }
+.armed-pass .stamp-pass { background: #9b3a3a; border-color: #9b3a3a; color: #fff; transform: rotate(12deg) scale(1.1); }
 .swipe-body { padding: 14px 18px 16px; display: flex; flex-direction: column; gap: 3px; }
 .swipe-place { margin: 0; font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 .swipe-dish { font-size: 1.55rem; font-weight: 800; line-height: 1.1; letter-spacing: -.01em; }
@@ -98,9 +112,11 @@ body[data-screen="swipe"] .game { padding-bottom: 20px; }
 
 .controls { display: flex; justify-content: center; align-items: center; gap: 24px; margin-top: 22px; }
 .round {
-  width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--line-strong); background: var(--surface);
+  --pull: 0;
+  position: relative; width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--line-strong); background: var(--surface);
   display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;
-  transition: transform .12s ease, border-color .12s ease;
+  transform: scale(calc(1 + var(--pull) * .16));
+  transition: transform .12s ease, border-color .12s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease;
 }
 .round svg { width: 28px; height: 28px; display: block; }
 .round:hover { border-color: var(--ink-2); }
@@ -111,7 +127,79 @@ body[data-screen="swipe"] .game { padding-bottom: 20px; }
 .round-like:hover { border-color: var(--open); }
 .round-undo { width: 46px; height: 46px; color: var(--muted); }
 .round-undo svg { width: 20px; height: 20px; }
-.hint { text-align: center; color: var(--muted); font-size: .88rem; margin: 12px 0 0; }
+.round-like.is-armed { box-shadow: 0 0 0 7px rgba(31, 122, 63, .28); }
+.round-pass.is-armed { box-shadow: 0 0 0 7px rgba(155, 58, 58, .24); border-color: var(--closed); background: var(--closed); color: var(--surface); }
+.round::after { content: ""; position: absolute; inset: -2px; border-radius: 50%; border: 3px solid transparent; opacity: 0; pointer-events: none; }
+.round-like::after { border-color: var(--open); }
+.round-pass::after { border-color: var(--closed); }
+.round.is-pulse { animation: btn-pulse .46s cubic-bezier(.3, 1.6, .5, 1); }
+.round.is-pulse::after { animation: btn-ring .55s ease-out; }
+@keyframes btn-pulse { 0% { transform: scale(1); } 35% { transform: scale(1.24); } 100% { transform: scale(1); } }
+@keyframes btn-ring { from { transform: scale(1); opacity: .9; } to { transform: scale(1.8); opacity: 0; } }
+
+.hint { text-align: center; color: var(--muted); font-size: .88rem; margin: 12px 0 0; min-height: 1.35em; transition: color .12s ease; }
+.hint.is-cue { font-weight: 700; }
+.hint.cue-like { color: var(--open); }
+.hint.cue-pass { color: var(--closed); }
+.hint.is-armed { font-size: .95rem; }
+
+/* After a swipe: the verdict pops over the stack and drifts the way the card went. */
+.deck-fx { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+.verdict { --drift: 26px; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.verdict.is-pass { --drift: -26px; }
+.verdict-badge {
+  position: relative; width: 104px; height: 104px; border-radius: 50%; color: #fff;
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 34px rgba(0, 0, 0, .28);
+  animation: verdict-pop .78s cubic-bezier(.2, 1.2, .4, 1) forwards;
+}
+.verdict-badge svg { width: 52px; height: 52px; }
+.is-like .verdict-badge { background: #1f7a3f; }
+.is-pass .verdict-badge { background: #9b3a3a; }
+.verdict-ring { position: absolute; left: 50%; top: 50%; width: 104px; height: 104px; margin: -52px 0 0 -52px; border-radius: 50%; border: 4px solid; opacity: 0; animation: verdict-ring .7s ease-out .05s forwards; }
+.is-like .verdict-ring { border-color: #1f7a3f; }
+.is-pass .verdict-ring { border-color: #9b3a3a; }
+.verdict-edge { position: absolute; top: 6%; bottom: 6%; width: 46%; opacity: 0; animation: verdict-edge .7s ease-out forwards; }
+.is-like .verdict-edge { right: -14px; background: radial-gradient(ellipse at right center, rgba(31, 122, 63, .5), rgba(31, 122, 63, 0) 70%); }
+.is-pass .verdict-edge { left: -14px; background: radial-gradient(ellipse at left center, rgba(155, 58, 58, .45), rgba(155, 58, 58, 0) 70%); }
+.sparks i {
+  --a: calc(var(--i) * 60deg + 30deg);
+  position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; color: #2f9a55; opacity: 0;
+  animation: spark .72s cubic-bezier(.2, .7, .3, 1) .06s forwards;
+}
+.sparks i:nth-child(even) { color: #e0566b; width: 16px; height: 16px; margin: -8px 0 0 -8px; }
+.sparks svg { width: 100%; height: 100%; display: block; }
+@keyframes verdict-pop {
+  0% { transform: scale(.35); opacity: 0; }
+  28% { transform: scale(1.14); opacity: 1; }
+  48% { transform: scale(1); opacity: 1; }
+  78% { transform: translateX(calc(var(--drift) * .5)) scale(1); opacity: 1; }
+  100% { transform: translateX(var(--drift)) scale(.92); opacity: 0; }
+}
+@keyframes verdict-ring { 0% { transform: scale(.7); opacity: .85; } 100% { transform: scale(2.5); opacity: 0; } }
+@keyframes verdict-edge { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes spark {
+  0% { transform: rotate(var(--a)) translateY(-30px) scale(.4); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: rotate(var(--a)) translateY(-118px) scale(1); opacity: 0; }
+}
+
+/* ---- Live games ---- */
+.partner-status { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; margin: 8px 0 0; color: var(--ink-2); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.partner-status .dot { flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--line-strong); }
+.partner-status.is-on .dot { background: var(--open); box-shadow: 0 0 0 3px var(--open-soft); }
+.partner-status.is-done .dot { background: var(--accent); }
+.partner-status.is-wait .dot { background: var(--star); animation: wait-blink 1.4s ease-in-out infinite; }
+.partner-status.is-off { color: var(--muted); }
+.partner-status.is-off .dot { background: var(--closed); }
+@keyframes wait-blink { 50% { opacity: .3; } }
+.screen-center .partner-status { justify-content: center; }
+.link-btn { font: inherit; font-weight: 700; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.live-banner { margin: 16px 0 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); display: flex; flex-direction: column; gap: 10px; }
+.live-banner .partner-status { margin: 0; }
+.next-round { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.next-round p { margin: 0; }
+.who-row { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.invite-alt { align-self: flex-start; padding-inline: 0; }
 
 /* ---- Hand-off and sending ---- */
 .big-emblem { margin: 0; color: var(--accent); }
@@ -190,11 +278,19 @@ body.has-overlay { overflow: hidden; }
   .swipe-dish { font-size: 1.4rem; }
   .setup > .btn-big { align-self: stretch; max-width: none; }
 }
+@media (max-width: 640px) {
+  .who-row .btn-big { max-width: none; }
+}
 @media (max-height: 700px) {
   .deck { height: clamp(300px, calc(100svh - 300px), 560px); }
+  body.is-live .deck { height: clamp(290px, calc(100svh - 326px), 540px); }
   .hint { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .match-box, .burst { animation: none !important; }
-  .swipe-card, .progress span, .round { transition: none !important; }
+  .match-box, .burst, .partner-status .dot { animation: none !important; }
+  .swipe-card, .progress span, .round, .stamp, .tint { transition: none !important; }
+  .round.is-pulse, .round.is-pulse::after { animation: none; }
+  .verdict-ring, .verdict-edge, .sparks { display: none; }
+  .verdict-badge { animation: verdict-fade .6s ease forwards; }
+  @keyframes verdict-fade { 0% { opacity: 0; } 25% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
 }
