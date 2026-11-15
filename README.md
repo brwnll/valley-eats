@@ -86,6 +86,17 @@ Both players get the same stack because it is built from the same day, filters, 
 
 If the database can't be reached when a game starts, two-phone mode falls back to the older link game: the first player swipes and sends a link carrying their likes after the `#`, the second player swipes afterwards, and can send a results link back.
 
+## Home screen app
+
+The site can be added to a phone's home screen, where it opens full screen like an app and still works on a weak or missing signal.
+
+- `manifest.webmanifest` names the app, sets its colors, and points at the icons in `img/icons/` (drawn from the brand mark; `apple-touch-icon.png` is the one iPhones use). Every page links it in its `<head>`, along with the iPhone home screen tags. The secondary pages get these from `scripts/page_shell.py`.
+- `sw.js` is the service worker. On first visit it saves the pages, scripts, styles, and `data.js`. After that, each page and script is fetched fresh when the network answers within 3 seconds; otherwise the saved copy is shown, and the fresh copy replaces it once it arrives. Dish photos and fonts are saved the first time they load. Google Places requests and restaurant photos (Google's terms don't allow caching them) and the Dish Match database always go straight to the network. Change `VERSION` in `sw.js` to throw away everything saved by older versions, for example after renaming files.
+- `pwa.js` registers the service worker on every page. On phones it also shows a one-time tip on the list and on the Dish Match setup screen: an Install button where the browser offers one (Chrome on Android), or "Open the Share menu and choose Add to Home Screen" on iPhone and iPad. Closing the tip hides it for good on that device.
+- Opened from the home screen, the page runs up under the status bar, so the masthead, the sticky filter bar, and the Dish Match card stack leave room for it and for the home indicator (`env(safe-area-inset-*)` in the CSS). In a normal browser tab those insets are zero and nothing moves.
+
+On iPhone, a home screen app keeps its own storage, separate from Safari, so a Dish Match game started in Safari doesn't show up in the app, and the other way around.
+
 ## Restaurant photos from Google
 
 Each card can show a photo of the restaurant itself from Google Maps, through the Google Places API. This is optional; without it the cards simply have no header photo.

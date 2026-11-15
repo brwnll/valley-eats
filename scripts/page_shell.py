@@ -11,6 +11,15 @@ HEAD = '''<!doctype html>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#15261d" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1a13" media="(prefers-color-scheme: dark)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Valley Eats">
+  <script src="pwa.js" defer></script>
 </head>
 <body>
   <header class="masthead">

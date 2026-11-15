@@ -55,7 +55,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: 140px; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(140px + env(safe-area-inset-top, 0px)); }
 body {
   margin: 0;
   background: var(--bg);
@@ -78,7 +78,14 @@ h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
 .label { font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
 /* ---- Masthead ---- */
-.masthead { background: var(--band); color: var(--band-ink); position: relative; }
+.masthead { background: var(--band); color: var(--band-ink); position: relative; padding-top: env(safe-area-inset-top, 0px); }
+/* Opened from the home screen, the page runs up under the phone's status bar (the safe-area inset is zero in a
+   normal browser tab). The masthead is padded down past it, and this band keeps the status bar readable while
+   the page scrolls under it. */
+body::before {
+  content: ""; position: fixed; z-index: 30; top: 0; left: 0; right: 0; height: env(safe-area-inset-top, 0px);
+  background: var(--band); pointer-events: none;
+}
 .masthead-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; letter-spacing: .01em; }
 .brand:hover { text-decoration: none; }
@@ -99,6 +106,26 @@ h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
 .play-cta-go { margin-left: auto; font-size: 1.3rem; color: var(--accent); }
 .ridge polygon { fill: var(--bg); }
 
+/* ---- Home screen tip (filled in by pwa.js on phones) ---- */
+.install-hint {
+  margin-top: 12px; max-width: 640px; display: flex; align-items: center; gap: 12px;
+  padding: 10px 10px 10px 12px; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface);
+}
+.install-hint img { flex: none; width: 40px; height: 40px; border-radius: 9px; display: block; }
+.install-hint p { margin: 0; min-width: 0; flex: 1; font-size: .92rem; line-height: 1.35; color: var(--ink-2); }
+.install-hint strong { color: var(--ink); font-family: var(--font-display); }
+.install-actions { flex: none; display: flex; align-items: center; gap: 4px; }
+.install-go {
+  font: inherit; font-weight: 700; font-size: .9rem; padding: 7px 14px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--ink); background: var(--ink); color: var(--bg);
+}
+.install-x {
+  width: 34px; height: 34px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--muted);
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.install-x:hover { background: var(--surface-2); color: var(--ink); }
+.install-x svg { width: 18px; height: 18px; }
+
 /* ---- Hero ---- */
 .hero { padding-block: 8px 20px; }
 .hero .eyebrow { margin: 0 0 6px; }
@@ -108,7 +135,7 @@ h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
 
 /* ---- Toolbar ---- */
 .toolbar {
-  position: sticky; top: 0; z-index: 10;
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
   background: var(--bg);
   border-block: 1px solid var(--line);
 }
@@ -211,7 +238,7 @@ h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
 
 /* ---- Footer ---- */
 .site-footer { margin-top: 48px; background: var(--band); color: var(--band-muted); font-size: .9rem; }
-.site-footer .wrap { padding-block: 32px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px 40px; }
+.site-footer .wrap { padding-block: 32px calc(40px + env(safe-area-inset-bottom, 0px)); display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px 40px; }
 .site-footer h2 { font-size: .78rem; font-family: var(--font-body); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--band-ink); margin-bottom: 8px; }
 .site-footer p { margin: 0 0 8px; }
 .site-footer a { color: var(--band-ink); text-decoration: underline; text-decoration-color: var(--band-muted); text-underline-offset: 2px; }

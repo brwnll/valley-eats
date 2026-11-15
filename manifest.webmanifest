@@ -1,0 +1,20 @@
+{
+  "id": "./",
+  "name": "Valley Eats Today",
+  "short_name": "Valley Eats",
+  "description": "Restaurants open today in North Bend and Snoqualmie, Washington, and Dish Match for deciding where to eat together.",
+  "lang": "en-US",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#15261d",
+  "theme_color": "#15261d",
+  "icons": [
+    { "src": "img/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Dish Match", "short_name": "Dish Match", "description": "Swipe dishes together and see where you agree", "url": "play.html" }
+  ]
+}
