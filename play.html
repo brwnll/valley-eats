@@ -69,6 +69,14 @@
         <fieldset class="field-group">
           <legend class="label">When</legend>
           <select id="when" class="select" aria-label="Day you're going out"></select>
+          <div class="pills" id="meal-choice" role="group" aria-label="Meal">
+            <button type="button" data-value="any" class="is-active" aria-pressed="true">Any time</button>
+            <button type="button" data-value="now" aria-pressed="false">Open now</button>
+            <button type="button" data-value="breakfast" aria-pressed="false">Breakfast</button>
+            <button type="button" data-value="lunch" aria-pressed="false">Lunch</button>
+            <button type="button" data-value="dinner" aria-pressed="false">Dinner</button>
+            <button type="button" data-value="late" aria-pressed="false">Late night</button>
+          </div>
         </fieldset>
 
         <div class="split">
@@ -205,7 +213,7 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <div><h2>Dish Match</h2><p>Dishes come from restaurants open on the day you pick. Photos show a typical version of each dish from Wikimedia Commons, not the restaurant's own plate.</p></div>
+      <div><h2>Dish Match</h2><p>Dishes come from restaurants open on the day and at the mealtime you pick, going by their listed hours. Photos show a typical version of each dish from Wikimedia Commons, not the restaurant's own plate.</p></div>
       <div><h2>Privacy</h2><p>One-phone games stay on this device. Two-phone games keep your first names and liked dishes in a small game record on Google Firebase so both phones can sync. Only someone with the link can open it.</p></div>
       <div><h2>More</h2><p><a href="index.html">Browse every restaurant</a> · <a href="credits.html">Photo credits</a> · <a href="terms.html">Terms and privacy</a></p></div>
     </div>

@@ -22,6 +22,18 @@
   var TOWN_FROM_CODE = { a: 'all', n: 'North Bend', s: 'Snoqualmie' };
   var SIZES = [20, 40, 80];
   var DISHES_PER_PLACE = 2;          // first pass through the restaurants; later passes add more if the stack needs it
+  // Mealtimes. A place makes the stack when it's open at least `need` minutes between `from` and `to` (minutes
+  // after midnight, Pacific; past 1440 means after midnight). "Open now" is stored as the minute it was picked
+  // and means open then and for the next NOW_MINUTES.
+  var MEALS = {
+    breakfast: { from: 420, to: 630, need: 60, label: 'Breakfast', phrase: 'for breakfast', invite: 'for breakfast' },
+    lunch: { from: 660, to: 870, need: 90, label: 'Lunch', phrase: 'for lunch', invite: 'for lunch' },
+    dinner: { from: 1020, to: 1260, need: 120, label: 'Dinner', phrase: 'for dinner', invite: 'for dinner' },
+    late: { from: 1260, to: 1560, need: 60, label: 'Late night', phrase: 'late', invite: 'for a late bite' }
+  };
+  var NOW_MINUTES = 45;
+  var MEAL_CODES = { breakfast: 'b', lunch: 'l', dinner: 'd', late: 'x' };
+  var MEAL_FROM_CODE = { b: 'breakfast', l: 'lunch', d: 'dinner', x: 'late' };
   var GAME_KEY = 'valley-eats-match-game-v1';
   var PREFS_KEY = 'valley-eats-match-prefs-v1';
 
@@ -103,11 +115,11 @@
   }
 
   function toMinutes(hhmm) { var m = /^(\d{1,2}):(\d{2})$/.exec(hhmm || ''); return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : null; }
-  function fmtTime(hhmm) {
-    var mins = toMinutes(hhmm); if (mins === null) return hhmm;
+  function fmtMinutes(mins) {
     var h = Math.floor(mins / 60) % 24, mm = mins % 60, h12 = h % 12 || 12;
     return h12 + (mm ? ':' + (mm < 10 ? '0' + mm : mm) : '') + (h >= 12 ? ' PM' : ' AM');
   }
+  function fmtTime(hhmm) { var mins = toMinutes(hhmm); return mins === null ? hhmm : fmtMinutes(mins); }
   function hoursFor(place, dayKey) { var r = (place.hours || {})[dayKey]; return Array.isArray(r) && r.length ? r : null; }
   function fmtRanges(ranges) { return ranges.map(function (r) { return fmtTime(r[0]) + ' – ' + fmtTime(r[1]); }).join(', '); }
   function openNow(place) {
@@ -119,6 +131,56 @@
     }
     return (hoursFor(place, key) || []).some(function (r) { return inRange(r, 0); }) ||
       (hoursFor(place, prev) || []).some(function (r) { return inRange(r, 1440); });
+  }
+
+  // ---------- mealtimes ----------
+  // A game's meal is 'any', a MEALS key, or a number: the minute "Open now" was picked.
+  function cleanMeal(m) {
+    if (typeof m === 'number' && isFinite(m)) return Math.max(0, Math.min(1439, Math.round(m)));
+    return MEALS[m] ? m : 'any';
+  }
+  function mealCode(m) { m = cleanMeal(m); return typeof m === 'number' ? m : MEAL_CODES[m]; }   // undefined for any time
+  function mealFromCode(c) { return typeof c === 'number' ? cleanMeal(c) : MEAL_FROM_CODE[c] || 'any'; }
+  function mealWindow(m) {
+    m = cleanMeal(m);
+    return typeof m === 'number' ? { from: m, to: m + NOW_MINUTES, need: NOW_MINUTES } : MEALS[m] || null;
+  }
+  // Minutes a place is open between from and to on a day, counting the previous night's hours that run past midnight.
+  function openMinutes(place, dayKey, from, to) {
+    var prev = DAY_KEYS[(DAY_KEYS.indexOf(dayKey) + 6) % 7], total = 0;
+    [[hoursFor(place, dayKey), 0], [hoursFor(place, prev), -1440]].forEach(function (pair) {
+      (pair[0] || []).forEach(function (r) {
+        var o = toMinutes(r[0]), c = toMinutes(r[1]); if (o === null || c === null) return;
+        if (c <= o) c += 1440;
+        total += Math.max(0, Math.min(to, c + pair[1]) - Math.max(from, o + pair[1]));
+      });
+    });
+    return total;
+  }
+  function openFor(place, dayKey, meal) {
+    var w = mealWindow(meal);
+    return w ? openMinutes(place, dayKey, w.from, w.to) >= w.need : !!hoursFor(place, dayKey);
+  }
+  // Words for a meal: "Dinner" / "Open at 6:15 PM" as a label, "for dinner" / "now" after "open", '' for any time.
+  function mealLabel(m) { m = cleanMeal(m); return typeof m === 'number' ? 'Open at ' + fmtMinutes(m) : MEALS[m] ? MEALS[m].label : ''; }
+  function mealPhrase(m) { m = cleanMeal(m); return typeof m === 'number' ? 'now' : MEALS[m] ? MEALS[m].phrase : ''; }
+  function whenLabel(g) { var l = mealLabel(g.meal); return longDate(g.date) + (l ? ' · ' + l : ''); }
+  function whenShort(g) {
+    var m = cleanMeal(g.meal);
+    if (typeof m === 'number') return mealLabel(m);
+    return MEALS[m] ? DAY_NAMES[dayKeyOf(g.date)] + ' ' + MEALS[m].label.toLowerCase() : longDate(g.date);
+  }
+  // "open for dinner on Saturday, November 14", for the invite screens.
+  function openPhrase(g) {
+    var m = cleanMeal(g.meal), day = longDate(g.date);
+    if (typeof m === 'number') return 'open at ' + fmtMinutes(m) + ' on ' + day;
+    return 'open ' + (MEALS[m] ? MEALS[m].phrase + ' on ' : '') + day;
+  }
+  // The line that goes with a shared link: "Sam wants to pick a place for dinner today."
+  function inviteLine(g, who) {
+    var m = cleanMeal(g.meal);
+    if (typeof m === 'number') return who + ' wants to pick a place to eat right now.';
+    return who + ' wants to pick a place ' + (MEALS[m] ? MEALS[m].invite : 'to eat') + ' ' + relativeDay(g.date) + '.';
   }
 
   // ---------- the stack of dishes ----------
@@ -136,7 +198,7 @@
     return DATA.filter(function (p) {
       if (opts.town !== 'all' && p.town !== opts.town) return false;
       if (opts.noChains && p.chain) return false;
-      return !!hoursFor(p, dayKey) && (p.dishes || []).length > 0;
+      return openFor(p, dayKey, opts.meal) && (p.dishes || []).length > 0;
     });
   }
 
@@ -144,7 +206,7 @@
 
   var deckCache = { key: '', cards: [] };
   function deckFor(g) {
-    var key = [g.date, g.town, g.size, g.seed, g.noChains ? 1 : 0].join('|');
+    var key = [g.date, g.town, g.size, g.seed, g.noChains ? 1 : 0, cleanMeal(g.meal)].join('|');
     if (deckCache.key === key) return deckCache.cards;
     var rand = seededRandom(g.seed);
     // Weighted random order (Efraimidis–Spirakis): well-reviewed places tend to come up first, but any place can.
@@ -198,7 +260,7 @@
   }
 
   function linkFor(g, withResults) {
-    var p = { v: 1, d: g.date, t: TOWN_CODES[g.town], n: g.size, s: g.seed, c: g.noChains ? 1 : 0,
+    var p = { v: 1, d: g.date, t: TOWN_CODES[g.town], n: g.size, s: g.seed, c: g.noChains ? 1 : 0, m: mealCode(g.meal),
       a: g.players[0].name, al: g.players[0].likes.join('.') };
     if (withResults) { p.b = g.players[1].name; p.bl = g.players[1].likes.join('.'); }
     else if (g.players[1].name) p.bn = g.players[1].name;   // a suggested name for the partner's invite screen
@@ -213,7 +275,7 @@
     try { p = JSON.parse(fromB64(m[1])); } catch (e) { return { error: true }; }
     if (!p || p.v !== 1 || !/^\d{4}-\d{2}-\d{2}$/.test(p.d) || isNaN(isoDate(p.d)) || !TOWN_FROM_CODE[p.t]) return { error: true };
     var size = Math.max(5, Math.min(200, parseInt(p.n, 10) || 20));
-    var g = newGame({ date: p.d, town: TOWN_FROM_CODE[p.t], size: size, noChains: p.c === 1, mode: 'link',
+    var g = newGame({ date: p.d, town: TOWN_FROM_CODE[p.t], size: size, noChains: p.c === 1, meal: mealFromCode(p.m), mode: 'link',
       p1: cleanName(p.a) || 'Player 1', p2: cleanName(p.b != null ? p.b : p.bn), seed: (Number(p.s) >>> 0) });
     g.players[0].likes = cleanLikes(p.al);
     g.players[0].done = true;
@@ -246,7 +308,7 @@
 
   function newGame(o) {
     return {
-      v: 1, date: o.date, town: o.town, size: o.size, noChains: !!o.noChains, seed: o.seed != null ? o.seed >>> 0 : newSeed(),
+      v: 1, date: o.date, town: o.town, size: o.size, noChains: !!o.noChains, meal: cleanMeal(o.meal), seed: o.seed != null ? o.seed >>> 0 : newSeed(),
       mode: o.mode, role: o.mode === 'same' ? 'local' : 'host',
       players: [{ name: o.p1 || 'Player 1', likes: [], done: false }, { name: o.p2 || '', likes: [], done: false }],
       turn: 0, pos: 0, stage: 'swipe', announced: [], updated: Date.now()
@@ -274,7 +336,8 @@
 
   // ---------- setup ----------
   var prefs = storeGet(PREFS_KEY) || {};
-  var setupState = { town: prefs.town || 'all', size: SIZES.indexOf(prefs.size) >= 0 ? prefs.size : 20 };
+  var setupState = { town: prefs.town || 'all', size: SIZES.indexOf(prefs.size) >= 0 ? prefs.size : 20,
+    meal: prefs.meal === 'now' || MEALS[prefs.meal] ? prefs.meal : 'any' };
   var pendingNext = '';              // a finished live game to point at the next round once it exists
 
   function wireSegmented(id, key, after) {
@@ -298,41 +361,58 @@
 
   function setupOptions() {
     return { date: $('when').value, town: setupState.town, size: setupState.size, noChains: $('no-chains').checked,
+      meal: setupState.meal === 'now' ? pacificNow().minutes : setupState.meal,
       mode: $('mode-link').checked ? 'link' : 'same', p1: cleanName($('p1-name').value), p2: cleanName($('p2-name').value) };
   }
 
   function fillWhen() {
-    var today = pacificNow().iso, sel = $('when'), keep = sel.value, opts = setupOptions();
+    var now = pacificNow(), sel = $('when'), keep = sel.value, opts = setupOptions();
     sel.innerHTML = '';
     for (var i = 0; i < 7; i++) {
-      var iso = addDays(today, i);
-      var n = eligiblePlaces({ date: iso, town: opts.town, noChains: opts.noChains }).length;
+      var iso = addDays(now.iso, i);
+      // "Open now" only applies to today; the other days count places open at any time.
+      var meal = setupState.meal === 'now' ? (i === 0 ? now.minutes : 'any') : setupState.meal;
+      var n = eligiblePlaces({ date: iso, town: opts.town, noChains: opts.noChains, meal: meal }).length;
       var lead = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : DAY_NAMES[dayKeyOf(iso)];
       var o = document.createElement('option');
       o.value = iso;
-      o.textContent = lead + ', ' + (i < 2 ? DAY_NAMES[dayKeyOf(iso)] + ' ' : '') + shortDate(iso) + ' · ' + n + ' places open';
+      o.textContent = lead + ', ' + (i < 2 ? DAY_NAMES[dayKeyOf(iso)] + ' ' : '') + shortDate(iso) + ' · ' + n +
+        (meal === 'any' ? ' places open' : ' open ' + mealPhrase(meal));
       sel.appendChild(o);
     }
     if (keep && sel.querySelector('option[value="' + keep + '"]')) sel.value = keep;
+    if (syncNow()) { fillWhen(); return; }
     updateSetupNote();
   }
 
+  // "Open now" is only offered for today. Returns true when it was picked and had to be switched to any time.
+  function syncNow() {
+    var isToday = $('when').value === pacificNow().iso;
+    $('meal-choice').querySelector('[data-value="now"]').hidden = !isToday;
+    if (isToday || setupState.meal !== 'now') return false;
+    setupState.meal = 'any';
+    if (markMeal) markMeal();
+    return true;
+  }
+
   function updateSetupNote() {
-    var o = setupOptions(), places = eligiblePlaces(o), dishes = countDishes(places);
+    var o = setupOptions(), places = eligiblePlaces(o), dishes = countDishes(places), phrase = mealPhrase(o.meal);
     var note = $('setup-note'), start = $('start');
     if (!places.length) {
-      note.textContent = 'Nothing on the list is open there that day. Pick another day or town.';
+      note.textContent = phrase ? 'Nothing on the list is open ' + phrase + ' there that day. Pick another time, day, or town.'
+        : 'Nothing on the list is open there that day. Pick another day or town.';
       start.disabled = true; return;
     }
     start.disabled = false;
     note.textContent = dishes < o.size
       ? 'Only ' + dishes + ' dishes fit those choices, so the stack will have ' + dishes + '.'
-      : 'You’ll each see the same ' + o.size + ' dishes from ' + Math.min(places.length, Math.ceil(o.size / DISHES_PER_PLACE)) + ' of the ' + places.length + ' places open.';
+      : 'You’ll each see the same ' + o.size + ' dishes from ' + Math.min(places.length, Math.ceil(o.size / DISHES_PER_PLACE)) + ' of the ' +
+        places.length + ' places open' + (phrase ? ' ' + phrase : '') + '.';
   }
 
   function savePrefs() {
     var o = setupOptions();
-    prefs = { p1: o.p1, p2: o.p2, town: o.town, size: o.size, noChains: o.noChains, mode: o.mode };
+    prefs = { p1: o.p1, p2: o.p2, town: o.town, size: o.size, noChains: o.noChains, meal: setupState.meal, mode: o.mode };
     storeSet(PREFS_KEY, prefs);
   }
 
@@ -354,7 +434,7 @@
         send: liveGame ? 'waiting for ' + (them.name || 'your partner') + ' to open the link' : 'waiting for ' + (stored.players[1].name || 'your partner') + ' to play from your link',
         results: liveGame && !them.done ? 'you’re done, ' + (them.name || 'your partner') + ' is still swiping' : 'finished'
       }[stored.stage] || '';
-      $('resume-text').textContent = 'Game in progress: ' + who + ', ' + longDate(stored.date) + '. ' + what.charAt(0).toUpperCase() + what.slice(1) + '.';
+      $('resume-text').textContent = 'Game in progress: ' + who + ', ' + whenLabel(stored) + '. ' + what.charAt(0).toUpperCase() + what.slice(1) + '.';
       $('resume-go').textContent = stored.stage === 'results' ? 'See the matches' : stored.stage === 'send' ? 'Show the link again' : 'Resume';
       resume.hidden = false;
     } else {
@@ -377,7 +457,7 @@
     $('invite-form').hidden = false; $('invite-who').hidden = true; $('invite-alt').hidden = true;
     $('invite-title').textContent = host + ' wants to pick a place to eat';
     $('invite-text').textContent = 'You’ll swipe the same ' + deck.length + ' dishes ' + host + ' saw, from places in ' + where +
-      ' open ' + longDate(game.date) + '. Like something from the same restaurant as ' + host + ' and it’s a match.';
+      ' ' + openPhrase(game) + '. Like something from the same restaurant as ' + host + ' and it’s a match.';
     $('invite-name').value = game.players[1].name || prefs.p1 || '';
     inviteNotes(host);
     show('invite');
@@ -435,7 +515,7 @@
     if (top) bindDrag(top);
     resetCues();
     var done = Math.min(pos, deck.length);
-    $('turn-sub').textContent = longDate(game.date) + ' · dish ' + Math.min(pos + 1, deck.length) + ' of ' + deck.length;
+    $('turn-sub').textContent = whenShort(game) + ' · dish ' + Math.min(pos + 1, deck.length) + ' of ' + deck.length;
     var bar = $('progress');
     bar.setAttribute('aria-valuemax', String(deck.length)); bar.setAttribute('aria-valuenow', String(done));
     $('progress-bar').style.width = (deck.length ? (done / deck.length) * 100 : 0) + '%';
@@ -721,7 +801,7 @@
 
   function createLive(g) {
     return api('PUT', dbUrl(g.gid), {
-      v: 1, d: g.date, t: TOWN_CODES[g.town], n: g.size, s: g.seed, c: g.noChains ? 1 : 0, at: { '.sv': 'timestamp' },
+      v: 1, d: g.date, t: TOWN_CODES[g.town], n: g.size, s: g.seed, c: g.noChains ? 1 : 0, m: mealCode(g.meal), at: { '.sv': 'timestamp' },
       p: { a: { name: g.players[0].name || 'Player 1', pos: 0, done: false, seen: { '.sv': 'timestamp' } } }
     });
   }
@@ -863,7 +943,7 @@
   }
 
   function resend(btn) {
-    var text = game.players[game.turn].name + ' wants to pick a place to eat ' + relativeDay(game.date) + '. Swipe some dishes together and see where you match.';
+    var text = inviteLine(game, game.players[game.turn].name) + ' Swipe some dishes together and see where you match.';
     if (navigator.share) { navigator.share({ title: 'Dish Match', text: text, url: liveLink() }).catch(function () {}); return; }
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(liveLink()).then(function () { btn.textContent = 'Link copied'; }, function () { btn.textContent = 'Couldn’t copy'; });
@@ -897,7 +977,7 @@
       if (!r || !r.p || !r.p.a || !TOWN_FROM_CODE[r.t] || !/^\d{4}-\d{2}-\d{2}$/.test(r.d)) {
         showSetup('That game isn’t available anymore. Start a new one here.'); return;
       }
-      var g = newGame({ date: r.d, town: TOWN_FROM_CODE[r.t], size: Math.max(5, Math.min(200, parseInt(r.n, 10) || 20)), noChains: r.c === 1,
+      var g = newGame({ date: r.d, town: TOWN_FROM_CODE[r.t], size: Math.max(5, Math.min(200, parseInt(r.n, 10) || 20)), noChains: r.c === 1, meal: mealFromCode(r.m),
         mode: 'live', seed: Number(r.s) >>> 0, p1: cleanName(r.p.a.name) || 'Player 1', p2: r.p.b ? cleanName(r.p.b.name) || 'Player 2' : link.to });
       g.gid = link.gid; g.stage = 'invite'; g.role = 'guest'; g.turn = 1;
       game = g; inviteRecord = r;
@@ -920,8 +1000,8 @@
         '<button type="button" class="btn btn-big" data-slot="1">I’m ' + esc(b) + '</button>';
     } else {
       $('invite-title').textContent = a + ' wants to pick a place to eat';
-      $('invite-text').textContent = 'You’ll both swipe the same ' + deckFor(game).length + ' dishes from places in ' + where + ' open ' +
-        longDate(game.date) + ', each on your own phone. When you both like something from the same restaurant, it pops up on both phones.';
+      $('invite-text').textContent = 'You’ll both swipe the same ' + deckFor(game).length + ' dishes from places in ' + where + ' ' +
+        openPhrase(game) + ', each on your own phone. When you both like something from the same restaurant, it pops up on both phones.';
       $('invite-name').value = game.players[1].name || prefs.p1 || '';
       $('invite-alt').textContent = 'I’m ' + a + ', keep playing on this phone';
       $('invite-alt').hidden = false;
@@ -1010,7 +1090,7 @@
     if (quiet && sig === resultsSig) return;
     resultsSig = sig;
 
-    $('results-eyebrow').textContent = longDate(game.date);
+    $('results-eyebrow').textContent = whenLabel(game);
     if (waiting) {
       $('results-title').textContent = n ? n + (n === 1 ? ' match so far' : ' matches so far') : 'No matches yet';
       $('results-text').textContent = other().joined
@@ -1092,8 +1172,10 @@
       // Whoever presses Play again goes first next time.
       var mine = g.mode === 'live' ? g.turn : g.role === 'guest' ? 1 : 0;
       var first = g.players[mine].name, second = g.players[1 - mine].name;
-      prefs = { p1: first, p2: second, town: g.town, size: SIZES.indexOf(g.size) >= 0 ? g.size : 20, noChains: g.noChains, mode: g.mode === 'same' ? 'same' : 'link' };
-      setupState.town = prefs.town; setupState.size = prefs.size;
+      var meal = cleanMeal(g.meal);
+      prefs = { p1: first, p2: second, town: g.town, size: SIZES.indexOf(g.size) >= 0 ? g.size : 20, noChains: g.noChains,
+        meal: typeof meal === 'number' ? 'now' : meal, mode: g.mode === 'same' ? 'same' : 'link' };
+      setupState.town = prefs.town; setupState.size = prefs.size; setupState.meal = prefs.meal;
       storeSet(PREFS_KEY, prefs);
       wireMarks();
       pendingNext = isLive() ? g.gid : '';
@@ -1106,8 +1188,8 @@
     showSetup();
   }
 
-  var markTown = null, markSize = null;
-  function wireMarks() { if (markTown) markTown(); if (markSize) markSize(); }
+  var markTown = null, markSize = null, markMeal = null;
+  function wireMarks() { if (markTown) markTown(); if (markSize) markSize(); if (markMeal) markMeal(); }
 
   function resumeStored() {
     var stored = storeGet(GAME_KEY);
@@ -1134,8 +1216,9 @@
     // Setup controls
     markTown = wireSegmented('town-choice', 'town', fillWhen);
     markSize = wireSegmented('size-choice', 'size', updateSetupNote);
+    markMeal = wireSegmented('meal-choice', 'meal', fillWhen);
     $('no-chains').addEventListener('change', fillWhen);
-    $('when').addEventListener('change', updateSetupNote);
+    $('when').addEventListener('change', function () { if (syncNow()) fillWhen(); else updateSetupNote(); });
     $('setup-form').addEventListener('submit', startFromSetup);
     $('resume-go').addEventListener('click', resumeStored);
     $('resume-drop').addEventListener('click', function () { storeSet(GAME_KEY, null); $('resume').hidden = true; });
@@ -1188,10 +1271,8 @@
     // Hand-off and sending
     $('handoff-go').addEventListener('click', startTurn);
     $('send-share').addEventListener('click', function () {
-      var who = game.players[0].name;
-      var text = game.mode === 'live'
-        ? who + ' wants to pick a place to eat ' + relativeDay(game.date) + '. Swipe some dishes together and see where you match.'
-        : who + ' wants to pick a place to eat ' + relativeDay(game.date) + '. Swipe some dishes and see where you match.';
+      var text = inviteLine(game, game.players[0].name) +
+        (game.mode === 'live' ? ' Swipe some dishes together and see where you match.' : ' Swipe some dishes and see where you match.');
       shareOrCopy($('send-url').value, 'Dish Match', text, 'send-status');
     });
     $('send-copy').addEventListener('click', function () { copy($('send-url').value, 'send-status'); });

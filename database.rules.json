@@ -13,6 +13,7 @@
         "n": { ".validate": "newData.isNumber() && newData.val() >= 5 && newData.val() <= 200" },
         "s": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 4294967295" },
         "c": { ".validate": "newData.val() === 0 || newData.val() === 1" },
+        "m": { ".validate": "(newData.isString() && newData.val().matches(/^[bldx]$/)) || (newData.isNumber() && newData.val() >= 0 && newData.val() <= 1439)" },
         "at": { ".validate": "newData.isNumber() && (data.exists() ? newData.val() === data.val() : newData.val() === now)" },
         "next": {
           ".write": "!data.exists() && newData.exists() && data.parent().child('v').exists()",

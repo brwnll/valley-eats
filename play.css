@@ -46,6 +46,14 @@
 .field input::placeholder { color: var(--muted); }
 .select { cursor: pointer; }
 .split { display: flex; flex-wrap: wrap; gap: 20px 28px; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.pills button {
+  border: 1px solid var(--line-strong); border-radius: 999px; background: var(--surface); color: var(--ink);
+  font: inherit; font-size: .92rem; font-weight: 600; padding: 7px 14px; cursor: pointer; white-space: nowrap;
+}
+.pills button:hover { border-color: var(--ink); }
+.pills button.is-active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.pills button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
 .mode { position: relative; display: block; cursor: pointer; }
 .mode input { position: absolute; opacity: 0; pointer-events: none; }

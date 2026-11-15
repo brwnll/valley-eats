@@ -66,12 +66,23 @@ A closing time earlier than the opening time (for example `["16:00", "01:00"]`) 
 
 `play.html` turns the list into a game for two. Each person swipes the same stack of dishes from restaurants open on the day they pick; when both like a dish from the same restaurant (not necessarily the same dish), that restaurant is a match. The results screen ranks the matches and shows hours, links, and what each person liked.
 
+The setup screen also asks when you're eating, so the stack only holds places open then (`MEALS` in `play.js`; times are Pacific):
+
+| Choice | A place is in the stack if it's open |
+| --- | --- |
+| Any time | at some point that day |
+| Open now (today only) | now and for the next 45 minutes |
+| Breakfast | at least an hour between 7:00 and 10:30 AM |
+| Lunch | at least 90 minutes between 11 AM and 2:30 PM |
+| Dinner | at least two hours between 5 and 9 PM |
+| Late night | at least an hour after 9 PM |
+
 - **One phone:** players take turns and pass the phone. Matches pop up during the second turn.
 - **Two phones (live):** the first player sends a link and both swipe at the same time, each on their own phone. Each phone shows how far along the partner is, and a match pops up on both phones as soon as both have liked the same restaurant. Either player can start another round, and the other phone offers to join it.
 
 Both players get the same stack because it is built from the same day, filters, and random seed. Games in progress are also saved in the browser on each device (`localStorage`), so a reload picks up where it left off. The game code is in `play.js` and `play.css`, and it reads the same `data.js` as the list.
 
-**How the live sync works.** Two-phone games live in a Firebase Realtime Database (`MATCH_DB_URL` in `config.js`, in the Google Cloud project "Valley Eats", free Spark plan with no billing). Each game is a small record at `games/<random 20-character id>` holding the day, filters, seed, and for each player a first name, progress, and the ids of liked dishes. Each phone writes only its own player record over the database's REST API and listens to the whole game through a server-sent event stream, so there is no SDK to load. The security rules in `database.rules.json` (paste them into Firebase console → Realtime Database → Rules if you change them) allow reading a game only by its id, creating a game once, and updating only the two player records within strict size and shape limits. Nothing can be listed, and games can't be deleted or rewritten. On the free plan the worst case is that the database hits its limits and live sync stops; it can't run up a bill.
+**How the live sync works.** Two-phone games live in a Firebase Realtime Database (`MATCH_DB_URL` in `config.js`, in the Google Cloud project "Valley Eats", free Spark plan with no billing). Each game is a small record at `games/<random 20-character id>` holding the day, mealtime, filters, seed, and for each player a first name, progress, and the ids of liked dishes. Each phone writes only its own player record over the database's REST API and listens to the whole game through a server-sent event stream, so there is no SDK to load. The security rules in `database.rules.json` (paste them into Firebase console → Realtime Database → Rules if you change them) allow reading a game only by its id, creating a game once, and updating only the two player records within strict size and shape limits. Nothing can be listed, and games can't be deleted or rewritten. On the free plan the worst case is that the database hits its limits and live sync stops; it can't run up a bill.
 
 If the database can't be reached when a game starts, two-phone mode falls back to the older link game: the first player swipes and sends a link carrying their likes after the `#`, the second player swipes afterwards, and can send a results link back.
 
